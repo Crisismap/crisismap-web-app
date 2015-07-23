@@ -1,6 +1,14 @@
-html, body, .mapContainer {
+html, body, .crisisAlert-map {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
 }
+
+.headerNavBar { width: 100%; height: 30px; background: hsla(30, 50%, 50%, 0.5); }
+
+.mobileWidgetsContainer { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
+.mobileWidgetsContainer.leaflet-control { margin: 0; }
+.mobileWidgetsContainer_topShift { margin-top: 30px; }
+.mobileWidgetsContainer-topContainer { position: absolute; top: 0; left: 0; right: 0; }
+.mobileWidgetsContainer-bottomContainer { position: absolute; bottom: 0; left: 0; right: 0; }

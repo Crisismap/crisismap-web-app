@@ -12,7 +12,6 @@
     },
     "zoomControl": true,
     "hideControl": true,
-    "centerControl": {
-        "color": "#121212"
-    }
+    "centerControl": false,
+    "locationControl": false
 }

@@ -98,10 +98,6 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
-        id: 'Leafet-IconLayers',
-        srcDir: './external/Leaflet-IconLayers',
-        build: false
-    }, {
         id: 'LayersTree',
         srcDir: './external/GMXCommonComponents/LayersTree',
         distDir: './build',
