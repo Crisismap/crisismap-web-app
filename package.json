@@ -1,0 +1,6 @@
+{
+  "name": "CrisisMap",
+  "devDependencies": {
+    "gulp": "^3.8.10"
+  }
+}
