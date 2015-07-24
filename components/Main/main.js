@@ -28,10 +28,13 @@
         var map = cm.get('map');
 
         var MWC = L.Control.extend({
+            includes: [nsGmx.GmxWidgetMixin],
             onAdd: function(map) {
                 this._container = L.DomUtil.create('div', 'mobileWidgetsContainer');
                 this._topContainer = L.DomUtil.create('div', 'mobileWidgetsContainer-topContainer', this._container);
+                this._terminateMouseEvents(this._topContainer);
                 this._bottomContainer = L.DomUtil.create('div', 'mobileWidgetsContainer-bottomContainer', this._container);
+                this._terminateMouseEvents(this._bottomContainer);
                 var corners = map._controlCorners;
                 ['topleft', 'topright', 'right', 'left'].map(function(it) {
                     if (corners[it]) {
@@ -46,7 +49,7 @@
             getBottomContainer: function() {
                 return this._bottomContainer;
             }
-        })
+        });
 
         var mwc = new MWC({
             position: 'center'
