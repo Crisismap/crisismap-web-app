@@ -63,14 +63,22 @@
     cm.define('headerNavBar', ['mobileWidgetsContainer'], function() {
         var headerContainer = cm.get('mobileWidgetsContainer').getTopContainer();
 
-        var HeaderNavBar = nsGmx.GmxWidget.extend({
-            className: 'headerNavBar'
+        var dropdownMenuWidget = new nsGmx.DropdownMenuWidget({
+            items: [{
+                title: 'Пожары',
+                id: 'btn-refresh'
+            }, {
+                title: 'Экология',
+                id: 'btn-save'
+            }, {
+                title: 'Наводнения',
+                id: 'btn-wizard',
+                className: 'dropdownMenuWidget-last'
+            }]
         });
+        dropdownMenuWidget.appendTo(headerContainer);
 
-        var hnb = new HeaderNavBar();
-        hnb.appendTo(headerContainer);
-
-        return hnb;
+        return dropdownMenuWidget;
     });
 
     cm.create();
