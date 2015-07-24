@@ -20,6 +20,8 @@ html, body, .crisisAlert-map {
 .mobileWidgetsContainer-topContainer { height: 40px; background: hsl(0, 0%, 100%); box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.5); }
 .mobileWidgetsContainer-topContainer { padding: 0 10px; box-sizing: border-box; }
 .mobileWidgetsContainer-bottomContainer { position: absolute; bottom: 0; left: 0; right: 0; }
+.mobileWidgetsContainer-bottomContainer { padding: 10px; padding-bottom: 30px; background-color: hsla(0, 0%, 100%, 0.9); }
+.mobileWidgetsContainer_bottomContainerHidden .mobileWidgetsContainer-bottomContainer { display: none; }
 
 .dropdownMenuWidget { width: 100%; height: 100%; }
 .dropdownMenuWidget-item { width: 33.3%; text-align: center; border-left: 1px solid hsla(0, 0%, 0%, 0.1); }

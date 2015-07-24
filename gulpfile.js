@@ -98,8 +98,7 @@ require('./external/GMXBuilder')(gulp, {
     }, {
         id: 'LayersDebugger',
         srcDir: './external/GMXCommonComponents/LayersDebugger',
-        distDir: './build',
-        build: true
+        build: false
     }, {
         id: 'LayersTree',
         srcDir: './external/GMXCommonComponents/LayersTree',
@@ -114,8 +113,17 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/ApplicationConstructor',
         build: false
     }, {
+        id: 'LayerMarkersCollection',
+        srcDir: './external/GMXCommonComponents/LayerMarkersCollection',
+        build: false
+    }, {
         id: 'DropdownMenuWidget',
         srcDir: './external/GMXCommonComponents/DropdownMenuWidget',
+        distDir: './build',
+        build: true
+    }, {
+        id: 'InfoWidget',
+        srcDir: './components/InfoWidget',
         distDir: './build',
         build: true
     }, {
