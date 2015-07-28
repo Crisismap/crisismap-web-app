@@ -1,4 +1,18 @@
 + function() {
+    function getFullHeight(el) {
+        var $el = $(el);
+
+        function r(str) {
+            return str.replace('px', '') / 1;
+        }
+
+        return $el.height() +
+            r($el.css('padding-top')) +
+            r($el.css('padding-bottom')) +
+            r($el.css('margin-top')) +
+            r($el.css('margin-bottom'))
+    }
+
     cm.define('config', [], function(cm, cb) {
         $.ajax('resources/config.json').then(function(config) {
             $.ajax('local/config.json').then(function(localConfig) {
@@ -24,6 +38,57 @@
         return cm.get('gmxApplication').get('map');
     });
 
+    cm.define('mapLayoutHelper', ['map'], function(cm) {
+        var map = cm.get('map');
+
+        function resetActiveArea() {
+            map.setActiveArea({
+                position: 'absolute',
+                border: '1 px solid red',
+                left: '0',
+                top: '40px',
+                bottom: '0',
+                right: '0'
+            });
+        }
+
+        function getBottomControls() {
+            var bottomControls = [];
+            cm.get('bottomControl') && bottomControls.push(cm.get('bottomControl'));
+            cm.get('copyrightControl') && bottomControls.push(cm.get('copyrightControl'));
+            cm.get('logoControl') && bottomControls.push(cm.get('logoControl'));
+            return bottomControls;
+        }
+
+        resetActiveArea();
+
+        return {
+            hideBottomControls: function() {
+                getBottomControls().map(function(ctrl) {
+                    L.DomUtil.addClass(ctrl.getContainer(), 'leaflet-control-gmx-hidden');
+                });
+            },
+            showBottomControls: function() {
+                getBottomControls().map(function(ctrl) {
+                    L.DomUtil.removeClass(ctrl.getContainer(), 'leaflet-control-gmx-hidden');
+                });
+            },
+            resetActiveArea: resetActiveArea
+        }
+    });
+
+    cm.define('bottomControl', ['gmxApplication'], function(cm) {
+        return cm.get('gmxApplication').get('bottomControl');
+    });
+
+    cm.define('copyrightControl', ['gmxApplication'], function(cm) {
+        return cm.get('gmxApplication').get('copyrightControl');
+    });
+
+    cm.define('logoControl', ['gmxApplication'], function(cm) {
+        return cm.get('gmxApplication').get('logoControl');
+    });
+
     cm.define('gmxMap', ['gmxApplication'], function(cm) {
         return cm.get('gmxApplication').get('gmxMap');
     });
@@ -47,8 +112,9 @@
         return new nsGmx.LayersDebugger(layersTree);
     });
 
-    cm.define('mobileWidgetsContainer', ['map'], function() {
+    cm.define('mobileWidgetsContainer', ['map', 'mapLayoutHelper'], function() {
         var map = cm.get('map');
+        var mlh = cm.get('mapLayoutHelper');
 
         var MWC = L.Control.extend({
             includes: [nsGmx.GmxWidgetMixin],
@@ -88,7 +154,10 @@
         map.addControl(mwc);
 
         map.on('click', function() {
+            var mapLayoutHelper = cm.get('mapLayoutHelper');
             mwc.hideBottomContainer();
+            mapLayoutHelper && mapLayoutHelper.showBottomControls();
+            mlh.resetActiveArea();
         });
 
         return mwc;
@@ -125,16 +194,24 @@
     cm.define('markerLayersPopups', ['config', 'layersHash'], function(cm) {
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
-        [config.user.firesLayerId, config.user.floodsLayerId, config.user.ecologyLayerId].map(function(layerId) {
+
+        return [config.user.firesLayerId, config.user.floodsLayerId, config.user.ecologyLayerId].map(function(layerId) {
             return layersHash[layerId];
         }).map(function(layer) {
             layer.unbindPopup();
-            layer.on('click', function(data) {
+            layer.on('click', function(e) {
+                var map = cm.get('map');
+                var mapLayoutHelper = cm.get('mapLayoutHelper');
                 var infoWidget = cm.get('infoWidget');
                 var mobileWidgetsContainer = cm.get('mobileWidgetsContainer');
+                mapLayoutHelper.hideBottomControls();
                 mobileWidgetsContainer && mobileWidgetsContainer.showBottomContainer();
-                infoWidget && infoWidget.setTitle(data.gmx.properties.Title);
-                infoWidget && infoWidget.setContent(data.gmx.properties.Description);
+                infoWidget && infoWidget.setTitle(e.gmx.properties.Title);
+                infoWidget && infoWidget.setContent(e.gmx.properties.Description);
+                map.setActiveArea({
+                    bottom: getFullHeight(mobileWidgetsContainer.getBottomContainer()) + 'px'
+                });
+                map.setView(e.latlng, map.getZoom());
             });
         });
     });

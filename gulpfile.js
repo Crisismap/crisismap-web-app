@@ -62,6 +62,10 @@ require('./external/GMXBuilder')(gulp, {
         build: true,
         watch: false
     }, {
+        id: 'Leaflet-active-area',
+        bowerComponent: 'Mappy/Leaflet-active-area',
+        distFiles: ['./src/leaflet.activearea.js']
+    }, {
         bowerComponent: 'underscore',
         distFiles: ['underscore.js']
     }, {
