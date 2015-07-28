@@ -112,9 +112,26 @@
         return new nsGmx.LayersDebugger(layersTree);
     });
 
-    cm.define('mobileWidgetsContainer', ['map', 'mapLayoutHelper'], function() {
+    cm.define('markerCursor', ['map'], function(cm) {
+        var map = cm.get('map');
+        var marker = L.marker([0,0]);
+        return {
+            show: function() {
+                map.addLayer(marker);
+            },
+            hide: function() {
+                map.removeLayer(marker);
+            },
+            setLatLng: function() {
+                marker.setLatLng.apply(marker, arguments);
+            }
+        }
+    });
+
+    cm.define('mobileWidgetsContainer', ['map', 'mapLayoutHelper', 'markerCursor'], function() {
         var map = cm.get('map');
         var mlh = cm.get('mapLayoutHelper');
+        var mc = cm.get('markerCursor');
 
         var MWC = L.Control.extend({
             includes: [nsGmx.GmxWidgetMixin],
@@ -158,6 +175,7 @@
             mwc.hideBottomContainer();
             mapLayoutHelper && mapLayoutHelper.showBottomControls();
             mlh.resetActiveArea();
+            mc.hide();
         });
 
         return mwc;
@@ -194,6 +212,7 @@
     cm.define('markerLayersPopups', ['config', 'layersHash'], function(cm) {
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
+        var mc = cm.get('markerCursor');
 
         return [config.user.firesLayerId, config.user.floodsLayerId, config.user.ecologyLayerId].map(function(layerId) {
             return layersHash[layerId];
@@ -212,6 +231,8 @@
                     bottom: getFullHeight(mobileWidgetsContainer.getBottomContainer()) + 'px'
                 });
                 map.setView(e.latlng, map.getZoom());
+                mc.setLatLng(e.latlng);
+                mc.show();
             });
         });
     });
