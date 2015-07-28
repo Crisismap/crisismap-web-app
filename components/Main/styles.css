@@ -3,7 +3,12 @@ html, body, .crisisAlert-map {
     height: 100%;
     padding: 0;
     margin: 0;
+    font-family: 'Open sans', Tahomam sans-serif;
 }
+
+.ui-widget { font-family: 'Open sans', Tahoma, sans-serif; }
+.leaflet-control-container { font-family: 'Open sans', Tahoma, sans-serif; }
+.leaflet-gmx-copyrights { font-family: 'Open sans', Tahoma, sans-serif; }
 
 .leaflet-bar { box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.3); border-radius: 4px; }
 .leaflet-bar a, .leaflet-bar a:hover { width: 30px; height: 30px; line-height: 30px; }
@@ -11,7 +16,7 @@ html, body, .crisisAlert-map {
 .leaflet-gmx-zoomParent { top: 0; }
 .leaflet-gmx-copyright-location-bg { opacity: 1; }
 .leaflet-gmx-copyright-location { box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.5); }
-.leaflet-gmx-copyrights { color: hsl(0, 0%, 50%); }
+.leaflet-gmx-copyrights { color: hsla(0, 0%, 50%); }
 
 .mobileWidgetsContainer { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
 .mobileWidgetsContainer.leaflet-control { margin: 0; }
@@ -20,9 +25,9 @@ html, body, .crisisAlert-map {
 .mobileWidgetsContainer-topContainer { height: 40px; background: hsl(0, 0%, 100%); box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.5); }
 .mobileWidgetsContainer-topContainer { padding: 0 10px; box-sizing: border-box; }
 .mobileWidgetsContainer-bottomContainer { position: absolute; bottom: 0; left: 0; right: 0; }
-.mobileWidgetsContainer-bottomContainer { padding: 20px 10px; background-color: hsla(0, 0%, 100%, 0.9); }
+.mobileWidgetsContainer-bottomContainer { padding: 20px 10px; background-color: hsla(0, 0%, 100%, 0.9); box-shadow: 0 0 5px hsla(0, 0%, 0%, .25); }
 .mobileWidgetsContainer_bottomContainerHidden .mobileWidgetsContainer-bottomContainer { display: none; }
 
 .dropdownMenuWidget { width: 100%; height: 100%; }
-.dropdownMenuWidget-item { width: 33.3%; text-align: center; border-left: 1px solid hsla(0, 0%, 0%, 0.1); }
+.dropdownMenuWidget-item { width: 33.3%; text-align: center; border-left: 1px solid hsla(0, 0%, 0%, 0.1); font-size: 1.1em; }
 .dropdownMenuWidget-item.dropdownMenuWidget-last { border-right: 1px solid hsla(0, 0%, 0%, 0.1); }
