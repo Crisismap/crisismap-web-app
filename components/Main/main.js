@@ -128,65 +128,35 @@
         }
     });
 
-    cm.define('mobileWidgetsContainer', ['map', 'mapLayoutHelper', 'markerCursor'], function() {
+    cm.define('infoControl', ['map', 'mapLayoutHelper', 'markerCursor'], function() {
         var map = cm.get('map');
         var mlh = cm.get('mapLayoutHelper');
         var mc = cm.get('markerCursor');
 
-        var MWC = L.Control.extend({
-            includes: [nsGmx.GmxWidgetMixin],
-            onAdd: function(map) {
-                this._container = L.DomUtil.create('div', 'mobileWidgetsContainer');
-                this._topContainer = L.DomUtil.create('div', 'mobileWidgetsContainer-topContainer', this._container);
-                this._terminateMouseEvents(this._topContainer);
-                this._bottomContainer = L.DomUtil.create('div', 'mobileWidgetsContainer-bottomContainer', this._container);
-                this._terminateMouseEvents(this._bottomContainer);
-                this.hideBottomContainer();
-                var corners = map._controlCorners;
-                ['topleft', 'topright', 'right', 'left'].map(function(it) {
-                    if (corners[it]) {
-                        L.DomUtil.addClass(corners[it], 'mobileWidgetsContainer_topShift');
-                    }
-                });
-                return this._container;
-            },
-            getTopContainer: function() {
-                return this._topContainer;
-            },
-            getBottomContainer: function() {
-                return this._bottomContainer;
-            },
-            hideBottomContainer: function() {
-                L.DomUtil.addClass(this._container, 'mobileWidgetsContainer_bottomContainerHidden');
-            },
-            showBottomContainer: function() {
-                L.DomUtil.removeClass(this._container, 'mobileWidgetsContainer_bottomContainerHidden');
-            }
-        });
-
-        var mwc = new MWC({
+        var infoControl = new nsGmx.InfoControl({
             position: 'center'
         });
 
-        map.addControl(mwc);
+        map.addControl(infoControl);
 
         map.on('click', function() {
             var mapLayoutHelper = cm.get('mapLayoutHelper');
-            mwc.hideBottomContainer();
+            infoControl.hide();
             mapLayoutHelper && mapLayoutHelper.showBottomControls();
             mlh.resetActiveArea();
             mc.hide();
         });
 
-        return mwc;
+        return infoControl;
     });
 
-    cm.define('headerNavBar', ['mobileWidgetsContainer', 'map', 'layersHash', 'config', 'layersTree'], function() {
+    cm.define('headerNavBar', ['map', 'layersHash', 'config', 'layersTree'], function() {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var layersTree = cm.get('layersTree');
-        var headerContainer = cm.get('mobileWidgetsContainer').getTopContainer();
+        //var headerContainer = cm.get('mobileWidgetsContainer').getTopContainer();
+        var headerContainer = $('<div>')[0];
 
         var layersMap = {
             'fires': config.user.firesLayerId,
@@ -236,13 +206,6 @@
         return radioGroupWidget;
     });
 
-    cm.define('infoWidget', ['mobileWidgetsContainer'], function(cm) {
-        var mobileWidgetsContainer = cm.get('mobileWidgetsContainer');
-        var infoWidget = new nsGmx.InfoWidget();
-        infoWidget.appendTo(mobileWidgetsContainer.getBottomContainer());
-        return infoWidget;
-    });
-
     cm.define('markerLayersPopups', ['config', 'layersHash'], function(cm) {
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
@@ -255,14 +218,13 @@
             layer.on('click', function(e) {
                 var map = cm.get('map');
                 var mapLayoutHelper = cm.get('mapLayoutHelper');
-                var infoWidget = cm.get('infoWidget');
-                var mobileWidgetsContainer = cm.get('mobileWidgetsContainer');
+                var infoControl = cm.get('infoControl');
                 mapLayoutHelper.hideBottomControls();
-                mobileWidgetsContainer && mobileWidgetsContainer.showBottomContainer();
-                infoWidget && infoWidget.setTitle(e.gmx.properties.Title);
-                infoWidget && infoWidget.setContent(e.gmx.properties.Description);
+                infoControl.show();
+                infoControl && infoControl.setTitle(e.gmx.properties.Title);
+                infoControl && infoControl.setContent(e.gmx.properties.Description);
                 map.setActiveArea({
-                    bottom: getFullHeight(mobileWidgetsContainer.getBottomContainer()) + 'px'
+                    bottom: getFullHeight(infoControl.getContainer()) + 'px'
                 });
                 map.setView(e.latlng, map.getZoom());
                 mc.setLatLng(e.latlng);
