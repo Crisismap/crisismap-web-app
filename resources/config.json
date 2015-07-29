@@ -18,6 +18,7 @@
     "user": {
         "firesLayerId": "A854633809CB44B088DD51B70A312EEC",
         "floodsLayerId": "F3D234FAACF44C06A719E8B19D99E2B5",
-        "ecologyLayerId": "B078737025C54D26B87DDD9CACBB70B7"
+        "ecologyLayerId": "B078737025C54D26B87DDD9CACBB70B7",
+        "activeHeaderTab": "fires"
     }
 }

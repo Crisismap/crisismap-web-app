@@ -72,9 +72,6 @@ require('./external/GMXBuilder')(gulp, {
         bowerComponent: 'backbone#1.1.2',
         distFiles: ['backbone.js']
     }, {
-        bowerComponent: 'handlebars',
-        distFiles: ['handlebars.js']
-    }, {
         id: 'ThoraxDummy',
         srcDir: './components/ThoraxDummy',
         build: false
@@ -121,10 +118,9 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/LayerMarkersCollection',
         build: false
     }, {
-        id: 'DropdownMenuWidget',
-        srcDir: './external/GMXCommonComponents/DropdownMenuWidget',
-        distDir: './build',
-        build: true
+        id: 'RadioGroupWidget',
+        srcDir: './external/GMXCommonComponents/RadioGroupWidget',
+        build: false
     }, {
         id: 'InfoWidget',
         srcDir: './components/InfoWidget',

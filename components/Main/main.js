@@ -114,7 +114,7 @@
 
     cm.define('markerCursor', ['map'], function(cm) {
         var map = cm.get('map');
-        var marker = L.marker([0,0]);
+        var marker = L.marker([0, 0]);
         return {
             show: function() {
                 map.addLayer(marker);
@@ -181,25 +181,59 @@
         return mwc;
     });
 
-    cm.define('headerNavBar', ['mobileWidgetsContainer'], function() {
+    cm.define('headerNavBar', ['mobileWidgetsContainer', 'map', 'layersHash', 'config', 'layersTree'], function() {
+        var map = cm.get('map');
+        var config = cm.get('config');
+        var layersHash = cm.get('layersHash');
+        var layersTree = cm.get('layersTree');
         var headerContainer = cm.get('mobileWidgetsContainer').getTopContainer();
 
-        var dropdownMenuWidget = new nsGmx.DropdownMenuWidget({
+        var layersMap = {
+            'fires': config.user.firesLayerId,
+            'floods': config.user.floodsLayerId,
+            'ecology': config.user.ecologyLayerId
+        };
+
+        function hasValue(hash, value) {
+            for (key in hash) {
+                if (hash[key] === value) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        layersTree.eachNode(function(model) {
+            if (hasValue(layersMap, model.get('properties').LayerID)) {
+                map.removeLayer(layersHash[model.get('properties').LayerID]);
+            }
+        });
+
+        var radioGroupWidget = new nsGmx.RadioGroupWidget({
             items: [{
                 title: 'Пожары',
-                id: 'btn-refresh'
+                id: 'fires'
             }, {
                 title: 'Экология',
-                id: 'btn-save'
+                id: 'ecology'
             }, {
                 title: 'Наводнения',
-                id: 'btn-wizard',
-                className: 'dropdownMenuWidget-last'
-            }]
+                id: 'floods'
+            }],
+            activeItem: config.user.activeHeaderTab
         });
-        dropdownMenuWidget.appendTo(headerContainer);
 
-        return dropdownMenuWidget;
+        radioGroupWidget.appendTo(headerContainer);
+
+        var currentId;
+        radioGroupWidget.on('select', function(id) {
+            currentId && map.removeLayer(layersHash[layersMap[currentId]]);
+            map.addLayer(layersHash[layersMap[id]]);
+            //map.fitBounds(layersHash[layersMap[id]]);
+            currentId = id;
+        });
+
+        return radioGroupWidget;
     });
 
     cm.define('infoWidget', ['mobileWidgetsContainer'], function(cm) {
