@@ -1,4 +1,4 @@
-var AlertItemView = nsGmx.GmxWidget.extend({
+nsGmx.AlertItemView = nsGmx.GmxWidget.extend({
     className: 'gmx-listNode alertItemView',
     events: {
         'click': function() {
@@ -13,6 +13,10 @@ var AlertItemView = nsGmx.GmxWidget.extend({
         this.$el.append($('<div>').addClass('alertItemView-title').html(this.model.get('Title')));
         if (this._expanded) {
             this.$el.append($('<div>').addClass('alertItemView-description').html(this.model.get('Description')));
+            this.$el.append($('<div>').addClass('alertItemView-marker icon-location').click(function(je) {
+                je.originalEvent.stopPropagation();
+                this.trigger('marker', this.model);
+            }.bind(this)));
         }
         return this;
     },

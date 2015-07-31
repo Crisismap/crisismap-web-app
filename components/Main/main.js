@@ -309,17 +309,19 @@
 
         radioGroupWidget.on('select', function(id) {
             newsLayersManager.setActiveLayerByName(id);
+            cm.get('markerLayersPopupsManager') && cm.get('markerLayersPopupsManager').reset(); 
             nsGmx.L.Map.fitBounds.call(map, layersHash[newsLayersManager.getActiveLayerId()].getBounds());
         });
 
         return radioGroupWidget;
     });
 
-    cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', 'headerNavBar'], function(cm) {
+    cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', 'headerNavBar', 'newsLayersManager'], function(cm) {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var headerNavBar = cm.get('headerNavBar');
+        var newsLayersManager = cm.get('newsLayersManager');
 
         var MLPM = L.Class.extend({
             initialize: function(options) {
@@ -327,20 +329,27 @@
                 this.options.layers.map(function(layer) {
                     layer.unbindPopup();
                     layer.on('click', function(e) {
-                        var map = cm.get('map');
-                        var mapLayoutHelper = cm.get('mapLayoutHelper');
-                        this.options.mapLayoutHelper.hideBottomControls();
-                        this.options.infoControl.show();
-                        this.options.infoControl && this.options.infoControl.setTitle(e.gmx.properties.Title);
-                        this.options.infoControl && this.options.infoControl.setContent(e.gmx.properties.Description);
-                        map.setActiveArea({
-                            bottom: getFullHeight(this.options.infoControl.getContainer()) + 'px'
-                        });
-                        map.setView(e.latlng, map.getZoom());
-                        this.options.markerCursor.setLatLng(e.latlng);
-                        this.options.markerCursor.show();
+                        this.show({
+                            title: e.gmx.properties.Title,
+                            description: e.gmx.properties.Description,
+                            latLng: e.latlng
+                        })
                     }.bind(this));
                 }.bind(this));
+            },
+            show: function(opts) {
+                var map = cm.get('map');
+                var mapLayoutHelper = cm.get('mapLayoutHelper');
+                this.options.mapLayoutHelper.hideBottomControls();
+                this.options.infoControl.show();
+                this.options.infoControl && this.options.infoControl.setTitle(opts.title);
+                this.options.infoControl && this.options.infoControl.setContent(opts.description);
+                map.setActiveArea({
+                    bottom: getFullHeight(this.options.infoControl.getContainer()) + 'px'
+                });
+                map.setView(opts.latLng, map.getZoom());
+                this.options.markerCursor.setLatLng(opts.latLng);
+                this.options.markerCursor.show();
             },
             reset: function() {
                 this.options.infoControl.hide();
@@ -351,8 +360,8 @@
         });
 
         var mlpm = new MLPM({
-            layers: _.values(config.user.newsLayersIds).map(function(layerId) {
-                return layersHash[layerId];
+            layers: newsLayersManager.getLayersNames().map(function(name) {
+                return layersHash[newsLayersManager.getLayerIdByLayerName(name)];
             }),
             infoControl: cm.get('infoControl'),
             markerCursor: cm.get('markerCursor'),
@@ -380,7 +389,8 @@
         return alertsPageView;
     });
 
-    cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'layersHash', 'calendar', 'headerLayoutButton'], function(cm) {
+    cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'layersHash', 'calendar', 'headerLayoutButton', 'markerLayersPopupsManager'], function(cm) {
+        var markerLayersPopupsManager = cm.get('markerLayersPopupsManager');
         var headerLayoutButton = cm.get('headerLayoutButton');
         var newsLayersManager = cm.get('newsLayersManager');
         var alertsPageView = cm.get('alertsPageView');
@@ -397,7 +407,19 @@
             var markersCollectionView = new nsGmx.SwitchingCollectionWidget({
                 className: 'alertsCollectionView',
                 collection: markersCollection,
-                itemView: AlertItemView
+                itemView: nsGmx.AlertItemView,
+                reEmitEvents: ['marker']
+            });
+            markersCollectionView.on('marker', function(model) {
+                headerLayoutButton.toggleState();
+                markerLayersPopupsManager.show({
+                    title: model.get('Title'),
+                    description: model.get('Description'),
+                    latLng: L.Projection.Mercator.unproject({
+                        x: model.get('mercX'),
+                        y: model.get('mercY')
+                    })
+                });
             });
             var scrollView = scrollViews[name] = new nsGmx.ScrollView({
                 views: [markersCollectionView]

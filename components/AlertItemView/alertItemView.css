@@ -3,3 +3,4 @@
 .alertItemView_expanded { box-shadow: 0 0 2px hsla(0, 0%, 0%, .5); }
 .alertItemView_expanded .alertItemView-title { font-weight: bold; padding-bottom: 4px; margin-bottom: 4px; }
 .alertItemView_expanded .alertItemView-description { overflow-x: hidden; }
+.alertItemView-marker { width: 100%; text-align: center; color: hsl(0, 0%, 20%); padding-top: 5px; font-size: 1.5em; }
