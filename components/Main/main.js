@@ -181,33 +181,17 @@
         return infoControl;
     });
 
-    cm.define('headerNavBar', ['map', 'layersHash', 'config', 'layersTree', 'layoutManager'], function() {
-        var map = cm.get('map');
+    cm.define('headerNavBar', ['config', 'layersTree', 'layoutManager'], function() {
         var config = cm.get('config');
-        var layersHash = cm.get('layersHash');
         var layersTree = cm.get('layersTree');
         var layoutManager = cm.get('layoutManager');
 
-        var layersMap = {
-            'fires': config.user.firesLayerId,
-            'floods': config.user.floodsLayerId,
-            'ecology': config.user.ecologyLayerId
-        };
-
-        function hasValue(hash, value) {
-            for (key in hash) {
-                if (hash[key] === value) {
-                    return true;
-                }
+        var activeId;
+        for (stringId in config.user.newsLayersIds) {
+            if (layersTree.find(config.user.newsLayersIds[stringId]).get('visible')) {
+                activeId = stringId;
             }
-            return false;
         }
-
-        layersTree.eachNode(function(model) {
-            if (hasValue(layersMap, model.get('properties').LayerID)) {
-                map.removeLayer(layersHash[model.get('properties').LayerID]);
-            }
-        });
 
         var radioGroupWidget = new nsGmx.RadioGroupWidget({
             items: [{
@@ -220,17 +204,13 @@
                 title: 'Наводнения',
                 id: 'floods'
             }],
-            activeItem: config.user.activeHeaderTab
+            activeItem: activeId
         });
 
         radioGroupWidget.appendTo(layoutManager.getHeaderContainer());
 
-        var currentId;
         radioGroupWidget.on('select', function(id) {
-            currentId && map.removeLayer(layersHash[layersMap[currentId]]);
-            map.addLayer(layersHash[layersMap[id]]);
-            //map.fitBounds(layersHash[layersMap[id]]);
-            currentId = id;
+            layersTree.find(config.user.newsLayersIds[id]).setNodeVisibility(true);
         });
 
         return radioGroupWidget;
@@ -241,7 +221,7 @@
         var layersHash = cm.get('layersHash');
         var mc = cm.get('markerCursor');
 
-        return [config.user.firesLayerId, config.user.floodsLayerId, config.user.ecologyLayerId].map(function(layerId) {
+        return _.values(config.user.newsLayersIds).map(function(layerId) {
             return layersHash[layerId];
         }).map(function(layer) {
             layer.unbindPopup();
