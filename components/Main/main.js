@@ -160,7 +160,7 @@
                     }
                 }
             },
-            setActiveLayerById:function(id) {
+            setActiveLayerById: function(id) {
                 this.options.layersTree.find(id).setNodeVisibility(true);
                 this.fire('activelayerchange', {
                     name: this.getLayerNameByLayerId(id)
@@ -264,7 +264,7 @@
                 this.trigger('stateswitch', this.getState());
             },
             getState: function() {
-                return this.$el.hasClass('icon-bell') ? 'map' : 'list';
+                return this.$el.hasClass('icon-bell') ? 'map' : 'alerts';
             }
         });
 
@@ -380,19 +380,47 @@
         return alertsPageView;
     });
 
-    cm.define('alertsPages', ['alertsPageView', 'newsLayersManager'], function(cm) {
-        var alertsPageView = cm.get('alertsPageView');
+    cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'layersHash', 'calendar', 'headerLayoutButton'], function(cm) {
+        var headerLayoutButton = cm.get('headerLayoutButton');
         var newsLayersManager = cm.get('newsLayersManager');
+        var alertsPageView = cm.get('alertsPageView');
+        var layersHash = cm.get('layersHash');
+        var calendar = cm.get('calendar');
 
+        var scrollViews = {}
         newsLayersManager.getLayersNames().map(function(name) {
             var page = alertsPageView.addPage(name);
-            page.innerHTML = name;
+            var markersCollection = new nsGmx.LayerMarkersCollection([], {
+                layer: layersHash[newsLayersManager.getLayerIdByLayerName(name)],
+                calendar: calendar
+            });
+            var markersCollectionView = new nsGmx.SwitchingCollectionWidget({
+                className: 'alertsCollectionView',
+                collection: markersCollection,
+                itemView: AlertItemView
+            });
+            var scrollView = scrollViews[name] = new nsGmx.ScrollView({
+                views: [markersCollectionView]
+            });
+            window.mc = markersCollection;
+            scrollView.appendTo(page);
         });
 
         alertsPageView.setActivePage(newsLayersManager.getActiveLayerName());
 
         newsLayersManager.on('activelayerchange', function(d) {
             alertsPageView.setActivePage(d.name);
+            scrollViews[d.name].repaint();
+        });
+
+        headerLayoutButton.on('stateswitch', function(state) {
+            if (state === 'alerts') {
+                for (name in scrollViews) {
+                    if (scrollViews.hasOwnProperty(name)) {
+                        scrollViews[name].repaint();
+                    }
+                }
+            }
         });
 
         return null;

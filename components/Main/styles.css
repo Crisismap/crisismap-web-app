@@ -6,6 +6,8 @@ html, body {
     font-family: 'Open sans', Tahomam sans-serif;
 }
 
+div { outline: none; }
+
 .crisisMap-headerContainer, .crisisMap-contentContainer { position: absolute; left: 0; right: 0; }
 .crisisMap-headerContainer { top: 0px; height: 40px; box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.3); z-index: 2; padding: 0 10px; }
 .crisisMap-contentContainer { top: 40px; bottom: 0px; z-index: 1; }
@@ -37,4 +39,4 @@ html, body {
 
 .headerLayoutButton { font-size: 1.1em; color: hsl(0, 0%, 20%); }
 
-.pageView-item_alerts { padding: 0 10px; }
+.alertsCollectionView { padding-left: 10px; }
