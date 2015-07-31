@@ -27,6 +27,10 @@ require('./external/GMXBuilder')(gulp, {
             'dist/images/marker-shadow.png'
         ]
     }, {
+        id: 'LeafletMethodsKeeper',
+        srcDir: './components/LeafletMethodsKeeper',
+        build: false
+    }, {
         id: 'Leaflet-GeoMixer',
         srcDir: './external/Leaflet-GeoMixer',
         distFiles: ['./dist/leaflet-geomixer-src.js'],

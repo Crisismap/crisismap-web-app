@@ -170,20 +170,14 @@
 
         map.addControl(infoControl);
 
-        map.on('click', function() {
-            var mapLayoutHelper = cm.get('mapLayoutHelper');
-            infoControl.hide();
-            mapLayoutHelper && mapLayoutHelper.showBottomControls();
-            mlh.resetActiveArea();
-            mc.hide();
-        });
-
         return infoControl;
     });
 
-    cm.define('headerNavBar', ['config', 'layersTree', 'layoutManager'], function() {
+    cm.define('headerNavBar', ['map', 'config', 'layersTree', 'layersHash', 'layoutManager'], function() {
+        var map = cm.get('map');
         var config = cm.get('config');
         var layersTree = cm.get('layersTree');
+        var layersHash = cm.get('layersHash');
         var layoutManager = cm.get('layoutManager');
 
         var activeId;
@@ -211,40 +205,70 @@
 
         radioGroupWidget.on('select', function(id) {
             layersTree.find(config.user.newsLayersIds[id]).setNodeVisibility(true);
+            nsGmx.L.Map.fitBounds.call(map, layersHash[config.user.newsLayersIds[id]].getBounds());
         });
 
         return radioGroupWidget;
     });
 
-    cm.define('markerLayersPopups', ['config', 'layersHash'], function(cm) {
+    cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', 'headerNavBar'], function(cm) {
+        var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
-        var mc = cm.get('markerCursor');
+        var headerNavBar = cm.get('headerNavBar');
 
-        return _.values(config.user.newsLayersIds).map(function(layerId) {
-            return layersHash[layerId];
-        }).map(function(layer) {
-            layer.unbindPopup();
-            layer.on('click', function(e) {
-                var map = cm.get('map');
-                var mapLayoutHelper = cm.get('mapLayoutHelper');
-                var infoControl = cm.get('infoControl');
-                mapLayoutHelper.hideBottomControls();
-                infoControl.show();
-                infoControl && infoControl.setTitle(e.gmx.properties.Title);
-                infoControl && infoControl.setContent(e.gmx.properties.Description);
-                map.setActiveArea({
-                    bottom: getFullHeight(infoControl.getContainer()) + 'px'
-                });
-                map.setView(e.latlng, map.getZoom());
-                mc.setLatLng(e.latlng);
-                mc.show();
-            });
+        var MLPM = L.Class.extend({
+            initialize: function(options) {
+                L.setOptions(this, options);
+                this.options.layers.map(function(layer) {
+                    layer.unbindPopup();
+                    layer.on('click', function(e) {
+                        var map = cm.get('map');
+                        var mapLayoutHelper = cm.get('mapLayoutHelper');
+                        this.options.mapLayoutHelper.hideBottomControls();
+                        this.options.infoControl.show();
+                        this.options.infoControl && this.options.infoControl.setTitle(e.gmx.properties.Title);
+                        this.options.infoControl && this.options.infoControl.setContent(e.gmx.properties.Description);
+                        map.setActiveArea({
+                            bottom: getFullHeight(this.options.infoControl.getContainer()) + 'px'
+                        });
+                        map.setView(e.latlng, map.getZoom());
+                        this.options.markerCursor.setLatLng(e.latlng);
+                        this.options.markerCursor.show();
+                    }.bind(this));
+                }.bind(this));
+            },
+            reset: function() {
+                this.options.infoControl.hide();
+                this.options.mapLayoutHelper && this.options.mapLayoutHelper.showBottomControls();
+                this.options.mapLayoutHelper.resetActiveArea();
+                this.options.markerCursor.hide();
+            }
         });
+
+        var mlpm = new MLPM({
+            layers: _.values(config.user.newsLayersIds).map(function(layerId) {
+                return layersHash[layerId];
+            }),
+            infoControl: cm.get('infoControl'),
+            markerCursor: cm.get('markerCursor'),
+            mapLayoutHelper: cm.get('mapLayoutHelper')
+        });
+
+        headerNavBar.on('select', function() {
+            mlpm.reset();
+        });
+
+        map.on('click', function() {
+            mlpm.reset();
+        });
+
+        return mlpm;
     });
 
     cm.create().then(function() {
         console.log('ready');
+        window.cfg = cm.get('config');
         window.map = cm.get('map');
         window.lh = cm.get('layersHash');
         window.lt = cm.get('layersTree');
