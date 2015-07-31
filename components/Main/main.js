@@ -44,20 +44,21 @@
         }
     });
 
-    cm.define('pageView', ['layoutManager'], function(cm) {
+    cm.define('rootPageView', ['layoutManager'], function(cm) {
         var layoutManager = cm.get('layoutManager');
 
-        var pageView = new nsGmx.PageView();
-        pageView.appendTo(layoutManager.getContentContainer());
+        var rootPageView = new nsGmx.PageView();
+        rootPageView.appendTo(layoutManager.getContentContainer());
 
-        return pageView;
+        return rootPageView;
     });
 
-    cm.define('gmxApplication', ['config', 'pageView'], function(cm, cb) {
+    cm.define('gmxApplication', ['config', 'rootPageView'], function(cm, cb) {
         var config = cm.get('config');
-        var pageView = cm.get('pageView');
-        var mapPage = pageView.addPage('map');
+        var rootPageView = cm.get('rootPageView');
+        var mapPage = rootPageView.addPage('map');
         var mapContainer = $('<div>').addClass('crisisMap-mapContainer').appendTo(mapPage)[0];
+        rootPageView.setActivePage('map');
 
         var gmxApplication = nsGmx.createGmxApplication(mapContainer, config);
         gmxApplication.create().then(function() {
@@ -143,6 +144,54 @@
         return new nsGmx.LayersDebugger(layersTree);
     });
 
+    cm.define('newsLayersManager', ['config', 'layersTree'], function(cm) {
+        var NLM = L.Class.extend({
+            includes: [L.Mixin.Events],
+            initialize: function(options) {
+                L.setOptions(this, options);
+            },
+            getLayerIdByLayerName: function(name) {
+                return this.options.newsLayers[name];
+            },
+            getLayerNameByLayerId: function() {
+                for (name in this.options.newsLayers) {
+                    if (this.options.layersTree.find(this.options.newsLayers[name]).get('visible')) {
+                        return name
+                    }
+                }
+            },
+            setActiveLayerById:function(id) {
+                this.options.layersTree.find(id).setNodeVisibility(true);
+                this.fire('activelayerchange', {
+                    name: this.getLayerNameByLayerId(id)
+                });
+            },
+            setActiveLayerByName: function(name) {
+                this.setActiveLayerById(this.getLayerIdByLayerName(name));
+            },
+            getActiveLayerId: function() {
+                var activeLayerId;
+                this.options.layersTree.eachNode(function(model) {
+                    if (model.get('visible')) {
+                        activeLayerId = model.get('properties').LayerID;
+                    }
+                });
+                return activeLayerId;
+            },
+            getActiveLayerName: function() {
+                return this.getLayerNameByLayerId(this.getActiveLayerId());
+            },
+            getLayersNames: function() {
+                return _.keys(this.options.newsLayers);
+            }
+        });
+
+        return new NLM({
+            layersTree: cm.get('layersTree'),
+            newsLayers: cm.get('config').user.newsLayers
+        })
+    });
+
     cm.define('markerCursor', ['map'], function(cm) {
         var map = cm.get('map');
         var marker = L.marker([0, 0]);
@@ -173,19 +222,74 @@
         return infoControl;
     });
 
-    cm.define('headerNavBar', ['map', 'config', 'layersTree', 'layersHash', 'layoutManager'], function() {
-        var map = cm.get('map');
-        var config = cm.get('config');
-        var layersTree = cm.get('layersTree');
-        var layersHash = cm.get('layersHash');
+    cm.define('headerNavBar', ['layoutManager'], function(cm) {
         var layoutManager = cm.get('layoutManager');
 
-        var activeId;
-        for (stringId in config.user.newsLayersIds) {
-            if (layersTree.find(config.user.newsLayersIds[stringId]).get('visible')) {
-                activeId = stringId;
+        var HeaderNavBar = nsGmx.GmxWidget.extend({
+            className: 'headerNavBar',
+            initialize: function() {
+                $('<div>').addClass('headerNavBar-menuContainer').appendTo(this.$el);
+                $('<div>').addClass('headerNavBar-buttonContainer').appendTo(this.$el);
+            },
+            getMenuContainer: function() {
+                return this.$el.find('.headerNavBar-menuContainer')[0];
+            },
+            getButtonContainer: function() {
+                return this.$el.find('.headerNavBar-buttonContainer')[0];
             }
-        }
+        });
+
+        var headerNavBar = new HeaderNavBar();
+
+        headerNavBar.appendTo(layoutManager.getHeaderContainer());
+
+        return headerNavBar;
+    });
+
+    cm.define('headerLayoutButton', ['headerNavBar', 'newsLayersManager', 'rootPageView'], function(cm) {
+        var rootPageView = cm.get('rootPageView');
+        var headerNavBar = cm.get('headerNavBar');
+        var newsLayersManager = cm.get('newsLayersManager');
+
+        var HeaderLayoutButton = nsGmx.GmxWidget.extend({
+            className: 'headerLayoutButton icon-bell',
+            events: {
+                'click': function() {
+                    this.toggleState();
+                }
+            },
+            toggleState: function() {
+                this.$el.toggleClass('icon-bell');
+                this.$el.toggleClass('icon-globe');
+                this.trigger('stateswitch', this.getState());
+            },
+            getState: function() {
+                return this.$el.hasClass('icon-bell') ? 'map' : 'list';
+            }
+        });
+
+        var headerLayoutButton = new HeaderLayoutButton();
+
+        headerLayoutButton.appendTo(headerNavBar.getButtonContainer());
+
+        headerLayoutButton.on('stateswitch', function(state) {
+            if (state === 'map') {
+                rootPageView.setActivePage('map');
+                map.invalidateSize();
+            } else {
+                rootPageView.setActivePage('alerts');
+            }
+        });
+
+        return headerLayoutButton;
+    });
+
+    cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash', 'headerNavBar'], function() {
+        var map = cm.get('map');
+        var config = cm.get('config');
+        var layersHash = cm.get('layersHash');
+        var headerNavBar = cm.get('headerNavBar');
+        var newsLayersManager = cm.get('newsLayersManager');
 
         var radioGroupWidget = new nsGmx.RadioGroupWidget({
             items: [{
@@ -198,14 +302,14 @@
                 title: 'Наводнения',
                 id: 'floods'
             }],
-            activeItem: activeId
+            activeItem: newsLayersManager.getActiveLayerName()
         });
 
-        radioGroupWidget.appendTo(layoutManager.getHeaderContainer());
+        radioGroupWidget.appendTo(headerNavBar.getMenuContainer());
 
         radioGroupWidget.on('select', function(id) {
-            layersTree.find(config.user.newsLayersIds[id]).setNodeVisibility(true);
-            nsGmx.L.Map.fitBounds.call(map, layersHash[config.user.newsLayersIds[id]].getBounds());
+            newsLayersManager.setActiveLayerByName(id);
+            nsGmx.L.Map.fitBounds.call(map, layersHash[newsLayersManager.getActiveLayerId()].getBounds());
         });
 
         return radioGroupWidget;
@@ -264,6 +368,34 @@
         });
 
         return mlpm;
+    });
+
+    cm.define('alertsPageView', ['rootPageView'], function(cm) {
+        var rootPageView = cm.get('rootPageView');
+
+        var alertsPageView = new nsGmx.PageView();
+        var $alertsPage = $(rootPageView.addPage('alerts')).addClass('pageView-item_alerts');
+        alertsPageView.appendTo($alertsPage);
+
+        return alertsPageView;
+    });
+
+    cm.define('alertsPages', ['alertsPageView', 'newsLayersManager'], function(cm) {
+        var alertsPageView = cm.get('alertsPageView');
+        var newsLayersManager = cm.get('newsLayersManager');
+
+        newsLayersManager.getLayersNames().map(function(name) {
+            var page = alertsPageView.addPage(name);
+            page.innerHTML = name;
+        });
+
+        alertsPageView.setActivePage(newsLayersManager.getActiveLayerName());
+
+        newsLayersManager.on('activelayerchange', function(d) {
+            alertsPageView.setActivePage(d.name);
+        });
+
+        return null;
     });
 
     cm.create().then(function() {

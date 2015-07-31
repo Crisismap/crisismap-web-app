@@ -1,14 +1,14 @@
 nsGmx.PageView = nsGmx.GmxWidget.extend({
     className: 'pageView',
-    initialize: function() {
-    },
+    initialize: function() {},
     // returns DOMNode
     addPage: function(id) {
         return $('<div>').addClass('pageView-item').attr('data-id', id).appendTo(this.$el)[0];
     },
-    switchPage: function(id) {
-        $el.find('.pageView-item').each(function() {
-            console.log(arguments);
-        });
+    setActivePage: function(id) {
+        this.$el.children('.pageView-item').each(function(index, el) {
+            var $el = $(el);
+            $el.toggleClass('pageView-item_active', $el.attr('data-id') === id);
+        }.bind(this));
     }
 });
