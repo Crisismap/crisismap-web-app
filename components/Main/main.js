@@ -26,9 +26,40 @@
         });
     });
 
-    cm.define('gmxApplication', ['config'], function(cm, cb) {
+    cm.define('layoutManager', [], function(cm) {
+        var headerContainer = L.DomUtil.create('div', 'crisisMap-headerContainer');
+        var contentContainer = L.DomUtil.create('div', 'crisisMap-contentContainer');
+
+        [headerContainer, contentContainer].map(function(el) {
+            document.body.appendChild(el);
+        });
+
+        return {
+            getHeaderContainer: function() {
+                return headerContainer;
+            },
+            getContentContainer: function() {
+                return contentContainer;
+            }
+        }
+    });
+
+    cm.define('pageView', ['layoutManager'], function(cm) {
+        var layoutManager = cm.get('layoutManager');
+
+        var pageView = new nsGmx.PageView();
+        pageView.appendTo(layoutManager.getContentContainer());
+
+        return pageView;
+    });
+
+    cm.define('gmxApplication', ['config', 'pageView'], function(cm, cb) {
         var config = cm.get('config');
-        var gmxApplication = nsGmx.createGmxApplication(document.getElementsByClassName('crisisAlert-map')[0], config);
+        var pageView = cm.get('pageView');
+        var mapPage = pageView.addPage('map');
+        var mapContainer = $('<div>').addClass('crisisMap-mapContainer').appendTo(mapPage)[0];
+
+        var gmxApplication = nsGmx.createGmxApplication(mapContainer, config);
         gmxApplication.create().then(function() {
             cb(gmxApplication);
         });
@@ -150,13 +181,12 @@
         return infoControl;
     });
 
-    cm.define('headerNavBar', ['map', 'layersHash', 'config', 'layersTree'], function() {
+    cm.define('headerNavBar', ['map', 'layersHash', 'config', 'layersTree', 'layoutManager'], function() {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var layersTree = cm.get('layersTree');
-        //var headerContainer = cm.get('mobileWidgetsContainer').getTopContainer();
-        var headerContainer = $('<div>')[0];
+        var layoutManager = cm.get('layoutManager');
 
         var layersMap = {
             'fires': config.user.firesLayerId,
@@ -193,7 +223,7 @@
             activeItem: config.user.activeHeaderTab
         });
 
-        radioGroupWidget.appendTo(headerContainer);
+        radioGroupWidget.appendTo(layoutManager.getHeaderContainer());
 
         var currentId;
         radioGroupWidget.on('select', function(id) {
