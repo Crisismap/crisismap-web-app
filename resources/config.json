@@ -1,21 +1,23 @@
 {
-    "map": {
-        "center": [
-            55.750303,
-            37.619934
-        ],
-        "zoom": 8,
-        "minZoom": 1
+    "app": {
+        "map": {
+            "center": [
+                55.750303,
+                37.619934
+            ],
+            "zoom": 8,
+            "minZoom": 1
+        },
+        "gmxMap": {
+            "mapID": "1BD4282D27914CD4B70F89E93B38B290",
+            "apiKey": "159CED7DA8534FD286B7E7139AD03BD6"
+        },
+        "zoomControl": "leaflet",
+        "hideControl": false,
+        "centerControl": false,
+        "locationControl": false,
+        "layersDebugger": true
     },
-    "gmxMap": {
-        "mapID": "1BD4282D27914CD4B70F89E93B38B290",
-        "apiKey": "159CED7DA8534FD286B7E7139AD03BD6"
-    },
-    "zoomControl": "leaflet",
-    "hideControl": false,
-    "centerControl": false,
-    "locationControl": false,
-    "layersDebugger": true,
     "user": {
         "newsLayers": {
             "fires": "A854633809CB44B088DD51B70A312EEC",

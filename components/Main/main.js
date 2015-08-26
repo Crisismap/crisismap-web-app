@@ -16,7 +16,7 @@
     cm.define('config', [], function(cm, cb) {
         $.ajax('resources/config.json').then(function(config) {
             $.ajax('local/config.json').then(function(localConfig) {
-                cb(L.extend(config, localConfig));
+                cb($.extend(true, config, localConfig));
             }).fail(function() {
                 cb(config);
             });
