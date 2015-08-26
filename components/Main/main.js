@@ -53,7 +53,31 @@
         return rootPageView;
     });
 
-    cm.define('gmxApplication', ['config', 'rootPageView'], function(cm, cb) {
+    cm.define('leafletProductionIssues', [], function(cm) {
+        L.Icon.Default = L.Icon.Default.extend({
+            options: {
+                iconUrl: 'resources/marker-icon.png',
+                iconSize: [25, 41],
+                iconAnchor: [15, 37],
+                popupAnchor: [0, -25],
+                shadowUrl: 'resources/marker-icon.png',
+                shadowSize: [0, 0],
+                shadowAnchor: [0, 0]
+            }
+        });
+
+        L.Icon.Default.imagePath = 'resources';
+
+        L.Marker = L.Marker.extend({
+            options: {
+                icon: new L.Icon.Default()
+            }
+        });
+
+        return null;
+    });
+
+    cm.define('gmxApplication', ['config', 'rootPageView', 'leafletProductionIssues'], function(cm, cb) {
         var config = cm.get('config');
         var rootPageView = cm.get('rootPageView');
         var mapPage = rootPageView.addPage('map');
@@ -309,7 +333,7 @@
 
         radioGroupWidget.on('select', function(id) {
             newsLayersManager.setActiveLayerByName(id);
-            cm.get('markerLayersPopupsManager') && cm.get('markerLayersPopupsManager').reset(); 
+            cm.get('markerLayersPopupsManager') && cm.get('markerLayersPopupsManager').reset();
             nsGmx.L.Map.fitBounds.call(map, layersHash[newsLayersManager.getActiveLayerId()].getBounds());
         });
 
