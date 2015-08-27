@@ -361,10 +361,14 @@
                 this.options.layers.map(function(layer) {
                     unbindPopup(layer);
                     layer.on('click', function(e) {
+                        var geometry = e.gmx.target.properties[e.gmx.target.properties.length - 1];
                         this.show({
                             title: e.gmx.properties.Title,
                             description: e.gmx.properties.Description,
-                            latLng: e.latlng
+                            latLng: L.Projection.Mercator.unproject({
+                                x: geometry.coordinates[0],
+                                y: geometry.coordinates[1]
+                            })
                         })
                     }.bind(this));
                 }.bind(this));
