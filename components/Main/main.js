@@ -13,6 +13,14 @@
             r($el.css('margin-bottom'))
     }
 
+    function unbindPopup(layer) {
+        var styles = layer.getStyles();
+        for (var i = 0; i < styles.length; i++) {
+            styles[i].DisableBalloonOnClick = true;
+        }
+        layer.setStyles(styles);
+    }
+
     cm.define('config', [], function(cm, cb) {
         $.ajax('resources/config.json').then(function(config) {
             $.ajax('local/config.json').then(function(localConfig) {
@@ -351,7 +359,7 @@
             initialize: function(options) {
                 L.setOptions(this, options);
                 this.options.layers.map(function(layer) {
-                    layer.unbindPopup();
+                    unbindPopup(layer);
                     layer.on('click', function(e) {
                         this.show({
                             title: e.gmx.properties.Title,
