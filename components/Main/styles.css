@@ -33,9 +33,12 @@ div { outline: none; }
 .leaflet-gmx-copyright-window { background-color: rgba(255, 255, 255, 0.9); border: none; box-shadow: 0 0 8px hsla(0, 0%, 0%, .5); }
 
 .headerNavBar { width: 100%; height: 100%; display: table; }
-.headerNavBar-menuContainer, .headerNavBar-buttonContainer { display: table-cell; vertical-align: middle; }
-.headerNavBar-menuContainer { width: 100%; }
-.headerNavBar-buttonContainer { width: 40px; }
+.headerNavBar-leftContainer, .headerNavBar-centerContainer, .headerNavBar-rightContainer { display: table-cell; vertical-align: middle; text-align: center; }
+.headerNavBar-leftContainer, .headerNavBar-rightContainer { width: 40px; }
+.headerNavBar-centerContainer { width: auto; }
+
+.headerNavBar .dropdownWidget { font-size: 14px; }
+.headerNavBar-leftContainer .dropdownWidget-dropdown { text-align: left; }
 
 .headerLayoutButton { font-size: 1.1em; color: hsl(0, 0%, 20%); }
 

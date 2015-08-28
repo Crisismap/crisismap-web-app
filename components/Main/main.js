@@ -260,14 +260,18 @@
         var HeaderNavBar = nsGmx.GmxWidget.extend({
             className: 'headerNavBar',
             initialize: function() {
-                $('<div>').addClass('headerNavBar-menuContainer').appendTo(this.$el);
-                $('<div>').addClass('headerNavBar-buttonContainer').appendTo(this.$el);
+                $('<div>').addClass('headerNavBar-leftContainer').appendTo(this.$el);
+                $('<div>').addClass('headerNavBar-centerContainer').appendTo(this.$el);
+                $('<div>').addClass('headerNavBar-rightContainer').appendTo(this.$el);
             },
-            getMenuContainer: function() {
-                return this.$el.find('.headerNavBar-menuContainer')[0];
+            getLeftContainer: function() {
+                return this.$el.find('.headerNavBar-leftContainer')[0];
             },
-            getButtonContainer: function() {
-                return this.$el.find('.headerNavBar-buttonContainer')[0];
+            getCenterContainer: function() {
+                return this.$el.find('.headerNavBar-centerContainer')[0];
+            },
+            getRightContainer: function() {
+                return this.$el.find('.headerNavBar-rightContainer')[0];
             }
         });
 
@@ -276,6 +280,79 @@
         headerNavBar.appendTo(layoutManager.getHeaderContainer());
 
         return headerNavBar;
+    });
+
+    cm.define('headerMainMenu', ['headerNavBar', 'map'], function(cm) {
+        var map = cm.get('map');
+        var headerNavBar = cm.get('headerNavBar');
+
+        var dropdownWidget = new nsGmx.DropdownWidget({
+            titleClassName: 'icon-menu',
+            trigger: 'click'
+        });
+
+        dropdownWidget.addItem('login', new nsGmx.PlainTextWidget('Вход'));
+        dropdownWidget.addItem('help', new nsGmx.PlainTextWidget('Справка'));
+        dropdownWidget.addItem('caw', new nsGmx.PlainTextWidget('CrisisAlertWeb'));
+        dropdownWidget.addItem('rate', new nsGmx.PlainTextWidget('Оценить приложение'));
+        dropdownWidget.addItem('options', new nsGmx.PlainTextWidget('Настройки'));
+
+        dropdownWidget.on('expand', function () {
+            cm.get('headerLayersMenu') && cm.get('headerLayersMenu').collapse();
+        });
+
+        dropdownWidget.appendTo(headerNavBar.getLeftContainer());
+
+        map.on('click', function(le) {
+            dropdownWidget.collapse();
+        });
+
+        return dropdownWidget;
+    });
+
+    cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash', 'headerNavBar'], function() {
+        var map = cm.get('map');
+        var config = cm.get('config');
+        var layersHash = cm.get('layersHash');
+        var headerNavBar = cm.get('headerNavBar');
+        var newsLayersManager = cm.get('newsLayersManager');
+
+        var dropdownItems = {
+            fires: 'Пожары',
+            ecology: 'Экология',
+            floods: 'Наводнения'
+        };
+
+        var dropdownWidget = new nsGmx.DropdownWidget({
+            title: dropdownItems[newsLayersManager.getActiveLayerName()],
+            showTopItem: false,
+            trigger: 'click'
+        });
+
+        dropdownWidget.on('item', function(id) {
+            newsLayersManager.setActiveLayerByName(id);
+            cm.get('markerLayersPopupsManager') && cm.get('markerLayersPopupsManager').reset();
+            nsGmx.L.Map.fitBounds.call(map, layersHash[newsLayersManager.getActiveLayerId()].getBounds());
+            dropdownWidget.setTitle(dropdownItems[id]);
+        });
+
+        for (var it in dropdownItems) {
+            if (dropdownItems.hasOwnProperty(it)) {
+                dropdownWidget.addItem(it, new nsGmx.PlainTextWidget(dropdownItems[it]));
+            }
+        }
+
+        dropdownWidget.on('expand', function () {
+            cm.get('headerMainMenu') && cm.get('headerMainMenu').collapse();
+        });
+
+        dropdownWidget.appendTo(headerNavBar.getCenterContainer());
+
+        map.on('click', function(le) {
+            dropdownWidget.collapse();
+        });
+
+        return dropdownWidget;
     });
 
     cm.define('headerLayoutButton', ['headerNavBar', 'newsLayersManager', 'rootPageView'], function(cm) {
@@ -302,7 +379,7 @@
 
         var headerLayoutButton = new HeaderLayoutButton();
 
-        headerLayoutButton.appendTo(headerNavBar.getButtonContainer());
+        headerLayoutButton.appendTo(headerNavBar.getRightContainer());
 
         headerLayoutButton.on('stateswitch', function(state) {
             if (state === 'map') {
@@ -314,38 +391,6 @@
         });
 
         return headerLayoutButton;
-    });
-
-    cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash', 'headerNavBar'], function() {
-        var map = cm.get('map');
-        var config = cm.get('config');
-        var layersHash = cm.get('layersHash');
-        var headerNavBar = cm.get('headerNavBar');
-        var newsLayersManager = cm.get('newsLayersManager');
-
-        var radioGroupWidget = new nsGmx.RadioGroupWidget({
-            items: [{
-                title: 'Пожары',
-                id: 'fires'
-            }, {
-                title: 'Экология',
-                id: 'ecology'
-            }, {
-                title: 'Наводнения',
-                id: 'floods'
-            }],
-            activeItem: newsLayersManager.getActiveLayerName()
-        });
-
-        radioGroupWidget.appendTo(headerNavBar.getMenuContainer());
-
-        radioGroupWidget.on('select', function(id) {
-            newsLayersManager.setActiveLayerByName(id);
-            cm.get('markerLayersPopupsManager') && cm.get('markerLayersPopupsManager').reset();
-            nsGmx.L.Map.fitBounds.call(map, layersHash[newsLayersManager.getActiveLayerId()].getBounds());
-        });
-
-        return radioGroupWidget;
     });
 
     cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', 'headerNavBar', 'newsLayersManager'], function(cm) {

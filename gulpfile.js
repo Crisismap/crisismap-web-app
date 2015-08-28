@@ -122,6 +122,11 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/LayerMarkersCollection',
         build: false
     }, {
+        id: 'DropdownMenuWidget',
+        srcDir: './external/GMXCommonComponents/DropdownMenuWidget',
+        distDir: './build',
+        build: true
+    }, {
         id: 'RadioGroupWidget',
         srcDir: './external/GMXCommonComponents/RadioGroupWidget',
         build: false
