@@ -40,6 +40,6 @@ div { outline: none; }
 .headerNavBar .dropdownWidget { font-size: 14px; }
 .headerNavBar-leftContainer .dropdownWidget-dropdown { text-align: left; }
 
-.headerLayoutButton { font-size: 1.1em; color: hsl(0, 0%, 20%); }
+.headerLayoutButton { font-size: 1.1em; color: hsl(0, 0%, 20%); cursor: pointer; }
 
 .alertsCollectionView { padding-left: 10px; }
