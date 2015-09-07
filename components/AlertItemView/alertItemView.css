@@ -11,6 +11,8 @@
 .alertItemView_collapsed .alertItemView-markerIcon { display: none; }
 .alertItemView_collapsed .alertItemView-locationIcon { display: none; }
 .alertItemView_collapsed .alertItemView-description { display: none; }
+.alertItemView_collapsed .alertItemView-sourceLink { display: none; }
+
 .alertItemView_expanded { box-shadow: 0 0 2px hsla(0, 0%, 0%, .5); }
 .alertItemView_expanded .alertItemView-title { font-weight: bold; padding-bottom: 4px; margin-bottom: 4px; }
 .alertItemView_expanded .alertItemView-description { overflow-x: hidden; }

@@ -33,6 +33,7 @@ nsGmx.AlertItemView = nsGmx.GmxWidget.extend({
         this.$el.find('.alertItemView-date').html(dateStr);
         this.$el.find('.alertItemView-title').html(this.model.get('Title'));
         this.$el.find('.alertItemView-description').html(this.model.get('Description'));
+        this.$el.find('.alertItemView-sourceLink').attr('href', this.model.get('URL'));
         this.$el.find('.alertItemView-locationIcon').click(function(je) {
             je.originalEvent.stopPropagation();
             this.trigger('marker', this.model);
