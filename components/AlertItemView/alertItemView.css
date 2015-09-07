@@ -1,9 +1,11 @@
 .alertItemView { cursor: pointer; font-size: .8em; }
-.alertItemView-markerIcon { width: 27px; height: 27px; display: none; padding-right: 5px; background-repeat: no-repeat; }
+.alertItemView-markerIcon { width: 27px; height: 27px; display: none; padding-right: 1em; background-repeat: no-repeat; }
 .alertItemView_class0 .alertItemView-markerIcon { display: block; background-image: url('class0.png'); }
 .alertItemView_class1 .alertItemView-markerIcon { display: block; background-image: url('class1.png'); }
 .alertItemView_class2 .alertItemView-markerIcon { display: block; background-image: url('class2.png'); }
 .alertItemView_class3 .alertItemView-markerIcon { display: block; background-image: url('class3.png'); }
+
+.alertItemView-date { font-weight: bold; padding-right: 1em; }
 .alertItemView-title { vertical-align: middle; }
 .alertItemView-description { }
 .alertItemView_collapsed .alertItemView-markerIcon { display: none; }
