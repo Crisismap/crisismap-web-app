@@ -1,6 +1,15 @@
 .alertItemView { cursor: pointer; font-size: .8em; }
+.alertItemView-markerIcon { width: 27px; height: 27px; display: none; padding-right: 5px; background-repeat: no-repeat; }
+.alertItemView_class0 .alertItemView-markerIcon { display: block; background-image: url('class0.png'); }
+.alertItemView_class1 .alertItemView-markerIcon { display: block; background-image: url('class1.png'); }
+.alertItemView_class2 .alertItemView-markerIcon { display: block; background-image: url('class2.png'); }
+.alertItemView_class3 .alertItemView-markerIcon { display: block; background-image: url('class3.png'); }
+.alertItemView-title { vertical-align: middle; }
 .alertItemView-description { }
+.alertItemView_collapsed .alertItemView-markerIcon { display: none; }
+.alertItemView_collapsed .alertItemView-locationIcon { display: none; }
+.alertItemView_collapsed .alertItemView-description { display: none; }
 .alertItemView_expanded { box-shadow: 0 0 2px hsla(0, 0%, 0%, .5); }
 .alertItemView_expanded .alertItemView-title { font-weight: bold; padding-bottom: 4px; margin-bottom: 4px; }
 .alertItemView_expanded .alertItemView-description { overflow-x: hidden; }
-.alertItemView-marker { width: 100%; text-align: center; color: hsl(0, 0%, 20%); padding-top: 5px; font-size: 1.5em; }
+.alertItemView-locationIcon { width: 100%; text-align: center; color: hsl(0, 0%, 20%); padding-top: 5px; font-size: 1.5em; }

@@ -546,5 +546,6 @@
         window.lt = cm.get('layersTree');
         window.ld = cm.get('layersDebugger');
         window.cal = cm.get('calendar');
+        window.nlm = cm.get('newsLayersManager');
     });
 }();
