@@ -224,6 +224,15 @@
         })
     });
 
+    cm.define('newsLayersClusters', ['layersHash', 'newsLayersManager'], function (cm) {
+        var layersHash = cm.get('layersHash');
+        var newsLayersManager = cm.get('newsLayersManager');
+        newsLayersManager.getLayersNames().map(function (name) {
+            layersHash[newsLayersManager.getLayerIdByLayerName(name)].bindClusters();
+        });
+        return null;
+    });
+
     cm.define('markerCursor', ['map'], function(cm) {
         var map = cm.get('map');
         var marker = L.marker([0, 0]);
@@ -393,7 +402,7 @@
         return headerLayoutButton;
     });
 
-    cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', 'headerNavBar', 'newsLayersManager'], function(cm) {
+    cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', 'headerNavBar', 'newsLayersManager', 'newsLayersClusters'], function(cm) {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
