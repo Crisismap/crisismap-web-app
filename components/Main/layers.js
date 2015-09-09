@@ -25,3 +25,20 @@ cm.define('newsLayersClusters', ['layersHash', 'newsLayersManager'], function(cm
     });
     return null;
 });
+
+cm.define('newsLayersCollections', ['newsLayersManager', 'layersHash', 'calendar'], function(cm) {
+    var calendar = cm.get('calendar');
+    var layersHash = cm.get('layersHash')
+    var newsLayersManager = cm.get('newsLayersManager');
+
+    var names = newsLayersManager.getLayersNames();
+    var collections = {};
+    for (var i = 0; i < names.length; i++) {
+        collections[names[i]] = new nsGmx.LayerMarkersCollection([], {
+            layer: layersHash[newsLayersManager.getLayerIdByLayerName(names[i])],
+            calendar: calendar
+        });
+    }
+
+    return collections;
+});

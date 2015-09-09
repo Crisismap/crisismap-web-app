@@ -245,24 +245,19 @@ cm.define('alertsPageView', ['rootPageView'], function(cm) {
     return alertsPageView;
 });
 
-cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'layersHash', 'calendar', 'headerLayoutButton', 'markerLayersPopupsManager'], function(cm) {
+cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'headerLayoutButton', 'markerLayersPopupsManager', 'newsLayersCollections'], function(cm) {
     var markerLayersPopupsManager = cm.get('markerLayersPopupsManager');
+    var newsLayersCollections = cm.get('newsLayersCollections');
     var headerLayoutButton = cm.get('headerLayoutButton');
     var newsLayersManager = cm.get('newsLayersManager');
     var alertsPageView = cm.get('alertsPageView');
-    var layersHash = cm.get('layersHash');
-    var calendar = cm.get('calendar');
 
     var scrollViews = {}
     newsLayersManager.getLayersNames().map(function(name) {
         var page = alertsPageView.addPage(name);
-        var markersCollection = new nsGmx.LayerMarkersCollection([], {
-            layer: layersHash[newsLayersManager.getLayerIdByLayerName(name)],
-            calendar: calendar
-        });
         var markersCollectionView = new nsGmx.SwitchingCollectionWidget({
             className: 'alertsCollectionView',
-            collection: markersCollection,
+            collection: newsLayersCollections[name],
             itemView: nsGmx.AlertItemView,
             reEmitEvents: ['marker']
         });
@@ -280,7 +275,6 @@ cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'layersHash', '
         var scrollView = scrollViews[name] = new nsGmx.ScrollView({
             views: [markersCollectionView]
         });
-        window.mc = markersCollection;
         scrollView.appendTo(page);
     });
 
