@@ -167,44 +167,30 @@ cm.define('headerLayoutButton', ['headerNavBar', 'newsLayersManager', 'rootPageV
     return headerLayoutButton;
 });
 
-// компонент, обрабатывающий клики по маркерам
-cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', 'headerNavBar', 'newsLayersManager', 'newsLayersClusters'], function(cm) {
+// компонент, отображающий попапы маркеров
+cm.define('markerLayersPopupsManager', ['config', 'infoControl', 'headerNavBar', 'markersClickHandler'], function(cm) {
     var map = cm.get('map');
     var config = cm.get('config');
     var layersHash = cm.get('layersHash');
     var headerNavBar = cm.get('headerNavBar');
-    var newsLayersManager = cm.get('newsLayersManager');
+    var markersClickHandler = cm.get('markersClickHandler');
 
     var MLPM = L.Class.extend({
         initialize: function(options) {
             L.setOptions(this, options);
-            this.options.layers.map(function(layer) {
-                unbindPopup(layer);
-                layer.on('click', function(e) {
-                    var geometry = e.gmx.target.properties[e.gmx.target.properties.length - 1];
-                    this.show({
-                        title: e.gmx.properties.Title,
-                        description: e.gmx.properties.Description,
-                        latLng: L.Projection.Mercator.unproject({
-                            x: geometry.coordinates[0],
-                            y: geometry.coordinates[1]
-                        })
-                    })
-                }.bind(this));
-            }.bind(this));
         },
-        show: function(opts) {
+        show: function(model) {
             var map = cm.get('map');
             var mapLayoutHelper = cm.get('mapLayoutHelper');
             this.options.mapLayoutHelper.hideBottomControls();
             this.options.infoControl.show();
-            this.options.infoControl && this.options.infoControl.setTitle(opts.title);
-            this.options.infoControl && this.options.infoControl.setContent(opts.description);
+            this.options.infoControl && this.options.infoControl.setTitle(model.get('title'));
+            this.options.infoControl && this.options.infoControl.setContent(model.get('description'));
             map.setActiveArea({
                 bottom: getFullHeight(this.options.infoControl.getContainer()) + 'px'
             });
-            map.setView(opts.latLng, map.getZoom());
-            this.options.markerCursor.setLatLng(opts.latLng);
+            map.setView(model.get('latLng'), map.getZoom());
+            this.options.markerCursor.setLatLng(model.get('latLng'));
             this.options.markerCursor.show();
         },
         reset: function() {
@@ -216,9 +202,6 @@ cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', '
     });
 
     var mlpm = new MLPM({
-        layers: newsLayersManager.getLayersNames().map(function(name) {
-            return layersHash[newsLayersManager.getLayerIdByLayerName(name)];
-        }),
         infoControl: cm.get('infoControl'),
         markerCursor: cm.get('markerCursor'),
         mapLayoutHelper: cm.get('mapLayoutHelper')
@@ -231,6 +214,10 @@ cm.define('markerLayersPopupsManager', ['config', 'layersHash', 'infoControl', '
     map.on('click', function() {
         mlpm.reset();
     });
+
+    markersClickHandler.on('click', function(e) {
+        mlpm.show(e.model);
+    })
 
     return mlpm;
 });
@@ -263,14 +250,7 @@ cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'headerLayoutBu
         });
         markersCollectionView.on('marker', function(model) {
             headerLayoutButton.toggleState();
-            markerLayersPopupsManager.show({
-                title: model.get('Title'),
-                description: model.get('Description'),
-                latLng: L.Projection.Mercator.unproject({
-                    x: model.get('mercX'),
-                    y: model.get('mercY')
-                })
-            });
+            markerLayersPopupsManager.show(model);
         });
         var scrollView = scrollViews[name] = new nsGmx.ScrollView({
             views: [markersCollectionView]

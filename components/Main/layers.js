@@ -31,14 +31,59 @@ cm.define('newsLayersCollections', ['newsLayersManager', 'layersHash', 'calendar
     var layersHash = cm.get('layersHash')
     var newsLayersManager = cm.get('newsLayersManager');
 
+    var MarkerModel = Backbone.Model.extend({
+        constructor: function (properties) {
+            Backbone.Model.call(this, {
+                id: properties['id'],
+                title: properties['Title'],
+                description: properties['Description'],
+                date: new Date(properties['pub_date'] * 1000),
+                latLng: L.Projection.Mercator.unproject({
+                    x: properties['mercX'],
+                    y: properties['mercY']
+                })
+            });
+        }
+    });
+
     var names = newsLayersManager.getLayersNames();
     var collections = {};
     for (var i = 0; i < names.length; i++) {
         collections[names[i]] = new nsGmx.LayerMarkersCollection([], {
+            model: MarkerModel,
             layer: layersHash[newsLayersManager.getLayerIdByLayerName(names[i])],
             calendar: calendar
         });
     }
 
     return collections;
+});
+
+cm.define('markersClickHandler', ['layersHash', 'newsLayersManager', 'newsLayersCollections'], function(cm) {
+    var layersHash = cm.get('layersHash');
+    var newsLayersManager = cm.get('newsLayersManager');
+    var newsLayersCollections = cm.get('newsLayersCollections');
+
+    var MarkersClickHandler = L.Class.extend({
+        includes: [L.Mixin.Events],
+        initialize: function() {
+            newsLayersManager.getLayersNames().map(function(name) {
+                var layer = layersHash[newsLayersManager.getLayerIdByLayerName(name)];
+                var collection = newsLayersCollections[name];
+                unbindPopup(layer);
+                layer.on('click', function(e) {
+                    var id = layer.getItemProperties(e.gmx.target.properties)['id'];
+                    this.fire('click', {
+                        model: collection.findWhere({
+                            id: id
+                        }),
+                        layer: layer,
+                        name: name
+                    });
+                }.bind(this));
+            }.bind(this));
+        }
+    });
+
+    return new MarkersClickHandler();
 });

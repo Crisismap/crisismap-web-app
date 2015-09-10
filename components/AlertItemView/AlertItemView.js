@@ -23,7 +23,7 @@ nsGmx.AlertItemView = nsGmx.GmxWidget.extend({
             this.$el.addClass('alertItemView_class' + this.model.get('class'));
         }
 
-        var dt = new Date(this.model.get('pub_date') * 1000);
+        var dt = this.model.get('date');
         var dateStr = pz(dt.getDate()) + '.' +
             pz(dt.getMonth() + 1) + '.' +
             pz(dt.getFullYear()) + ' ' +
@@ -31,9 +31,9 @@ nsGmx.AlertItemView = nsGmx.GmxWidget.extend({
             pz(dt.getMinutes());
 
         this.$el.find('.alertItemView-date').html(dateStr);
-        this.$el.find('.alertItemView-title').html(this.model.get('Title'));
-        this.$el.find('.alertItemView-description').html(this.model.get('Description'));
-        this.$el.find('.alertItemView-sourceLink').attr('href', this.model.get('URL'));
+        this.$el.find('.alertItemView-title').html(this.model.get('title'));
+        this.$el.find('.alertItemView-description').html(this.model.get('description'));
+        this.$el.find('.alertItemView-sourceLink').attr('href', this.model.get('url'));
         this.$el.find('.alertItemView-locationIcon').click(function(je) {
             je.originalEvent.stopPropagation();
             this.trigger('marker', this.model);
