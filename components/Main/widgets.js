@@ -14,6 +14,45 @@ cm.define('markerCursor', ['map'], function(cm) {
     }
 });
 
+cm.define('widgetsManager', ['map'], function(cm) {
+    var map = cm.get('map');
+
+    var wm = new (L.Class.extend({
+        includes: [L.Mixin.Events],
+        initialize: function() {
+            this._widgets = [];
+            this._currentWidget = {};
+        },
+        add: function(widget) {
+            if (!widget.cid || !widget.getContainer) {
+                throw 'widget must be instance of nsGmx.GmxWidget';
+            }
+            this._widgets.push(widget);
+            $(widget.getContainer()).on('click', function () {
+                this._currentWidget = widget;
+            }.bind(this));
+        },
+        reset: function() {
+            this._widgets.map(function(widget) {
+                if (widget.cid !== this._currentWidget.cid) {
+                    widget.reset && widget.reset();
+                }
+            }.bind(this));
+            this._currentWidget = {};
+        }
+    }));
+
+    map.on('click', function () {
+        wm.reset();
+    });
+
+    $('body').on('click', function () {
+        wm.reset();
+    });
+
+    return wm;
+});
+
 cm.define('infoControl', ['map', 'mapLayoutHelper', 'markerCursor'], function(cm) {
     var map = cm.get('map');
     var mlh = cm.get('mapLayoutHelper');
@@ -56,9 +95,10 @@ cm.define('headerNavBar', ['layoutManager'], function(cm) {
     return headerNavBar;
 });
 
-cm.define('headerMainMenu', ['headerNavBar', 'map'], function(cm) {
+cm.define('headerMainMenu', ['headerNavBar', 'map', 'widgetsManager'], function(cm) {
     var map = cm.get('map');
     var headerNavBar = cm.get('headerNavBar');
+    var widgetsManager = cm.get('widgetsManager');
 
     var dropdownWidget = new nsGmx.DropdownWidget({
         titleClassName: 'icon-menu',
@@ -77,19 +117,18 @@ cm.define('headerMainMenu', ['headerNavBar', 'map'], function(cm) {
 
     dropdownWidget.appendTo(headerNavBar.getLeftContainer());
 
-    map.on('click', function(le) {
-        dropdownWidget.collapse();
-    });
+    widgetsManager.add(dropdownWidget);
 
     return dropdownWidget;
 });
 
-cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash', 'headerNavBar'], function() {
+cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash', 'headerNavBar', 'widgetsManager'], function() {
     var map = cm.get('map');
     var config = cm.get('config');
     var layersHash = cm.get('layersHash');
     var headerNavBar = cm.get('headerNavBar');
     var newsLayersManager = cm.get('newsLayersManager');
+    var widgetsManager = cm.get('widgetsManager');
 
     var dropdownItems = {
         fires: 'Пожары',
@@ -122,9 +161,7 @@ cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash
 
     dropdownWidget.appendTo(headerNavBar.getCenterContainer());
 
-    map.on('click', function(le) {
-        dropdownWidget.collapse();
-    });
+    widgetsManager.add(dropdownWidget);
 
     return dropdownWidget;
 });
