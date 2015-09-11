@@ -7,13 +7,13 @@
         <% } %>
         <% if (title) { %>
             <div class="gmx-table-cell eventDetailsView-titleCell">
-                <div class="eventDetailsView-title"><%=title%></div>
+                <div class="eventDetailsView-title"><%= title %></div>
             </div>
         <% } %>
     </div>
 <% } %>
 <% if (description) { %>
-    <div class="eventDetailsView-description"><%=description%></div>
+    <div class="eventDetailsView-description"><%= description %></div>
 <% } %>
 <% if (date || url) { %>
     <div class="gmx-table eventDetailsView-bottomTable">
@@ -29,7 +29,7 @@
         <% } %>
         <% if (url) { %>
             <div class="gmx-table-cell eventDetailsView-urlCell">
-                <a class="eventDetailsView-url"  href="<%=url%>" target="_blank"><%= nsGmx.Translations.getText('infoControl.sourceLink') %></a>
+                <a class="eventDetailsView-url"  href="<%=url%>" target="_blank"><%= nsGmx.Translations.getText('eventDetailsView.sourceLink') %></a>
             </div>
         <% } %>
     </div>
