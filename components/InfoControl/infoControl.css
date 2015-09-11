@@ -1,9 +1,3 @@
 .infoControl { position: absolute; top: auto; bottom: 0; left: 0; right: 0; background-color: hsla(0, 0%, 100%, .9); box-shadow: 0 0 4px hsla(0, 0%, 0%, .3); }
 .infoControl.leaflet-control { margin: 0; padding: 10px; }
-.infoControl-title { font-size: 2em; line-height: 1.25em; padding-bottom: 10px; }
-.infoControl-content { }
-.infoControl-date { }
-.infoControl-url { }
-.infoControl .gmx-table { width: 100%; }
-.infoControl-dateCell { text-align: left; }
-.infoControl-urlCell { text-align: right; }
+.infoControl .eventDetailsView-title { font-size: 1.2em; }

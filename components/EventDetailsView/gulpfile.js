@@ -5,31 +5,35 @@ var footer = require('gulp-footer');
 var streamqueue = require('streamqueue');
 var html2jsobject = require('gulp-html2jsobject');
 
-var styles = ['infoControl.css'];
-var scripts = ['InfoControl.js', 'translations.js'];
-var templates = ['infoControl.html'];
+var styles = ['eventDetailsView.css'];
+var scripts = ['EventDetailsView.js'];
+var images = ['class0.png', 'class1.png', 'class2.png', 'class3.png'];
+var templates = ['eventDetailsView.html'];
 
 gulp.task('default', function() {
     var sourcesStream = gulp.src(scripts);
 
     var templatesStream = gulp.src(templates)
-        .pipe(html2jsobject('nsGmx.Templates.InfoControl'))
+        .pipe(html2jsobject('nsGmx.Templates.EventDetailsView'))
         .pipe(concat('templates.js'))
-        .pipe(header('nsGmx.Templates.InfoControl = {};\n'))
+        .pipe(header('nsGmx.Templates.EventDetailsView = {};\n'))
         .pipe(header('nsGmx.Templates = nsGmx.Templates || {};'))
         .pipe(header('var nsGmx = nsGmx || {};'));
 
     var cssStream = gulp.src(styles)
+        .pipe(concat('eventDetailsView.css'));
+
+    var imgStream = gulp.src(images);
 
     var jsStream = streamqueue({
             objectMode: true
         }, templatesStream, sourcesStream)
         .pipe(footer(';'))
-        .pipe(concat('infoControl.js'));
+        .pipe(concat('eventDetailsView.js'));
 
     var finalStream = streamqueue({
             objectMode: true
-        }, jsStream, cssStream)
+        }, jsStream, cssStream, imgStream)
         .pipe(gulp.dest('build'));
 });
 

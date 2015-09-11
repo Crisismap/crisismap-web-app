@@ -1,0 +1,36 @@
+<% if (title || topIcon) { %>
+    <div class="gmx-table eventDetailsView-topTable">
+        <% if (topIcon) { %>
+            <div class="gmx-table-cell eventDetailsView-topIconCell">
+                <div class="eventDetailsView-topIcon eventDetailsView-topIcon_<%=topIcon%>"></div>
+            </div>
+        <% } %>
+        <% if (title) { %>
+            <div class="gmx-table-cell eventDetailsView-titleCell">
+                <div class="eventDetailsView-title"><%=title%></div>
+            </div>
+        <% } %>
+    </div>
+<% } %>
+<% if (description) { %>
+    <div class="eventDetailsView-description"><%=description%></div>
+<% } %>
+<% if (date || url) { %>
+    <div class="gmx-table eventDetailsView-bottomTable">
+        <% if (date) { %>
+            <div class="gmx-table-cell eventDetailsView-dateCell">
+                <div class="eventDetailsView-date"><%= nsGmx.CrisisMap.formatDate(date) %></div>
+            </div>
+        <% } %>
+        <% if (bottomIcon) { %>
+            <div class="gmx-table-cell eventDetailsView-bottomIconCell">
+                <div class="eventDetailsView-bottomIcon icon-<%=bottomIcon%>"></div>
+            </div>
+        <% } %>
+        <% if (url) { %>
+            <div class="gmx-table-cell eventDetailsView-urlCell">
+                <a class="eventDetailsView-url"  href="<%=url%>" target="_blank"><%= nsGmx.Translations.getText('infoControl.sourceLink') %></a>
+            </div>
+        <% } %>
+    </div>
+<% } %>

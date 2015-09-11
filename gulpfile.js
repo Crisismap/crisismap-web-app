@@ -134,10 +134,14 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/RadioGroupWidget',
         build: false
     }, {
-        id: 'InfoControl',
-        srcDir: './components/InfoControl',
+        id: 'EventDetailsView',
+        srcDir: './components/EventDetailsView',
         distDir: './build',
         build: true
+    }, {
+        id: 'InfoControl',
+        srcDir: './components/InfoControl',
+        build: false
     }, {
         id: 'PageView',
         srcDir: './components/PageView',

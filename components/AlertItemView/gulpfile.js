@@ -6,9 +6,8 @@ var streamqueue = require('streamqueue');
 var html2jsobject = require('gulp-html2jsobject');
 
 var styles = ['alertItemView.css'];
-var images = ['class0.png', 'class1.png', 'class2.png', 'class3.png']
 var scripts = ['AlertItemView.js'];
-var templates = ['alertItemView.html'];
+var templates = ['expanded.html', 'collapsed.html'];
 
 gulp.task('default', function() {
     var sourcesStream = gulp.src(scripts);
@@ -22,7 +21,6 @@ gulp.task('default', function() {
 
     var cssStream = gulp.src(styles)
         .pipe(concat('alertItemView.css'));
-    var imgStream = gulp.src(images);
 
     var jsStream = streamqueue({
             objectMode: true
@@ -32,7 +30,7 @@ gulp.task('default', function() {
 
     var finalStream = streamqueue({
             objectMode: true
-        }, jsStream, cssStream, imgStream)
+        }, jsStream, cssStream)
         .pipe(gulp.dest('build'));
 });
 

@@ -1,5 +1,5 @@
 {
-  "name": "gmx-InfoControl",
+  "name": "gmx-EventDetailsView",
   "devDependencies": {
     "event-stream": "3.1.7",
     "gulp": "3.8.10",

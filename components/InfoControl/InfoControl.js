@@ -10,9 +10,13 @@ nsGmx.InfoControl = L.Control.extend({
         this.hide();
     },
     render: function(model) {
-        this._container.innerHTML = model ?
-            _.template(nsGmx.Templates.InfoControl.infoControl)(model.attributes) :
-            '';
+        this._container.innerHTML = '';
+        if (model) {
+            var contentView = new nsGmx.EventDetailsView({
+                model: model
+            });
+            contentView.appendTo(this._container);
+        }
         return this;
     },
     onAdd: function(map) {
