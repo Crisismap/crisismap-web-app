@@ -183,9 +183,8 @@ cm.define('markerLayersPopupsManager', ['config', 'infoControl', 'headerNavBar',
             var map = cm.get('map');
             var mapLayoutHelper = cm.get('mapLayoutHelper');
             this.options.mapLayoutHelper.hideBottomControls();
+            this.options.infoControl.render(model);
             this.options.infoControl.show();
-            this.options.infoControl && this.options.infoControl.setTitle(model.get('title'));
-            this.options.infoControl && this.options.infoControl.setContent(model.get('description'));
             map.setActiveArea({
                 bottom: getFullHeight(this.options.infoControl.getContainer()) + 'px'
             });

@@ -4,25 +4,16 @@ nsGmx.InfoControl = L.Control.extend({
     includes: [nsGmx.GmxWidgetMixin],
     initialize: function(options) {
         L.setOptions(this, options);
-        this.render();
+        this._container = L.DomUtil.create('div', 'infoControl');
+        this._terminateMouseEvents();
+        this.render(null);
         this.hide();
     },
-    render: function() {
-        this._container = L.DomUtil.create('div', 'infoControl')
-        this._titleContainer = L.DomUtil.create('div', 'infoControl-titleContainer', this._container);
-        this._contentContainer = L.DomUtil.create('div', 'infoControl-contentContainer', this._container);
-        this._terminateMouseEvents();
+    render: function(model) {
+        this._container.innerHTML = model ?
+            _.template(nsGmx.Templates.InfoControl.infoControl)(model.attributes) :
+            '';
         return this;
-    },
-    clean: function() {
-        this._titleContainer.innerHTML = '';
-        this._contentContainer.innerHTML = '';
-    },
-    setTitle: function(str) {
-        this._titleContainer.innerHTML = str
-    },
-    setContent: function(str) {
-        this._contentContainer.innerHTML = str;
     },
     onAdd: function(map) {
         return this._container;

@@ -10,25 +10,12 @@ nsGmx.AlertItemView = nsGmx.GmxWidget.extend({
         this.collapse();
     },
     render: function() {
-        function pz(n) {
-            var s = n + '';
-            if (s.length === 1) {
-                return '0' + s;
-            }
-            return s;
-        }
-
         this.$el.html(nsGmx.Templates.AlertItemView.alertItemView);
         if (this.model.get('class')) {
             this.$el.addClass('alertItemView_class' + this.model.get('class'));
         }
 
-        var dt = this.model.get('date');
-        var dateStr = pz(dt.getDate()) + '.' +
-            pz(dt.getMonth() + 1) + '.' +
-            pz(dt.getFullYear()) + ' ' +
-            pz(dt.getHours()) + ':' +
-            pz(dt.getMinutes());
+        var dateStr = nsGmx.CrisisMap.formatDate(this.model.get('date'));
 
         this.$el.find('.alertItemView-date').html(dateStr);
         this.$el.find('.alertItemView-title').html(this.model.get('title'));

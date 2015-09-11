@@ -136,7 +136,8 @@ require('./external/GMXBuilder')(gulp, {
     }, {
         id: 'InfoControl',
         srcDir: './components/InfoControl',
-        build: false
+        distDir: './build',
+        build: true
     }, {
         id: 'PageView',
         srcDir: './components/PageView',

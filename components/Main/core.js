@@ -1,4 +1,5 @@
 var nsGmx = window.nsGmx || {};
+nsGmx.CrisisMap = nsGmx.CrisisMap || {};
 
 function getFullHeight(el) {
     var $el = $(el);
@@ -21,6 +22,22 @@ function unbindPopup(layer) {
     }
     layer.setStyles(styles);
 }
+
+nsGmx.CrisisMap.formatDate = function (dt) {
+    function pz(n) {
+        var s = n + '';
+        if (s.length === 1) {
+            return '0' + s;
+        }
+        return s;
+    }
+
+    return pz(dt.getDate()) + '.' +
+        pz(dt.getMonth() + 1) + '.' +
+        pz(dt.getFullYear()) + ' ' +
+        pz(dt.getHours()) + ':' +
+        pz(dt.getMinutes());
+};
 
 cm.define('config', [], function(cm, cb) {
     $.ajax('resources/config.json').then(function(config) {

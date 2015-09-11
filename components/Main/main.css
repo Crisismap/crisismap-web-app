@@ -6,6 +6,10 @@ html, body {
     font-family: 'Open sans', Tahomam sans-serif;
 }
 
+a { color: hsl(235, 90%, 60%); }
+.leaflet-container a { color: hsl(235, 90%, 60%); }
+.leaflet-bar a { color: hsl(0, 0%, 20%); }
+
 div { outline: none; }
 
 .crisisMap-headerContainer, .crisisMap-contentContainer { position: absolute; left: 0; right: 0; }

@@ -38,6 +38,7 @@ cm.define('newsLayersCollections', ['newsLayersManager', 'layersHash', 'calendar
                 title: properties['Title'],
                 description: properties['Description'],
                 date: new Date(properties['pub_date'] * 1000),
+                url: properties['URL'],
                 latLng: L.Projection.Mercator.unproject({
                     x: properties['mercX'],
                     y: properties['mercY']

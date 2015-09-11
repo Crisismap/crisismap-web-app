@@ -1,0 +1,20 @@
+<% if (title) { %>
+    <div class="infoControl-title"><%=title%></div>
+<% } %>
+<% if (description) { %>
+    <div class="infoControl-description"><%=description%></div>
+<% } %>
+<% if (date || url) { %>
+    <div class="gmx-table">
+        <div class="gmx-table-cell infoControl-dateCell">
+            <% if (date) { %>
+                <div class="infoControl-date"><%= nsGmx.CrisisMap.formatDate(date) %></div>
+            <% } %>
+        </div>
+        <div class="gmx-table-cell infoControl-urlCell">
+            <% if (url) { %>
+                <a class="infoControl-url"  href="<%=url%>" target="_blank"><%= nsGmx.Translations.getText('infoControl.sourceLink') %></a>
+            <% } %>
+        </div>
+    </div>
+<% } %>
