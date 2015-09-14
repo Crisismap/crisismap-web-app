@@ -16,7 +16,8 @@
         "hideControl": false,
         "centerControl": false,
         "locationControl": false,
-        "layersDebugger": true
+        "layersDebugger": true,
+        "copyrightControl": false
     },
     "user": {
         "newsLayers": {
