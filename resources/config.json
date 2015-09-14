@@ -17,7 +17,9 @@
         "centerControl": false,
         "locationControl": false,
         "layersDebugger": true,
-        "copyrightControl": false
+        "copyrightControl": false,
+        "bottomControl": false,
+        "logoControl": false
     },
     "user": {
         "newsLayers": {
