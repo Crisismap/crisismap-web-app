@@ -4,26 +4,24 @@ nsGmx.CalendarPage = nsGmx.GmxWidget.extend({
     className: 'calendarPage',
     template: _.template(nsGmx.Templates.CalendarPage.calendarPage),
     initialize: function() {
-        this.model.on('datechange', function(dateBegin, dateEnd) {
-            this.update();
-        }.bind(this));
         this.render();
+        this.model.on('datechange', this.update.bind(this));
     },
     render: function() {
         this.$el.html(this.template({}));
-        this.$el.find('.calendarPage-datepicker_day')
-            .on('change', this._onDatepickerChange.bind(this));
+        this.$datepicker = this.$el.find('.calendarPage-datepickerInput');
+        this.$datepicker.datepicker({
+            onSelect: this._onDatepickerChange.bind(this),
+            maxDate: this.model.getDateBegin()
+        });
         this.update();
         return this;
     },
     update: function() {
-        this.$el.find('.calendarPage-datepicker_day').attr(
-            'value',
-            nsGmx.CrisisMap.formatDate(this.model.getDateEnd(), 'YYYY-MM-DD')
-        );
+        this.$datepicker.datepicker('setDate', this.model.getDateBegin());
     },
-    _onDatepickerChange: function(je) {
-        var dateBegin = new Date(je.currentTarget.value);
+    _onDatepickerChange: function(dateStr, de) {
+        var dateBegin = new Date(dateStr);
         var dateEnd = new Date(dateBegin.getTime() + 1000 * 60 * 60 * 24);
         this.model.setDateBegin(dateBegin);
         this.model.setDateEnd(dateEnd);
