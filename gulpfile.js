@@ -152,6 +152,11 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
+        id: 'CalendarPage',
+        srcDir: './components/CalendarPage',
+        distDir: './build',
+        build: true
+    }, {
         id: 'Main',
         srcDir: './components/Main',
         distDir: './build',

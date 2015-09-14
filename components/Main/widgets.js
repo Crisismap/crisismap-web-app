@@ -99,6 +99,7 @@ cm.define('headerMainMenu', ['headerNavBar', 'map', 'widgetsManager'], function(
     var map = cm.get('map');
     var headerNavBar = cm.get('headerNavBar');
     var widgetsManager = cm.get('widgetsManager');
+    var rootPageView = cm.get('rootPageView');
 
     var dropdownWidget = new nsGmx.DropdownWidget({
         titleClassName: 'icon-menu',
@@ -313,3 +314,24 @@ cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'headerLayoutBu
 
     return null;
 });
+
+cm.define('calendarPage', ['calendar', 'rootPageView', 'headerMainMenu'], function (cm) {
+    var calendar = cm.get('calendar');
+    var rootPageView = cm.get('rootPageView');
+    var headerMainMenu = cm.get('headerMainMenu');
+
+    var $container = rootPageView.addPage('calendar');
+    var calendarPage = new nsGmx.CalendarPage({
+        model: calendar
+    });
+    calendarPage.appendTo($container);
+
+    headerMainMenu.addItem('calendar', new nsGmx.PlainTextWidget('Архив'));
+    headerMainMenu.on('item', function (id) {
+        if (id === 'calendar') {
+            rootPageView.setActivePage('calendar');
+        }
+    })
+
+    return calendarPage;
+})

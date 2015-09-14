@@ -23,7 +23,7 @@ function unbindPopup(layer) {
     layer.setStyles(styles);
 }
 
-nsGmx.CrisisMap.formatDate = function (dt) {
+nsGmx.CrisisMap.formatDate = function(dt, fstr) {
     function pz(n) {
         var s = n + '';
         if (s.length === 1) {
@@ -32,11 +32,13 @@ nsGmx.CrisisMap.formatDate = function (dt) {
         return s;
     }
 
-    return pz(dt.getDate()) + '.' +
-        pz(dt.getMonth() + 1) + '.' +
-        pz(dt.getFullYear()) + ' ' +
-        pz(dt.getHours()) + ':' +
-        pz(dt.getMinutes());
+    fstr = fstr || 'DD.MM.YYYY hh:mm';
+
+    return fstr.replace(/YYYY/g, dt.getFullYear())
+        .replace(/MM/g, pz(dt.getMonth()))
+        .replace(/DD/g, pz(dt.getDate()))
+        .replace(/hh/g, pz(dt.getHours()))
+        .replace(/mm/g, pz(dt.getMinutes()));
 };
 
 cm.define('config', [], function(cm, cb) {
