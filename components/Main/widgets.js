@@ -331,7 +331,11 @@ cm.define('calendarPage', ['calendar', 'rootPageView', 'headerMainMenu'], functi
         if (id === 'calendar') {
             rootPageView.setActivePage('calendar');
         }
-    })
+    });
+
+    calendarPage.on('datepickerchange', function () {
+        rootPageView.back();
+    });
 
     return calendarPage;
 })

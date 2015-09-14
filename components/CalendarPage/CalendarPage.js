@@ -25,5 +25,6 @@ nsGmx.CalendarPage = nsGmx.GmxWidget.extend({
         var dateEnd = new Date(dateBegin.getTime() + 1000 * 60 * 60 * 24);
         this.model.setDateBegin(dateBegin);
         this.model.setDateEnd(dateEnd);
+        this.trigger('datepickerchange');
     }
 });
