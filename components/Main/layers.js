@@ -32,7 +32,7 @@ cm.define('newsLayersCollections', ['newsLayersManager', 'layersHash', 'calendar
     var newsLayersManager = cm.get('newsLayersManager');
 
     var MarkerModel = Backbone.Model.extend({
-        constructor: function (properties) {
+        constructor: function(properties) {
             Backbone.Model.call(this, {
                 id: properties['id'],
                 title: properties['Title'],
@@ -85,14 +85,17 @@ cm.define('markersClickHandler', ['layersHash', 'newsLayersManager', 'newsLayers
                 var collection = newsLayersCollections[name];
                 unbindPopup(layer);
                 layer.on('click', function(e) {
-                    var id = layer.getItemProperties(e.gmx.target.properties)['id'];
-                    this.fire('click', {
-                        model: collection.findWhere({
-                            id: id
-                        }),
-                        layer: layer,
-                        name: name
-                    });
+                    if (!e.eventFrom || e.originalEventType === 'click') {
+                        // кликнули не по кластерам
+                        var id = layer.getItemProperties(e.gmx.target.properties)['id'];
+                        this.fire('click', {
+                            model: collection.findWhere({
+                                id: id
+                            }),
+                            layer: layer,
+                            name: name
+                        });
+                    }
                 }.bind(this));
             }.bind(this));
         }
