@@ -106,11 +106,21 @@ cm.define('headerMainMenu', ['headerNavBar', 'map', 'widgetsManager'], function(
         trigger: 'click'
     });
 
-    dropdownWidget.addItem('login', new nsGmx.PlainTextWidget('Вход'));
-    dropdownWidget.addItem('help', new nsGmx.PlainTextWidget('Справка'));
-    dropdownWidget.addItem('caw', new nsGmx.PlainTextWidget('CrisisAlertWeb'));
-    dropdownWidget.addItem('rate', new nsGmx.PlainTextWidget('Оценить приложение'));
-    dropdownWidget.addItem('options', new nsGmx.PlainTextWidget('Настройки'));
+    dropdownWidget.addItem('login', new nsGmx.PlainTextWidget(
+        nsGmx.Translations.getText('crisismap.login')
+    ));
+    dropdownWidget.addItem('help', new nsGmx.PlainTextWidget(
+        nsGmx.Translations.getText('crisismap.help')
+    ));
+    dropdownWidget.addItem('caw', new nsGmx.PlainTextWidget(
+        nsGmx.Translations.getText('crisismap.crisisalertweb')
+    ));
+    dropdownWidget.addItem('rate', new nsGmx.PlainTextWidget(
+        nsGmx.Translations.getText('crisismap.rateapp')
+    ));
+    dropdownWidget.addItem('options', new nsGmx.PlainTextWidget(
+        nsGmx.Translations.getText('crisismap.options')
+    ));
 
     dropdownWidget.on('expand', function() {
         cm.get('headerLayersMenu') && cm.get('headerLayersMenu').collapse();
@@ -132,9 +142,9 @@ cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash
     var widgetsManager = cm.get('widgetsManager');
 
     var dropdownItems = {
-        fires: 'Пожары',
-        ecology: 'Экология',
-        floods: 'Наводнения'
+        fires: nsGmx.Translations.getText('crisismap.fires'),
+        ecology: nsGmx.Translations.getText('crisismap.ecology'),
+        floods: nsGmx.Translations.getText('crisismap.floods')
     };
 
     var dropdownWidget = new nsGmx.DropdownWidget({
@@ -146,7 +156,10 @@ cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash
     dropdownWidget.on('item', function(id) {
         newsLayersManager.setActiveLayerByName(id);
         cm.get('markerLayersPopupsManager') && cm.get('markerLayersPopupsManager').reset();
-        nsGmx.L.Map.fitBounds.call(map, layersHash[newsLayersManager.getActiveLayerId()].getBounds());
+        nsGmx.L.Map.fitBounds.call(
+            map,
+            layersHash[newsLayersManager.getActiveLayerId()].getBounds()
+        );
         dropdownWidget.setTitle(dropdownItems[id]);
     });
 
@@ -326,7 +339,7 @@ cm.define('calendarPage', ['calendar', 'rootPageView', 'headerMainMenu'], functi
     });
     calendarPage.appendTo($container);
 
-    headerMainMenu.addItem('calendar', new nsGmx.PlainTextWidget('Архив'));
+    headerMainMenu.addItem('calendar', new nsGmx.PlainTextWidget(nsGmx.Translations.getText('crisismap.archive')));
     headerMainMenu.on('item', function (id) {
         if (id === 'calendar') {
             rootPageView.setActivePage('calendar');

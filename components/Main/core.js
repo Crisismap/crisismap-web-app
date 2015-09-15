@@ -41,6 +41,49 @@ nsGmx.CrisisMap.formatDate = function(dt, fstr) {
         .replace(/mm/g, pz(dt.getMinutes()));
 };
 
+ // вернуть глобальную переменную underscore _
+ cm.define('gmxUtils', [], function() {
+     return nsGmx.Utils.noConflicts();
+ });
+
+// получить параметры из url
+ cm.define('urlManager', [], function(cm) {
+     var parser = document.createElement('a');
+     parser.href = window.location.href;
+
+     var getQueryVariable = function(variable) {
+         var query = parser.search.substring(1);
+         var vars = query.split('&');
+         for (var i = 0; i < vars.length; i++) {
+             var pair = vars[i].split('=');
+             if (decodeURIComponent(pair[0]) == variable) {
+                 return decodeURIComponent(pair[1]);
+             }
+         }
+     };
+
+     return {
+         getParam: getQueryVariable
+     };
+ });
+
+ // определение языка
+ cm.define('i18n', ['urlManager'], function(cm) {
+     var urlManager = cm.get('urlManager');
+     if (
+         urlManager.getParam('lang') &&
+         (
+             urlManager.getParam('lang') === 'eng' ||
+             urlManager.getParam('lang') === 'rus'
+         )
+     ) {
+         nsGmx.Translations.setLanguage(urlManager.getParam('lang'));
+     } else {
+         nsGmx.Translations.setLanguage(nsGmx.Translations.getLanguageFromCookies('/'));
+     }
+     return nsGmx.Translations;
+ });
+
 cm.define('config', [], function(cm, cb) {
     $.ajax('resources/config.json').then(function(config) {
         $.ajax('local/config.json').then(function(localConfig) {

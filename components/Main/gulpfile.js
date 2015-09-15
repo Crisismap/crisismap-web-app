@@ -7,7 +7,15 @@ var streamqueue = require('streamqueue');
 var html2jsobject = require('gulp-html2jsobject');
 
 var styles = ['main.css'];
-var scripts = ['NewsLayersManager.js', 'core.js', 'map.js', 'layers.js', 'widgets.js', 'tail.js'];
+var scripts = [
+    'NewsLayersManager.js',
+    'core.js',
+    'map.js',
+    'layers.js',
+    'widgets.js',
+    'tail.js',
+    'translations.js'
+];
 var images = ['tiny-grid.png'];
 var templates = ['main.html'];
 

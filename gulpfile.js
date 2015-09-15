@@ -157,6 +157,9 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
+        id: 'utils',
+        url: 'http://maps.kosmosnimki.ru/api/utilities.js'
+    }, {
         id: 'Main',
         srcDir: './components/Main',
         distDir: './build',
