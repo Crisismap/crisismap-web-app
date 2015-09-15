@@ -140,7 +140,8 @@ cm.define('switchLanguageButton', ['headerMainMenu'], function (cm) {
     ));
     headerMainMenu.on('item:switchLanguage', function () {
         nsGmx.Translations.updateLanguageCookies(
-            nsGmx.Translations.getLanguage() === 'rus' ? 'eng' : 'rus'
+            nsGmx.Translations.getLanguage() === 'rus' ? 'eng' : 'rus',
+            '/'
         );
         window.location.reload(false);
     });
