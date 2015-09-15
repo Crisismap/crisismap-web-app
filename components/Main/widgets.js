@@ -133,6 +133,20 @@ cm.define('headerMainMenu', ['headerNavBar', 'map', 'widgetsManager'], function(
     return dropdownWidget;
 });
 
+cm.define('switchLanguageButton', ['headerMainMenu'], function (cm) {
+    var headerMainMenu = cm.get('headerMainMenu');
+    headerMainMenu.addItem('switchLanguage', new nsGmx.PlainTextWidget(
+        nsGmx.Translations.getText('crisismap.switchLanguage')
+    ));
+    headerMainMenu.on('item:switchLanguage', function () {
+        nsGmx.Translations.updateLanguageCookies(
+            nsGmx.Translations.getLanguage() === 'rus' ? 'eng' : 'rus'
+        );
+        window.location.reload(false);
+    });
+    return null;
+});
+
 cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash', 'headerNavBar', 'widgetsManager'], function() {
     var map = cm.get('map');
     var config = cm.get('config');

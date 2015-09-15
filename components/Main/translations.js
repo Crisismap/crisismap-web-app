@@ -5,6 +5,7 @@ nsGmx.Translations.addText('rus', {
     'crisismap.rateapp': 'Оценить приложение',
     'crisismap.options': 'Настройки',
     'crisismap.archive': 'Архив',
+    'crisismap.switchLanguage': 'Switch language',
     'crisismap.fires': 'Пожары',
     'crisismap.ecology': 'Экология',
     'crisismap.floods': 'Наводнения'
@@ -17,6 +18,7 @@ nsGmx.Translations.addText('eng', {
     'crisismap.rateapp': 'Rate app',
     'crisismap.options': 'Options',
     'crisismap.archive': 'Archive',
+    'crisismap.switchLanguage': 'Переключить язык',
     'crisismap.fires': 'Fires',
     'crisismap.ecology': 'Ecology',
     'crisismap.floods': 'Floods'
