@@ -63,10 +63,7 @@ cm.define('copyrightControl', ['gmxApplication'], function(cm) {
 });
 
 cm.define('logoControl', ['gmxApplication', 'map'], function(cm) {
-    var map = cm.get('map');
-    var logoControl = cm.get('gmxApplication').get('logoControl');
-    logoControl.removeFrom(map);
-    return logoControl;
+    return cm.get('gmxApplication').get('logoControl');
 });
 
 cm.define('gmxMap', ['gmxApplication'], function(cm) {

@@ -30,6 +30,8 @@ div { outline: none; }
 .leaflet-gmx-copyright-location { box-shadow: 0 0 4px hsla(0, 0%, 0%, 0.5); }
 .leaflet-gmx-copyrights { color: hsl(0, 0%, 50%); }
 
+.leaflet-gmx-logo { display: none; }
+
 .crisisMap-headerContainer .radioGroupWidget { width: 100%; height: 100%; }
 .crisisMap-headerContainer .radioGroupWidget-item { width: 33.5%; }
 .crisisMap-headerContainer .radioGroupWidget-item_active { border-bottom: 2px solid hsla(0, 50%, 50%, 1); border-top: 2px solid hsla(0, 50%, 50%, 0); }
