@@ -115,15 +115,6 @@ cm.define('layoutManager', [], function(cm) {
     }
 });
 
-cm.define('rootPageView', ['layoutManager'], function(cm) {
-    var layoutManager = cm.get('layoutManager');
-
-    var rootPageView = new nsGmx.PageView();
-    rootPageView.appendTo(layoutManager.getContentContainer());
-
-    return rootPageView;
-});
-
 cm.define('leafletProductionIssues', [], function(cm) {
     L.Icon.Default = L.Icon.Default.extend({
         options: {

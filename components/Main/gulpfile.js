@@ -12,7 +12,9 @@ var scripts = [
     'core.js',
     'map.js',
     'layers.js',
-    'widgets.js',
+    'commonWidgets.js',
+    'mobileWidgets.js',
+    'desktopWidgets.js',
     'tail.js',
     'translations.js'
 ];

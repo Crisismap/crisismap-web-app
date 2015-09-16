@@ -1,9 +1,6 @@
-cm.define('gmxApplication', ['config', 'rootPageView', 'leafletProductionIssues'], function(cm, cb) {
+cm.define('gmxApplication', ['config', 'mapContainer', 'leafletProductionIssues'], function(cm, cb) {
     var config = cm.get('config');
-    var rootPageView = cm.get('rootPageView');
-    var mapPage = rootPageView.addPage('map');
-    var mapContainer = $('<div>').addClass('crisisMap-mapContainer').appendTo(mapPage)[0];
-    rootPageView.setActivePage('map');
+    var mapContainer = cm.get('mapContainer');
 
     var gmxApplication = nsGmx.createGmxApplication(mapContainer, config);
     gmxApplication.create().then(function() {

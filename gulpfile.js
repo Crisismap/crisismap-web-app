@@ -86,6 +86,10 @@ require('./external/GMXBuilder')(gulp, {
         id: 'translations',
         url: 'http://maps.kosmosnimki.ru/api/translations.js'
     }, {
+        id: 'Utils',
+        srcDir: './external/GMXCommonComponents/Utils',
+        build: false
+    }, {
         id: 'GmxWidget',
         srcDir: './external/GMXCommonComponents/GmxWidget',
         build: false
@@ -157,7 +161,7 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
-        id: 'utils',
+        id: 'gmxUtils',
         url: 'http://maps.kosmosnimki.ru/api/utilities.js'
     }, {
         id: 'Main',
