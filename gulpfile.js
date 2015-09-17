@@ -121,6 +121,14 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/ComponentsManager',
         build: false
     }, {
+        id: 'AnimationHelpers',
+        srcDir: './external/GMXCommonComponents/AnimationHelpers',
+        build: false
+    }, {
+        id: 'IconSidebarWidget',
+        srcDir: './external/GMXCommonComponents/IconSidebarWidget',
+        build: false
+    }, {
         id: 'ApplicationConstructor',
         srcDir: './external/GMXCommonComponents/ApplicationConstructor',
         build: false

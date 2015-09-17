@@ -92,7 +92,8 @@ if (nsGmx.Utils.isMobile()) {
         return dropdownWidget;
     });
 
-    cm.define('headerLayoutButton', ['headerNavBar', 'rootPageView'], function(cm) {
+    cm.define('headerLayoutButton', ['headerNavBar', 'rootPageView', 'map'], function(cm) {
+        var map = cm.get('map');
         var rootPageView = cm.get('rootPageView');
         var headerNavBar = cm.get('headerNavBar');
 

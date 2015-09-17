@@ -19,7 +19,8 @@
         "layersDebugger": true,
         "copyrightControl": false,
         "bottomControl": false,
-        "logoControl": false
+        "logoControl": false,
+        "sidebarWidget": true
     },
     "user": {
         "sections": {

@@ -112,3 +112,7 @@ cm.define('switchLanguageButton', ['headerMainMenu'], function(cm) {
     });
     return null;
 });
+
+cm.define('sidebarWidget', ['gmxApplication'], function () {
+    return cm.get('gmxApplication').get('sidebarWidget');
+});
