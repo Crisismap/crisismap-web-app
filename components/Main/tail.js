@@ -12,7 +12,7 @@ cm.create().then(function() {
     window.lh = cm.get('layersHash');
     window.lt = cm.get('layersTree');
     window.ld = cm.get('layersDebugger');
+    window.sm = cm.get('sectionsManager');
     window.cal = cm.get('calendar');
-    window.nlm = cm.get('newsLayersManager');
     window.nlc = cm.get('newsLayersCollections')
 });

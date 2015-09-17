@@ -45,12 +45,12 @@ if (nsGmx.Utils.isMobile()) {
         return infoControl;
     });
 
-    cm.define('headerLayersMenu', ['map', 'config', 'newsLayersManager', 'layersHash', 'headerNavBar', 'widgetsManager'], function() {
+    cm.define('headerLayersMenu', ['map', 'config', 'sectionsManager', 'layersHash', 'headerNavBar', 'widgetsManager'], function() {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var headerNavBar = cm.get('headerNavBar');
-        var newsLayersManager = cm.get('newsLayersManager');
+        var sectionsManager = cm.get('sectionsManager');
         var widgetsManager = cm.get('widgetsManager');
 
         var dropdownItems = {
@@ -60,17 +60,17 @@ if (nsGmx.Utils.isMobile()) {
         };
 
         var dropdownWidget = new nsGmx.DropdownWidget({
-            title: dropdownItems[newsLayersManager.getActiveLayerName()],
+            title: dropdownItems[sectionsManager.getActiveSectionName()],
             showTopItem: false,
             trigger: 'click'
         });
 
         dropdownWidget.on('item', function(id) {
-            newsLayersManager.setActiveLayerByName(id);
+            sectionsManager.setActiveSection(id);
             cm.get('markerLayersPopupsManager') && cm.get('markerLayersPopupsManager').reset();
             nsGmx.L.Map.fitBounds.call(
                 map,
-                layersHash[newsLayersManager.getActiveLayerId()].getBounds()
+                layersHash[sectionsManager.getDataLayerId(id)].getBounds()
             );
             dropdownWidget.setTitle(dropdownItems[id]);
         });
@@ -92,10 +92,9 @@ if (nsGmx.Utils.isMobile()) {
         return dropdownWidget;
     });
 
-    cm.define('headerLayoutButton', ['headerNavBar', 'newsLayersManager', 'rootPageView'], function(cm) {
+    cm.define('headerLayoutButton', ['headerNavBar', 'rootPageView'], function(cm) {
         var rootPageView = cm.get('rootPageView');
         var headerNavBar = cm.get('headerNavBar');
-        var newsLayersManager = cm.get('newsLayersManager');
 
         var HeaderLayoutButton = nsGmx.GmxWidget.extend({
             className: 'headerLayoutButton icon-bell',
@@ -194,15 +193,15 @@ if (nsGmx.Utils.isMobile()) {
         return alertsPageView;
     });
 
-    cm.define('alertsPages', ['alertsPageView', 'newsLayersManager', 'headerLayoutButton', 'markerLayersPopupsManager', 'newsLayersCollections'], function(cm) {
+    cm.define('alertsPages', ['alertsPageView', 'sectionsManager', 'headerLayoutButton', 'markerLayersPopupsManager', 'newsLayersCollections'], function(cm) {
         var markerLayersPopupsManager = cm.get('markerLayersPopupsManager');
         var newsLayersCollections = cm.get('newsLayersCollections');
         var headerLayoutButton = cm.get('headerLayoutButton');
-        var newsLayersManager = cm.get('newsLayersManager');
+        var sectionsManager = cm.get('sectionsManager');
         var alertsPageView = cm.get('alertsPageView');
 
         var scrollViews = {}
-        newsLayersManager.getLayersNames().map(function(name) {
+        sectionsManager.getSectionsNames().map(function(name) {
             var page = alertsPageView.addPage(name);
             var markersCollectionView = new nsGmx.SwitchingCollectionWidget({
                 className: 'alertsCollectionView',
@@ -220,11 +219,11 @@ if (nsGmx.Utils.isMobile()) {
             scrollView.appendTo(page);
         });
 
-        alertsPageView.setActivePage(newsLayersManager.getActiveLayerName());
+        alertsPageView.setActivePage(sectionsManager.getActiveSectionName());
 
-        newsLayersManager.on('activelayerchange', function(d) {
-            alertsPageView.setActivePage(d.name);
-            scrollViews[d.name].repaint();
+        sectionsManager.on('sectionchange', function(sectionName) {
+            alertsPageView.setActivePage(sectionName);
+            scrollViews[sectionName].repaint();
         });
 
         headerLayoutButton.on('stateswitch', function(state) {

@@ -10,26 +10,26 @@ cm.define('layersTree', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersTree');
 });
 
-cm.define('newsLayersManager', ['config', 'layersTree'], function(cm) {
-    return new NewsLayersManager({
-        layersTree: cm.get('layersTree'),
-        newsLayers: cm.get('config').user.newsLayers
+cm.define('sectionsManager', ['config', 'layersTree'], function (cm) {
+    return new SectionsManager({
+        sections: cm.get('config').user.sections,
+        layersTree: cm.get('layersTree')
     })
 });
 
-cm.define('newsLayersClusters', ['layersHash', 'newsLayersManager'], function(cm) {
+cm.define('newsLayersClusters', ['layersHash', 'sectionsManager'], function(cm) {
     var layersHash = cm.get('layersHash');
-    var newsLayersManager = cm.get('newsLayersManager');
-    newsLayersManager.getLayersNames().map(function(name) {
-        layersHash[newsLayersManager.getLayerIdByLayerName(name)].bindClusters();
+    var sectionsManager = cm.get('sectionsManager');
+    sectionsManager.getSectionsNames().map(function(sectionName) {
+        layersHash[sectionsManager.getDataLayerId(sectionName)].bindClusters();
     });
     return null;
 });
 
-cm.define('newsLayersCollections', ['newsLayersManager', 'layersHash', 'calendar'], function(cm) {
+cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar'], function(cm) {
     var calendar = cm.get('calendar');
     var layersHash = cm.get('layersHash')
-    var newsLayersManager = cm.get('newsLayersManager');
+    var sectionsManager = cm.get('sectionsManager');
 
     var MarkerModel = Backbone.Model.extend({
         constructor: function(properties) {
@@ -48,12 +48,12 @@ cm.define('newsLayersCollections', ['newsLayersManager', 'layersHash', 'calendar
         }
     });
 
-    var names = newsLayersManager.getLayersNames();
+    var names = sectionsManager.getSectionsNames();
     var collections = {};
     for (var i = 0; i < names.length; i++) {
         collections[names[i]] = new nsGmx.LayerMarkersCollection([], {
             model: MarkerModel,
-            layer: layersHash[newsLayersManager.getLayerIdByLayerName(names[i])],
+            layer: layersHash[sectionsManager.getDataLayerId(names[i])],
             calendar: calendar,
             comparator: function(a, b) {
                 a = a.get('date').getTime();
@@ -72,16 +72,16 @@ cm.define('newsLayersCollections', ['newsLayersManager', 'layersHash', 'calendar
     return collections;
 });
 
-cm.define('markersClickHandler', ['layersHash', 'newsLayersManager', 'newsLayersCollections'], function(cm) {
+cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCollections'], function(cm) {
     var layersHash = cm.get('layersHash');
-    var newsLayersManager = cm.get('newsLayersManager');
+    var sectionsManager = cm.get('sectionsManager');
     var newsLayersCollections = cm.get('newsLayersCollections');
 
     var MarkersClickHandler = L.Class.extend({
         includes: [L.Mixin.Events],
         initialize: function() {
-            newsLayersManager.getLayersNames().map(function(name) {
-                var layer = layersHash[newsLayersManager.getLayerIdByLayerName(name)];
+            sectionsManager.getSectionsNames().map(function(name) {
+                var layer = layersHash[sectionsManager.getDataLayerId(name)];
                 var collection = newsLayersCollections[name];
                 unbindPopup(layer);
                 layer.on('click', function(e) {
