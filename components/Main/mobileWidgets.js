@@ -1,4 +1,4 @@
-if (nsGmx.Utils.isMobile()) {
+if (nsGmx.CrisisMap.isMobile()) {
     cm.define('rootPageView', ['layoutManager'], function(cm) {
         var layoutManager = cm.get('layoutManager');
 

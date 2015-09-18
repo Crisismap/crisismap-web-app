@@ -1,4 +1,4 @@
-if (!nsGmx.Utils.isMobile()) {
+if (!nsGmx.CrisisMap.isMobile()) {
     cm.define('mapContainer', ['layoutManager'], function(cm) {
         var layoutManager = cm.get('layoutManager');
         return $(layoutManager.getContentContainer());
