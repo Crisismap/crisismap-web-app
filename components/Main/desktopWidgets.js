@@ -41,4 +41,22 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return radioGroupWidget;
     });
 
+    cm.define('popups', ['sectionsManager', 'layersHash', 'markersClickHandler','map'], function(cm) {
+        var map = cm.get('map');
+        var layersHash = cm.get('layersHash');
+        var sectionsManager = cm.get('sectionsManager');
+        var markersClickHandler = cm.get('markersClickHandler');
+
+        markersClickHandler.on('click', function (e) {
+            var p = L.popup();
+            var detailsView = new nsGmx.EventDetailsView({
+                model: e.model
+            });
+            p.setContent(detailsView.getContainer());
+            p.setLatLng(e.model.get('latLng'));
+            map.openPopup(p);
+        });
+
+        return null;
+    });
 }
