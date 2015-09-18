@@ -116,3 +116,36 @@ cm.define('switchLanguageButton', ['headerMainMenu'], function(cm) {
 cm.define('sidebarWidget', ['gmxApplication'], function () {
     return cm.get('gmxApplication').get('sidebarWidget');
 });
+
+// cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget'], function () {
+//     var layersTree = cm.get('layersTree');
+//     var sidebarWidget = cm.get('sidebarWidget');
+//     var layersTreeWidget = new nsGmx.LayersTreeWidget({
+//         model: layersTree
+//     });
+//     var container = sidebarWidget.addTab('layersTreeWidget', 'icon-layers');
+//     layersTreeWidget.appendTo(container);
+//     return layersTreeWidget;
+// });
+
+cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager'], function (cm) {
+    var layersTree = cm.get('layersTree');
+    var sidebarWidget = cm.get('sidebarWidget');
+    var sectionsManager = cm.get('sectionsManager');
+    var switchingLayersTreeWidget = new nsGmx.SwitchingModelWidget({
+        widgetClass: nsGmx.LayersTreeWidget
+    });
+    var container = sidebarWidget.addTab('layersTreeWidget', 'icon-layers');
+    switchingLayersTreeWidget.appendTo(container);
+    sectionsManager.on('sectionchange', function (sectionName) {
+        switchingLayersTreeWidget.setModel(
+            sectionsManager.getSectionSubtree(sectionName)
+        );
+    });
+    switchingLayersTreeWidget.setModel(
+        sectionsManager.getSectionSubtree(
+            sectionsManager.getActiveSectionName()
+        )
+    );
+    return switchingLayersTreeWidget;
+});

@@ -15,4 +15,5 @@ cm.create().then(function() {
     window.sm = cm.get('sectionsManager');
     window.cal = cm.get('calendar');
     window.nlc = cm.get('newsLayersCollections')
+    window.ltw = cm.get('layersTreeWidget');
 });

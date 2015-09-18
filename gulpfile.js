@@ -98,8 +98,8 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/SwitchingCollectionWidget',
         build: false
     }, {
-        id: 'CommonStyles',
         srcDir: './external/GMXCommonComponents/CommonStyles',
+        id: 'CommonStyles',
         distDir: './build',
         build: true
     }, {
@@ -129,6 +129,11 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/IconSidebarWidget',
         build: false
     }, {
+        id: 'LayersTreeWidget',
+        srcDir: './external/GMXCommonComponents/LayersTreeWidget',
+        distDir: './build',
+        build: true
+    }, {
         id: 'ApplicationConstructor',
         srcDir: './external/GMXCommonComponents/ApplicationConstructor',
         build: false
@@ -157,6 +162,10 @@ require('./external/GMXBuilder')(gulp, {
     }, {
         id: 'PageView',
         srcDir: './components/PageView',
+        build: false
+    }, {
+        id: 'SwitchingModelWidget',
+        srcDir: './components/SwitchingModelWidget',
         build: false
     }, {
         id: 'AlertItemView',
