@@ -45,6 +45,7 @@ div { outline: none; }
 .headerNavBar-centerContainer { width: auto; }
 
 .headerNavBar .dropdownWidget { font-size: 14px; }
+.headerNavBar .radioGroupWidget { max-width: 700px; margin: 0 auto; }
 .headerNavBar-leftContainer .dropdownWidget-dropdown { text-align: left; }
 
 .headerLayoutButton { font-size: 1.1em; color: hsl(0, 0%, 20%); cursor: pointer; }
