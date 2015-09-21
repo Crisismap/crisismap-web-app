@@ -59,10 +59,10 @@ var SectionsManager = L.Class.extend({
     },
     getDataLayer: function(sectionName) {
         return this.getSectionSubtree(sectionName).find(
-            this.sections[sectionName].dataLayer
+            this.sections[sectionName].dataLayerId
         );
     },
-    getDataLayerId: function (sectionName) {
+    getDataLayerId: function(sectionName) {
         return this.getDataLayer(sectionName).get('properties').LayerID;
     },
     getGroupIdBySectionName: function(sectionName) {

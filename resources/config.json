@@ -26,15 +26,15 @@
         "sections": {
             "fires": {
                 "groupId": "E8UaLwuFxFZspAap",
-                "dataLayer": "A854633809CB44B088DD51B70A312EEC"
-            },
-            "floods": {
-                "groupId": "DflNK5phRKpJ2dZL",
-                "dataLayer": "F3D234FAACF44C06A719E8B19D99E2B5"
+                "dataLayerId": "A854633809CB44B088DD51B70A312EEC"
             },
             "ecology": {
                 "groupId": "Jc2t053ymObeCVLW",
-                "dataLayer": "B078737025C54D26B87DDD9CACBB70B7"
+                "dataLayerId": "B078737025C54D26B87DDD9CACBB70B7"
+            },
+            "ukraine": {
+                "groupId": "DflNK5phRKpJ2dZL",
+                "dataLayerId": "0013A58990D94C1B9B71E868F0C29C30"
             }
         }
     }

@@ -6,9 +6,10 @@ nsGmx.Translations.addText('rus', {
     'crisismap.options': 'Настройки',
     'crisismap.archive': 'Архив',
     'crisismap.switchLanguage': 'Switch language',
-    'crisismap.fires': 'Пожары',
-    'crisismap.ecology': 'Экология',
-    'crisismap.floods': 'Наводнения'
+    'crisismap.section.fires': 'Пожары',
+    'crisismap.section.ecology': 'Экология',
+    'crisismap.section.floods': 'Наводнения',
+    'crisismap.section.ukraine': 'Война в Украине'
 });
 
 nsGmx.Translations.addText('eng', {
@@ -19,7 +20,8 @@ nsGmx.Translations.addText('eng', {
     'crisismap.options': 'Options',
     'crisismap.archive': 'Archive',
     'crisismap.switchLanguage': 'Переключить язык',
-    'crisismap.fires': 'Fires',
-    'crisismap.ecology': 'Ecology',
-    'crisismap.floods': 'Floods'
+    'crisismap.section.fires': 'Fires',
+    'crisismap.section.ecology': 'Ecology',
+    'crisismap.section.floods': 'Floods',
+    'crisismap.section.ukraine': 'War in Ukraine'
 });

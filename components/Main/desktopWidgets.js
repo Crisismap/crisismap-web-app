@@ -12,16 +12,12 @@ if (!nsGmx.CrisisMap.isMobile()) {
         var sectionsManager = cm.get('sectionsManager');
         var widgetsManager = cm.get('widgetsManager');
 
-        var items = [{
-            id: 'fires',
-            title: nsGmx.Translations.getText('crisismap.fires')
-        }, {
-            id: 'ecology',
-            title: nsGmx.Translations.getText('crisismap.ecology')
-        }, {
-            id: 'floods',
-            title: nsGmx.Translations.getText('crisismap.floods')
-        }];
+        var items = sectionsManager.getSectionsNames().map(function(sectionName) {
+            return {
+                id: sectionName,
+                title: nsGmx.Translations.getText('crisismap.section.' + sectionName)
+            }
+        });
 
         var radioGroupWidget = new nsGmx.RadioGroupWidget({
             items: items,
@@ -41,13 +37,13 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return radioGroupWidget;
     });
 
-    cm.define('popups', ['sectionsManager', 'layersHash', 'markersClickHandler','map'], function(cm) {
+    cm.define('popups', ['sectionsManager', 'layersHash', 'markersClickHandler', 'map'], function(cm) {
         var map = cm.get('map');
         var layersHash = cm.get('layersHash');
         var sectionsManager = cm.get('sectionsManager');
         var markersClickHandler = cm.get('markersClickHandler');
 
-        markersClickHandler.on('click', function (e) {
+        markersClickHandler.on('click', function(e) {
             var p = L.popup();
             var detailsView = new nsGmx.EventDetailsView({
                 model: e.model

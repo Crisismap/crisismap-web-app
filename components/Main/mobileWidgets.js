@@ -8,7 +8,7 @@ if (nsGmx.CrisisMap.isMobile()) {
         return rootPageView;
     });
 
-    cm.define('mapContainer', ['rootPageView'], function (cm) {
+    cm.define('mapContainer', ['rootPageView'], function(cm) {
         var rootPageView = cm.get('rootPageView');
         var mapPage = rootPageView.addPage('map');
         rootPageView.setActivePage('map');
@@ -53,11 +53,11 @@ if (nsGmx.CrisisMap.isMobile()) {
         var sectionsManager = cm.get('sectionsManager');
         var widgetsManager = cm.get('widgetsManager');
 
-        var dropdownItems = {
-            fires: nsGmx.Translations.getText('crisismap.fires'),
-            ecology: nsGmx.Translations.getText('crisismap.ecology'),
-            floods: nsGmx.Translations.getText('crisismap.floods')
-        };
+        var dropdownItems = {};
+        var sections = sectionsManager.getSectionsNames();
+        for (var i = 0; i < sections.length; i++) {
+            dropdownItems[sections[i]] = nsGmx.Translations.getText('crisismap.section.' + sections[i])
+        }
 
         var dropdownWidget = new nsGmx.DropdownWidget({
             title: dropdownItems[sectionsManager.getActiveSectionName()],
