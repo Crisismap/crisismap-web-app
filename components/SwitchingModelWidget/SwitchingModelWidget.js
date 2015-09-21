@@ -10,7 +10,6 @@ window.nsGmx.SwitchingModelWidget = window.nsGmx.PageView.extend({
     },
     setModel: function(model) {
         var index = _.findIndex(this._widgets, function(widget) {
-            console.log(arguments);
             return widget.model.cid === model.cid;
         });
         if (index === -1) {
