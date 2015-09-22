@@ -164,8 +164,8 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './components/PageView',
         build: false
     }, {
-        id: 'SwitchingModelWidget',
-        srcDir: './components/SwitchingModelWidget',
+        id: 'PagedWidgets',
+        srcDir: './components/PagedWidgets',
         build: false
     }, {
         id: 'AlertItemView',

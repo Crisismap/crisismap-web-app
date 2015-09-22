@@ -2,7 +2,7 @@ window.nsGmx = window.nsGmx || {};
 
 // options.widgetClass
 // options.widgetOptions
-window.nsGmx.SwitchingModelWidget = window.nsGmx.PageView.extend({
+window.nsGmx.ModelPagedWidget = window.nsGmx.PageView.extend({
     initialize: function(options) {
         nsGmx.PageView.prototype.initialize.apply(this, arguments);
         this._widgets = [];

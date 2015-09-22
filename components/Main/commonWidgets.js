@@ -121,7 +121,7 @@ cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager']
     var layersTree = cm.get('layersTree');
     var sidebarWidget = cm.get('sidebarWidget');
     var sectionsManager = cm.get('sectionsManager');
-    var switchingLayersTreeWidget = new nsGmx.SwitchingModelWidget({
+    var switchingLayersTreeWidget = new nsGmx.ModelPagedWidget({
         widgetClass: nsGmx.LayersTreeWidget
     });
     var container = sidebarWidget.addTab('layersTreeWidget', 'icon-layers');
