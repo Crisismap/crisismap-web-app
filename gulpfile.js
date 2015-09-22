@@ -166,7 +166,8 @@ require('./external/GMXBuilder')(gulp, {
     }, {
         id: 'PagedWidgets',
         srcDir: './components/PagedWidgets',
-        build: false
+        distDir: './build',
+        build: true
     }, {
         id: 'AlertItemView',
         srcDir: './components/AlertItemView',
