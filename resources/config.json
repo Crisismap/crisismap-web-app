@@ -23,19 +23,6 @@
         "sidebarWidget": true
     },
     "user": {
-        "sections": {
-            "fires": {
-                "groupId": "E8UaLwuFxFZspAap",
-                "dataLayerId": "A854633809CB44B088DD51B70A312EEC"
-            },
-            "ecology": {
-                "groupId": "Jc2t053ymObeCVLW",
-                "dataLayerId": "B078737025C54D26B87DDD9CACBB70B7"
-            },
-            "ukraine": {
-                "groupId": "DflNK5phRKpJ2dZL",
-                "dataLayerId": "0013A58990D94C1B9B71E868F0C29C30"
-            }
-        }
+        "sectionsTree": "U4okmqmPwu38rDNW"
     }
 }

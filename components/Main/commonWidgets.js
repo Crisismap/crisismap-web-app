@@ -113,22 +113,11 @@ cm.define('switchLanguageButton', ['headerMainMenu'], function(cm) {
     return null;
 });
 
-cm.define('sidebarWidget', ['gmxApplication'], function () {
+cm.define('sidebarWidget', ['gmxApplication'], function() {
     return cm.get('gmxApplication').get('sidebarWidget');
 });
 
-// cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget'], function () {
-//     var layersTree = cm.get('layersTree');
-//     var sidebarWidget = cm.get('sidebarWidget');
-//     var layersTreeWidget = new nsGmx.LayersTreeWidget({
-//         model: layersTree
-//     });
-//     var container = sidebarWidget.addTab('layersTreeWidget', 'icon-layers');
-//     layersTreeWidget.appendTo(container);
-//     return layersTreeWidget;
-// });
-
-cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager'], function (cm) {
+cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager'], function(cm) {
     var layersTree = cm.get('layersTree');
     var sidebarWidget = cm.get('sidebarWidget');
     var sectionsManager = cm.get('sectionsManager');
@@ -137,15 +126,11 @@ cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager']
     });
     var container = sidebarWidget.addTab('layersTreeWidget', 'icon-layers');
     switchingLayersTreeWidget.appendTo(container);
-    sectionsManager.on('sectionchange', function (sectionName) {
-        switchingLayersTreeWidget.setModel(
-            sectionsManager.getSectionSubtree(sectionName)
-        );
+    sectionsManager.on('sectionchange', function(sectionId) {
+        var model = sectionsManager.getSectionProperties(sectionId).tree;
+        model && switchingLayersTreeWidget.setModel(model);
     });
-    switchingLayersTreeWidget.setModel(
-        sectionsManager.getSectionSubtree(
-            sectionsManager.getActiveSectionName()
-        )
-    );
+    var model = sectionsManager.getSectionProperties(sectionsManager.getActiveSectionId()).tree
+    model && switchingLayersTreeWidget.setModel(model);
     return switchingLayersTreeWidget;
 });

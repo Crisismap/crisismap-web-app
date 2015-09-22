@@ -8,7 +8,6 @@ var html2jsobject = require('gulp-html2jsobject');
 
 var styles = ['main.css'];
 var scripts = [
-    'SectionsManager.js',
     'core.js',
     'map.js',
     'layers.js',

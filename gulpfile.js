@@ -181,6 +181,10 @@ require('./external/GMXBuilder')(gulp, {
         id: 'gmxUtils',
         url: 'http://maps.kosmosnimki.ru/api/utilities.js'
     }, {
+        id: 'SectionsManager',
+        srcDir: './components/SectionsManager',
+        build: false
+    }, {
         id: 'Main',
         srcDir: './components/Main',
         distDir: './build',

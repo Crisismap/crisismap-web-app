@@ -10,18 +10,20 @@ cm.define('layersTree', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersTree');
 });
 
-cm.define('sectionsManager', ['config', 'layersTree'], function (cm) {
-    return new SectionsManager({
-        sections: cm.get('config').user.sections,
-        layersTree: cm.get('layersTree')
-    })
+cm.define('sectionsManager', ['config', 'layersTree'], function() {
+    var config = cm.get('config');
+    var layersTree = cm.get('layersTree');
+    return new nsGmx.SectionsManager({
+        sectionsTree: layersTree.find(config.user.sectionsTree)
+    });
 });
 
 cm.define('newsLayersClusters', ['layersHash', 'sectionsManager'], function(cm) {
     var layersHash = cm.get('layersHash');
     var sectionsManager = cm.get('sectionsManager');
-    sectionsManager.getSectionsNames().map(function(sectionName) {
-        layersHash[sectionsManager.getDataLayerId(sectionName)].bindClusters();
+    sectionsManager.getSectionsIds().map(function(sectionId) {
+        var layer = layersHash[sectionsManager.getSectionProperties(sectionId).dataLayerId];
+        layer && layer.bindClusters();
     });
     return null;
 });
@@ -48,25 +50,30 @@ cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar']
         }
     });
 
-    var names = sectionsManager.getSectionsNames();
+    var sectionsIds = sectionsManager.getSectionsIds();
     var collections = {};
-    for (var i = 0; i < names.length; i++) {
-        collections[names[i]] = new nsGmx.LayerMarkersCollection([], {
-            model: MarkerModel,
-            layer: layersHash[sectionsManager.getDataLayerId(names[i])],
-            calendar: calendar,
-            comparator: function(a, b) {
-                a = a.get('date').getTime();
-                b = b.get('date').getTime();
-                if (a > b) {
-                    return -1
-                } else if (a < b) {
-                    return 1;
-                } else {
-                    return 0;
+    for (var i = 0; i < sectionsIds.length; i++) {
+        var dataLayer = layersHash[sectionsManager.getSectionProperties(sectionsIds[i]).dataLayerId];
+        if (dataLayer) {
+            collections[sectionsIds[i]] = new nsGmx.LayerMarkersCollection([], {
+                model: MarkerModel,
+                layer: dataLayer,
+                calendar: calendar,
+                comparator: function(a, b) {
+                    a = a.get('date').getTime();
+                    b = b.get('date').getTime();
+                    if (a > b) {
+                        return -1
+                    } else if (a < b) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            collections[sectionsIds[i]] = new Backbone.Collection();
+        }
     }
 
     return collections;
@@ -80,9 +87,12 @@ cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCo
     var MarkersClickHandler = L.Class.extend({
         includes: [L.Mixin.Events],
         initialize: function() {
-            sectionsManager.getSectionsNames().map(function(name) {
-                var layer = layersHash[sectionsManager.getDataLayerId(name)];
-                var collection = newsLayersCollections[name];
+            sectionsManager.getSectionsIds().map(function(sectionId) {
+                var layer = layersHash[sectionsManager.getSectionProperties(sectionId).dataLayerId];
+                if (!layer) {
+                    return;
+                }
+                var collection = newsLayersCollections[sectionId];
                 unbindPopup(layer);
                 layer.on('click', function(e) {
                     if (!e.eventFrom || e.originalEventType === 'click') {
@@ -93,7 +103,7 @@ cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCo
                                 id: id
                             }),
                             layer: layer,
-                            name: name
+                            name: sectionId
                         });
                     }
                 }.bind(this));

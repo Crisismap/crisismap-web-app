@@ -12,24 +12,29 @@ if (!nsGmx.CrisisMap.isMobile()) {
         var sectionsManager = cm.get('sectionsManager');
         var widgetsManager = cm.get('widgetsManager');
 
-        var items = sectionsManager.getSectionsNames().map(function(sectionName) {
+        var items = sectionsManager.getSectionsIds().map(function(sectionId) {
             return {
-                id: sectionName,
-                title: nsGmx.Translations.getText('crisismap.section.' + sectionName)
+                id: sectionId,
+                title: sectionsManager.getSectionProperties(sectionId).title
             }
         });
 
         var radioGroupWidget = new nsGmx.RadioGroupWidget({
             items: items,
-            activeItem: sectionsManager.getActiveSectionName()
+            activeItem: sectionsManager.getActiveSectionId()
         });
 
         radioGroupWidget.on('select', function(id) {
-            sectionsManager.setActiveSection(id);
-            nsGmx.L.Map.fitBounds.call(
+            sectionsManager.setActiveSectionId(id);
+            var layer = layersHash[sectionsManager.getSectionProperties(id).dataLayerId];
+            layer && nsGmx.L.Map.fitBounds.call(
                 map,
-                layersHash[sectionsManager.getDataLayerId(id)].getBounds()
+                layer.getBounds()
             );
+        });
+
+        sectionsManager.on('sectionchange', function(sectionId) {
+            radioGroupWidget.setActiveItem(sectionId);
         });
 
         radioGroupWidget.appendTo(headerNavBar.getCenterContainer());
@@ -37,10 +42,9 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return radioGroupWidget;
     });
 
-    cm.define('popups', ['sectionsManager', 'layersHash', 'markersClickHandler', 'map'], function(cm) {
+    cm.define('popups', ['layersHash', 'markersClickHandler', 'map'], function(cm) {
         var map = cm.get('map');
         var layersHash = cm.get('layersHash');
-        var sectionsManager = cm.get('sectionsManager');
         var markersClickHandler = cm.get('markersClickHandler');
 
         markersClickHandler.on('click', function(e) {
