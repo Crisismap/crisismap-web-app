@@ -18,12 +18,26 @@ cm.define('sectionsManager', ['config', 'layersTree'], function() {
     });
 });
 
-cm.define('newsLayersClusters', ['layersHash', 'sectionsManager'], function(cm) {
+cm.define('newsLayersClusters', ['layersHash', 'sectionsManager', 'map'], function(cm) {
+    var map = cm.get('map');
     var layersHash = cm.get('layersHash');
     var sectionsManager = cm.get('sectionsManager');
     sectionsManager.getSectionsIds().map(function(sectionId) {
         var layer = layersHash[sectionsManager.getSectionProperties(sectionId).dataLayerId];
-        layer && layer.bindClusters();
+        layer && layer.bindClusters({
+            maxZoom: map.getMaxZoom(),
+            zoomToBoundsOnClick: false,
+            clusterclick: function(e) {
+                var bounds = e.layer.getBounds();
+                var nw = bounds.getNorthWest();
+                var se = bounds.getSouthEast();
+                if (nw.distanceTo(se) === 0) {
+                    e.layer.spiderfy();
+                } else {
+                    e.layer.zoomToBounds();
+                }
+            }
+        });
     });
     return null;
 });
