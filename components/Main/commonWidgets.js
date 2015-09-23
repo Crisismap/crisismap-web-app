@@ -137,14 +137,12 @@ cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager']
 
 cm.define('alertsWidget', [
     'sectionsManager',
-    'headerLayoutButton',
     'newsLayersCollections',
-    'alertsWidgetContainer',
+    'alertsWidgetScrollView'
 ], function(cm) {
     var sectionsManager = cm.get('sectionsManager');
-    var headerLayoutButton = cm.get('headerLayoutButton');
     var newsLayersCollections = cm.get('newsLayersCollections');
-    var alertsWidgetContainer = cm.get('alertsWidgetContainer');
+    var alertsWidgetScrollView = cm.get('alertsWidgetScrollView');
 
     var alertsWidget = new nsGmx.SwitchingCollectionWidget({
         className: 'alertsCollectionView',
@@ -158,17 +156,7 @@ cm.define('alertsWidget', [
         alertsWidget.setCollection(newsLayersCollections[sectionId]);
     });
 
-    var scrollView = new nsGmx.ScrollView({
-        views: [alertsWidget]
-    });
-
-    headerLayoutButton.on('stateswitch', function(state) {
-        if (state === 'alerts') {
-            scrollView.repaint();
-        }
-    });
-
-    scrollView.appendTo(alertsWidgetContainer);
+    alertsWidgetScrollView.addView(alertsWidget);
 
     return alertsWidget;
 });

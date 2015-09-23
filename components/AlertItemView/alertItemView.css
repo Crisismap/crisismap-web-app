@@ -1,4 +1,4 @@
-.alertItemView { cursor: pointer; font-size: .8em; }
+.alertItemView { cursor: pointer; font-size: 12px; }
 .alertItemView_expanded { box-shadow: 0 0 2px hsla(0, 0%, 0%, .5); }
 
 .alertItemView-collapsed-date { display: inline; font-weight: bold; }

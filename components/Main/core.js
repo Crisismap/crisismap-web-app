@@ -105,12 +105,14 @@ cm.define('config', [], function(cm, cb) {
 });
 
 cm.define('layoutManager', [], function(cm) {
-    var headerContainer = L.DomUtil.create('div', 'crisisMap-headerContainer');
-    var contentContainer = L.DomUtil.create('div', 'crisisMap-contentContainer');
-
-    [headerContainer, contentContainer].map(function(el) {
-        document.body.appendChild(el);
-    });
+    var rootContainer = document.body;
+    L.DomUtil.addClass(rootContainer, 'crisisMap');
+    L.DomUtil.addClass(rootContainer, nsGmx.CrisisMap.isMobile() ?
+        'crisisMap_mobile' :
+        'crisisMap_desktop'
+    );
+    var headerContainer = L.DomUtil.create('div', 'crisisMap-headerContainer', rootContainer);
+    var contentContainer = L.DomUtil.create('div', 'crisisMap-contentContainer', rootContainer);
 
     return {
         getHeaderContainer: function() {

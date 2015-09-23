@@ -45,11 +45,16 @@ div { outline: none; }
 .headerNavBar-centerContainer { width: auto; }
 
 .headerNavBar .dropdownWidget { font-size: 14px; }
-.headerNavBar .radioGroupWidget { max-width: 700px; margin: 0 auto; }
+.headerNavBar .radioGroupWidget { max-width: 700px; margin: 0 auto; font-size: 12px; }
 .headerNavBar-leftContainer .dropdownWidget-dropdown { text-align: left; }
 
-.headerLayoutButton { font-size: 1.1em; color: hsl(0, 0%, 20%); cursor: pointer; }
+.headerLayoutButton { font-size: 16px; color: hsl(0, 0%, 20%); cursor: pointer; }
 
-.alertsCollectionView { padding-left: 10px; }
+.crisisMap_desktop .alertsCollectionView { padding: 0px; }
+.crisisMap_mobile .alertsCollectionView { padding: 5px; padding-left: 10px; }
+
+.crisisMap_mobile .alertItemView { font-size: 13px; }
+.crisisMap_desktop .alertItemView { border: 1px solid hsl(0, 0%, 85%); }
+.crisisMap_desktop .alertItemView_expanded { box-shadow: none; }
 
 .leaflet-popup-content-wrapper { border-radius: 4px; }

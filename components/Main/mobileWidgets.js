@@ -15,9 +15,12 @@ if (nsGmx.CrisisMap.isMobile()) {
         return $('<div>').addClass('crisisMap-mapPage').appendTo(mapPage)[0];
     });
 
-    cm.define('alertsWidgetContainer', ['rootPageView'] ,function (cm) {
+    cm.define('alertsWidgetScrollView', ['rootPageView'], function () {
         var rootPageView = cm.get('rootPageView');
-        return $(rootPageView.addPage('alerts')).addClass('pageView-item_alerts');
+        var alertsWidgetContainer = $(rootPageView.addPage('alerts')).addClass('pageView-item_alerts');
+        var scrollView = new nsGmx.ScrollView();
+        scrollView.appendTo(alertsWidgetContainer);
+        return scrollView;
     });
 
     cm.define('markerCursor', ['map'], function(cm) {
@@ -89,8 +92,9 @@ if (nsGmx.CrisisMap.isMobile()) {
         return dropdownWidget;
     });
 
-    cm.define('headerLayoutButton', ['headerNavBar', 'rootPageView', 'map'], function(cm) {
+    cm.define('headerLayoutButton', ['headerNavBar', 'rootPageView', 'map', 'alertsWidget'], function(cm) {
         var map = cm.get('map');
+        var alertsWidget = cm.get('alertsWidget');
         var rootPageView = cm.get('rootPageView');
         var headerNavBar = cm.get('headerNavBar');
 
@@ -121,6 +125,7 @@ if (nsGmx.CrisisMap.isMobile()) {
                 map.invalidateSize();
             } else {
                 rootPageView.setActivePage('alerts');
+                alertsWidget.trigger('resize');
             }
         });
 
