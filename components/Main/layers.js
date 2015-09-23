@@ -10,7 +10,26 @@ cm.define('layersTree', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersTree');
 });
 
-cm.define('sectionsManager', ['config', 'layersTree'], function() {
+cm.define('layersTranslations', ['config', 'layersTree'], function(cm) {
+    var config = cm.get('config');
+    var layersTree = cm.get('layersTree');
+
+    if (!config.user.layersTranslations || nsGmx.Translations.getLanguage() !== 'eng') {
+        return null;
+    }
+
+    for (var groupId in config.user.layersTranslations) {
+        var layer = layersTree.find(groupId);
+        if (layer) {
+            var p = layer.get('properties');
+            p.title = config.user.layersTranslations[groupId];
+        }
+    }
+
+    return true;
+});
+
+cm.define('sectionsManager', ['config', 'layersTree', 'layersTranslations'], function() {
     var config = cm.get('config');
     var layersTree = cm.get('layersTree');
     return new nsGmx.SectionsManager({

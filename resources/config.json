@@ -24,6 +24,11 @@
     },
     "user": {
         "sectionsTree": "U4okmqmPwu38rDNW",
-        "markerZoom": 9
+        "markerZoom": 9,
+        "layersTranslations": {
+            "E8UaLwuFxFZspAap": "Fires",
+            "Jc2t053ymObeCVLW": "Ecology",
+            "DflNK5phRKpJ2dZL": "War in Ukraine"
+        }
     }
 }
