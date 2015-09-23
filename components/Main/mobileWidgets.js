@@ -15,6 +15,11 @@ if (nsGmx.CrisisMap.isMobile()) {
         return $('<div>').addClass('crisisMap-mapPage').appendTo(mapPage)[0];
     });
 
+    cm.define('alertsWidgetContainer', ['rootPageView'] ,function (cm) {
+        var rootPageView = cm.get('rootPageView');
+        return $(rootPageView.addPage('alerts')).addClass('pageView-item_alerts');
+    });
+
     cm.define('markerCursor', ['map'], function(cm) {
         var map = cm.get('map');
         var marker = L.marker([0, 0]);
@@ -123,11 +128,21 @@ if (nsGmx.CrisisMap.isMobile()) {
     });
 
     // компонент, отображающий попапы маркеров
-    cm.define('markerLayersPopupsManager', ['config', 'infoControl', 'headerNavBar', 'markersClickHandler'], function(cm) {
+    cm.define('markerLayersPopupsManager', [
+        'map',
+        'config',
+        'infoControl',
+        'headerNavBar',
+        'alertsWidget',
+        'headerLayoutButton',
+        'markersClickHandler',
+    ], function(cm) {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var headerNavBar = cm.get('headerNavBar');
+        var alertsWidget = cm.get('alertsWidget');
+        var headerLayoutButton = cm.get('headerLayoutButton');
         var markersClickHandler = cm.get('markersClickHandler');
 
         var MLPM = L.Class.extend({
@@ -171,65 +186,14 @@ if (nsGmx.CrisisMap.isMobile()) {
 
         markersClickHandler.on('click', function(e) {
             mlpm.show(e.model);
+        });
+
+        alertsWidget.on('marker', function (model) {
+            headerLayoutButton.toggleState();
+            mlpm.show(model);
         })
 
         return mlpm;
-    });
-
-    cm.define('alertsPageView', ['rootPageView'], function(cm) {
-        var rootPageView = cm.get('rootPageView');
-
-        var alertsPageView = new nsGmx.PageView();
-        var $alertsPage = $(rootPageView.addPage('alerts')).addClass('pageView-item_alerts');
-        alertsPageView.appendTo($alertsPage);
-
-        return alertsPageView;
-    });
-
-    cm.define('alertsPages', ['alertsPageView', 'sectionsManager', 'headerLayoutButton', 'markerLayersPopupsManager', 'newsLayersCollections'], function(cm) {
-        var markerLayersPopupsManager = cm.get('markerLayersPopupsManager');
-        var newsLayersCollections = cm.get('newsLayersCollections');
-        var headerLayoutButton = cm.get('headerLayoutButton');
-        var sectionsManager = cm.get('sectionsManager');
-        var alertsPageView = cm.get('alertsPageView');
-
-        var scrollViews = {}
-        sectionsManager.getSectionsIds().map(function(sectionId) {
-            var page = alertsPageView.addPage(sectionId);
-            var markersCollectionView = new nsGmx.SwitchingCollectionWidget({
-                className: 'alertsCollectionView',
-                collection: newsLayersCollections[sectionId],
-                itemView: nsGmx.AlertItemView,
-                reEmitEvents: ['marker']
-            });
-            markersCollectionView.on('marker', function(model) {
-                headerLayoutButton.toggleState();
-                markerLayersPopupsManager.show(model);
-            });
-            var scrollView = scrollViews[sectionId] = new nsGmx.ScrollView({
-                views: [markersCollectionView]
-            });
-            scrollView.appendTo(page);
-        });
-
-        alertsPageView.setActivePage(sectionsManager.getActiveSectionId());
-
-        sectionsManager.on('sectionchange', function(sectionId) {
-            alertsPageView.setActivePage(sectionId);
-            scrollViews[sectionId].repaint();
-        });
-
-        headerLayoutButton.on('stateswitch', function(state) {
-            if (state === 'alerts') {
-                for (name in scrollViews) {
-                    if (scrollViews.hasOwnProperty(name)) {
-                        scrollViews[name].repaint();
-                    }
-                }
-            }
-        });
-
-        return null;
     });
 
     cm.define('calendarPage', ['calendar', 'rootPageView', 'headerMainMenu'], function(cm) {

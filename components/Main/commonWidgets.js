@@ -134,3 +134,41 @@ cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager']
     model && switchingLayersTreeWidget.setModel(model);
     return switchingLayersTreeWidget;
 });
+
+cm.define('alertsWidget', [
+    'sectionsManager',
+    'headerLayoutButton',
+    'newsLayersCollections',
+    'alertsWidgetContainer',
+], function(cm) {
+    var sectionsManager = cm.get('sectionsManager');
+    var headerLayoutButton = cm.get('headerLayoutButton');
+    var newsLayersCollections = cm.get('newsLayersCollections');
+    var alertsWidgetContainer = cm.get('alertsWidgetContainer');
+
+    var alertsWidget = new nsGmx.SwitchingCollectionWidget({
+        className: 'alertsCollectionView',
+        itemView: nsGmx.AlertItemView,
+        reEmitEvents: ['marker']
+    });
+
+    alertsWidget.setCollection(newsLayersCollections[sectionsManager.getActiveSectionId()]);
+
+    sectionsManager.on('sectionchange', function(sectionId) {
+        alertsWidget.setCollection(newsLayersCollections[sectionId]);
+    });
+
+    var scrollView = new nsGmx.ScrollView({
+        views: [alertsWidget]
+    });
+
+    headerLayoutButton.on('stateswitch', function(state) {
+        if (state === 'alerts') {
+            scrollView.repaint();
+        }
+    });
+
+    scrollView.appendTo(alertsWidgetContainer);
+
+    return alertsWidget;
+});
