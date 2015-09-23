@@ -163,7 +163,7 @@ if (nsGmx.CrisisMap.isMobile()) {
                 map.setActiveArea({
                     bottom: getFullHeight(this.options.infoControl.getContainer()) + 'px'
                 });
-                map.setView(model.get('latLng'), map.getZoom());
+                map.setView(model.get('latLng'), config.user.markerZoom);
                 this.options.markerCursor.setLatLng(model.get('latLng'));
                 this.options.markerCursor.show();
             },

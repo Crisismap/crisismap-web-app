@@ -55,8 +55,9 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return radioGroupWidget;
     });
 
-    cm.define('popups', ['layersHash', 'markersClickHandler', 'map', 'alertsWidget'], function(cm) {
+    cm.define('popups', ['layersHash', 'markersClickHandler', 'map', 'config', 'alertsWidget'], function(cm) {
         var map = cm.get('map');
+        var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var alertsWidget = cm.get('alertsWidget');
         var markersClickHandler = cm.get('markersClickHandler');
@@ -76,6 +77,7 @@ if (!nsGmx.CrisisMap.isMobile()) {
         });
 
         alertsWidget.on('marker', function (model) {
+            map.setView(model.get('latLng'), config.user.markerZoom);
             openPopup(model);
         })
 
