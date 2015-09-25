@@ -149,7 +149,7 @@ require('./external/GMXBuilder')(gulp, {
         build: true
     }, {
         id: 'RadioGroupWidget',
-        srcDir: './external/GMXCommonComponents/RadioGroupWidget',
+        srcDir: './components/RadioGroupWidget',
         build: false
     }, {
         id: 'EventDetailsView',
