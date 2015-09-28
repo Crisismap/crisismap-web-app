@@ -72,7 +72,7 @@ cm.define('headerMainMenu', ['headerNavBar', 'map', 'widgetsManager'], function(
 
     var dropdownWidget = new nsGmx.DropdownWidget({
         titleClassName: 'icon-menu',
-        trigger: nsGmx.Utils.isMobile() ? 'click' : 'hover'
+        trigger: 'click'
     });
 
     dropdownWidget.addItem('login', new nsGmx.PlainTextWidget(
