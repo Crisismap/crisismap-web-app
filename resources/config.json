@@ -24,11 +24,32 @@
     },
     "user": {
         "sectionsTree": "U4okmqmPwu38rDNW",
-        "markerZoom": 9,
-        "layersTranslations": {
-            "E8UaLwuFxFZspAap": "Fires",
-            "Jc2t053ymObeCVLW": "Ecology",
-            "DflNK5phRKpJ2dZL": "War in Ukraine"
+        "markerZoom": 9
+    },
+    "layers": {
+        "E8UaLwuFxFZspAap": {
+            "title": {
+                "eng": "Fires"
+            }
+        },
+        "Jc2t053ymObeCVLW": {
+            "title": {
+                "eng": "Ecology"
+            }
+        },
+        "DflNK5phRKpJ2dZL": {
+            "title": {
+                "eng": "War in Ukraine"
+            }
+        },
+        "A854633809CB44B088DD51B70A312EEC": {
+            "clusters": { }
+        },
+        "B078737025C54D26B87DDD9CACBB70B7": {
+            "clusters": { }
+        },
+        "0013A58990D94C1B9B71E868F0C29C30": {
+            "clusters": { }
         }
     }
 }
