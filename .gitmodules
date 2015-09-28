@@ -1,0 +1,24 @@
+[submodule "external/Leaflet-IconLayers"]
+	path = external/Leaflet-IconLayers
+	url = git@github.com:ScanEx/Leaflet-IconLayers.git
+[submodule "external/Leaflet.gmxBaseLayersManager"]
+	path = external/Leaflet.gmxBaseLayersManager
+	url = git@github.com:ScanEx/Leaflet.gmxBaseLayersManager.git
+[submodule "external/Leaflet.TileLayer.Mercator"]
+	path = external/Leaflet.TileLayer.Mercator
+	url = git@github.com:ScanEx/Leaflet.TileLayer.Mercator.git
+[submodule "external/Leaflet-GeoMixer"]
+	path = external/Leaflet-GeoMixer
+	url = git@github.com:ScanEx/Leaflet-GeoMixer.git
+[submodule "external/GMXCommonComponents"]
+	path = external/GMXCommonComponents
+	url = git@github.com:ScanEx/GMXCommonComponents.git
+[submodule "external/gmxControls"]
+	path = external/gmxControls
+	url = git@github.com:ScanEx/gmxControls.git
+[submodule "external/GMXBuilder"]
+	path = external/GMXBuilder
+	url = git@github.com:ScanEx/GMXBuilder.git
+[submodule "external/winnie"]
+	path = external/winnie
+	url = git@github.com:Kosmosnimki/winnie.git
