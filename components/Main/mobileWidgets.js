@@ -115,10 +115,22 @@ if (nsGmx.CrisisMap.isMobile()) {
             setState: function(state) {
                 this._state = state;
                 this.setIconClass(state === 'map' ? 'icon-bell' : 'icon-globe');
+                this._updateLabel();
                 this.trigger('stateswitch', this.getState());
             },
             getState: function() {
                 return this._state;
+            },
+            setAlertsNumber: function (n) {
+                this._currentNumber = n ? n + '' : null;
+                this._updateLabel();
+            },
+            _updateLabel: function () {
+                if (this._state === 'alerts') {
+                    this.setLabel(null);
+                } else {
+                    this.setLabel(this._currentNumber);
+                }
             }
         });
 
@@ -139,7 +151,7 @@ if (nsGmx.CrisisMap.isMobile()) {
         }
 
         function onCollectionUpdate() {
-            headerLayoutButton.setLabel(this.length ? this.length + '' : null);
+            headerLayoutButton.setAlertsNumber(this.length);
         }
 
         headerLayoutButton.appendTo(headerNavBar.getRightContainer());
