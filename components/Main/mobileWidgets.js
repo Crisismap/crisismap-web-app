@@ -15,7 +15,7 @@ if (nsGmx.CrisisMap.isMobile()) {
         return $('<div>').addClass('crisisMap-mapPage').appendTo(mapPage)[0];
     });
 
-    cm.define('alertsWidgetScrollView', ['rootPageView'], function () {
+    cm.define('alertsWidgetScrollView', ['rootPageView'], function() {
         var rootPageView = cm.get('rootPageView');
         var alertsWidgetContainer = $(rootPageView.addPage('alerts')).addClass('pageView-item_alerts');
         var scrollView = new nsGmx.ScrollView();
@@ -98,20 +98,24 @@ if (nsGmx.CrisisMap.isMobile()) {
         var rootPageView = cm.get('rootPageView');
         var headerNavBar = cm.get('headerNavBar');
 
-        var HeaderLayoutButton = nsGmx.GmxWidget.extend({
-            className: 'headerLayoutButton icon-bell',
-            events: {
-                'click': function() {
+        var HeaderLayoutButton = nsGmx.LabelIconWidget.extend({
+            initialize: function() {
+                nsGmx.LabelIconWidget.prototype.initialize.apply(this);
+                this.setState('map');
+                this.$el.on('click',function () {
                     this.toggleState();
-                }
+                }.bind(this));
             },
             toggleState: function() {
-                this.$el.toggleClass('icon-bell');
-                this.$el.toggleClass('icon-globe');
+                this.setState(this._state === 'map' ? 'alerts' : 'map');
+            },
+            setState: function(state) {
+                this._state = state;
+                this.setIconClass(state === 'map' ? 'icon-bell' : 'icon-globe');
                 this.trigger('stateswitch', this.getState());
             },
             getState: function() {
-                return this.$el.hasClass('icon-bell') ? 'map' : 'alerts';
+                return this._state;
             }
         });
 
@@ -193,7 +197,7 @@ if (nsGmx.CrisisMap.isMobile()) {
             mlpm.show(e.model);
         });
 
-        alertsWidget.on('marker', function (model) {
+        alertsWidget.on('marker', function(model) {
             headerLayoutButton.toggleState();
             mlpm.show(model);
         })

@@ -175,6 +175,10 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
+        id: 'LabelIconWidget',
+        srcDir: './external/GMXCommonComponents/LabelIconWidget',
+        build: false
+    }, {
         id: 'CalendarPage',
         srcDir: './components/CalendarPage',
         distDir: './build',
