@@ -4,12 +4,26 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return $(layoutManager.getContentContainer());
     });
 
-    cm.define('alertsWidgetScrollView', ['sidebarWidget'], function () {
-        var sidebarWidget = cm.get('sidebarWidget')
-        var alertsWidgetContainer = sidebarWidget.addTab('alertsWidget', 'icon-bell');
+    cm.define('alertsWidgetScrollView', ['sidebarWidget', 'activeAlertsNumber'], function() {
+        var sidebarWidget = cm.get('sidebarWidget');
+        var activeAlertsNumber = cm.get('activeAlertsNumber');
+
+        var iconWidget = new nsGmx.LabelIconWidget({
+            iconClass: 'icon-bell'
+        });
+
+        function setn(num) {
+            iconWidget.setLabel(num === 0 ? null : num + '');
+        }
+        setn(activeAlertsNumber.getAlertsNumber());
+        activeAlertsNumber.on('change', function(num) {
+            setn(num);
+        });
+
+        var alertsWidgetContainer = sidebarWidget.addTab('alertsWidget', iconWidget);
         var scrollView = new nsGmx.ScrollView();
         scrollView.appendTo(alertsWidgetContainer);
-        sidebarWidget.on('opened', function (e) {
+        sidebarWidget.on('opened', function(e) {
             if (e.id === 'alertsWidget') {
                 scrollView.repaint();
             }
@@ -76,7 +90,7 @@ if (!nsGmx.CrisisMap.isMobile()) {
             openPopup(e.model);
         });
 
-        alertsWidget.on('marker', function (model) {
+        alertsWidget.on('marker', function(model) {
             map.setView(model.get('latLng'), config.user.markerZoom);
             openPopup(model);
         })
