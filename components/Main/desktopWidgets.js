@@ -13,7 +13,7 @@ if (!nsGmx.CrisisMap.isMobile()) {
         });
 
         function setn(num) {
-            iconWidget.setLabel(num === 0 ? null : num + '');
+            iconWidget.setLabel(num || null);
         }
         setn(activeAlertsNumber.getAlertsNumber());
         activeAlertsNumber.on('change', function(num) {
