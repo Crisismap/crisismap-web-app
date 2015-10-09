@@ -26,7 +26,13 @@ if (!nsGmx.CrisisMap.isMobile()) {
         sidebarWidget.on('opened', function(e) {
             if (e.id === 'alertsWidget') {
                 scrollView.repaint();
+                iconWidget.hideLabel();
+            } else {
+                iconWidget.showLabel();
             }
+        });
+        sidebarWidget.on('closed', function(e) {
+            iconWidget.showLabel();
         });
         return scrollView;
     });
