@@ -92,17 +92,20 @@ if (nsGmx.CrisisMap.isMobile()) {
         return dropdownWidget;
     });
 
-    cm.define('headerLayoutButton', ['headerNavBar', 'rootPageView', 'map', 'alertsWidget'], function(cm) {
+    cm.define('headerLayoutButton', ['headerNavBar', 'rootPageView', 'map', 'alertsWidget', 'sectionsManager', 'newsLayersCollections'], function(cm) {
         var map = cm.get('map');
         var alertsWidget = cm.get('alertsWidget');
         var rootPageView = cm.get('rootPageView');
         var headerNavBar = cm.get('headerNavBar');
 
+        var sectionsManager = cm.get('sectionsManager');
+        var newsLayersCollections = cm.get('newsLayersCollections');
+
         var HeaderLayoutButton = nsGmx.LabelIconWidget.extend({
             initialize: function() {
                 nsGmx.LabelIconWidget.prototype.initialize.apply(this);
                 this.setState('map');
-                this.$el.on('click',function () {
+                this.$el.on('click', function() {
                     this.toggleState();
                 }.bind(this));
             },
@@ -120,6 +123,24 @@ if (nsGmx.CrisisMap.isMobile()) {
         });
 
         var headerLayoutButton = new HeaderLayoutButton();
+
+        updateLabel();
+        sectionsManager.on('sectionchange', updateLabel);
+
+        var prevCollection;
+        function updateLabel(sectionId) {
+            sectionId = sectionId || sectionsManager.getActiveSectionId();
+            var collection = newsLayersCollections[sectionId];
+            onCollectionUpdate.call(collection);
+            prevCollection && prevCollection.off('update', onCollectionUpdate);
+            collection && collection.off('update', onCollectionUpdate)
+            collection && collection.once('update',  onCollectionUpdate);
+            prevCollection = collection;
+        }
+
+        function onCollectionUpdate() {
+            headerLayoutButton.setLabel(this.length ? this.length + '' : null);
+        }
 
         headerLayoutButton.appendTo(headerNavBar.getRightContainer());
 
