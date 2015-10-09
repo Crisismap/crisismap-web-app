@@ -135,6 +135,39 @@ cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager']
     return switchingLayersTreeWidget;
 });
 
+cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], function(cm) {
+    return new (L.Class.extend({
+        includes: [Backbone.Events],
+        initialize: function(opts) {
+            this.options = opts;
+            var onSectionChange = this._onSectionChange.bind(this);
+            this.options.sectionsManager.on('sectionchange', onSectionChange);
+            onSectionChange(this.options.sectionsManager.getActiveSectionId());
+            this._prevCollection = null;
+        },
+        getAlertsNumber: function () {
+            return this.number;
+        },
+        _onSectionChange: function(sectionId) {
+            var onCollectionUpdate = this._onCollectionUpdate.bind(this);
+            sectionId = sectionId || this.options.sectionsManager.getActiveSectionId();
+            var collection = this.options.newsLayersCollections[sectionId];
+            this._prevCollection && this._prevCollection.off('update', onCollectionUpdate);
+            collection && onCollectionUpdate(collection);
+            collection && collection.off('update', onCollectionUpdate)
+            collection && collection.once('update', onCollectionUpdate);
+            this._prevCollection = collection;
+        },
+        _onCollectionUpdate: function (collection) {
+            this.number = collection.length;
+            this.trigger('change', this.number);
+        }
+    }))({
+        sectionsManager: cm.get('sectionsManager'),
+        newsLayersCollections: cm.get('newsLayersCollections')
+    });
+});
+
 cm.define('alertsWidget', [
     'sectionsManager',
     'newsLayersCollections',

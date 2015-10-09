@@ -92,14 +92,19 @@ if (nsGmx.CrisisMap.isMobile()) {
         return dropdownWidget;
     });
 
-    cm.define('headerLayoutButton', ['headerNavBar', 'rootPageView', 'map', 'alertsWidget', 'sectionsManager', 'newsLayersCollections'], function(cm) {
+    cm.define('headerLayoutButton', [
+        'activeAlertsNumber',
+        'headerNavBar',
+        'rootPageView',
+        'alertsWidget',
+        'map'
+    ], function(cm) {
         var map = cm.get('map');
         var alertsWidget = cm.get('alertsWidget');
         var rootPageView = cm.get('rootPageView');
         var headerNavBar = cm.get('headerNavBar');
 
-        var sectionsManager = cm.get('sectionsManager');
-        var newsLayersCollections = cm.get('newsLayersCollections');
+        var activeAlertsNumber = cm.get('activeAlertsNumber');
 
         var HeaderLayoutButton = nsGmx.LabelIconWidget.extend({
             initialize: function() {
@@ -121,11 +126,11 @@ if (nsGmx.CrisisMap.isMobile()) {
             getState: function() {
                 return this._state;
             },
-            setAlertsNumber: function (n) {
+            setAlertsNumber: function(n) {
                 this._currentNumber = n ? n + '' : null;
                 this._updateLabel();
             },
-            _updateLabel: function () {
+            _updateLabel: function() {
                 if (this._state === 'alerts') {
                     this.setLabel(null);
                 } else {
@@ -136,23 +141,10 @@ if (nsGmx.CrisisMap.isMobile()) {
 
         var headerLayoutButton = new HeaderLayoutButton();
 
-        updateLabel();
-        sectionsManager.on('sectionchange', updateLabel);
-
-        var prevCollection;
-        function updateLabel(sectionId) {
-            sectionId = sectionId || sectionsManager.getActiveSectionId();
-            var collection = newsLayersCollections[sectionId];
-            onCollectionUpdate.call(collection);
-            prevCollection && prevCollection.off('update', onCollectionUpdate);
-            collection && collection.off('update', onCollectionUpdate)
-            collection && collection.once('update',  onCollectionUpdate);
-            prevCollection = collection;
-        }
-
-        function onCollectionUpdate() {
-            headerLayoutButton.setAlertsNumber(this.length);
-        }
+        headerLayoutButton.setAlertsNumber(activeAlertsNumber.getAlertsNumber());
+        activeAlertsNumber.on('change', function(num) {
+            headerLayoutButton.setAlertsNumber(num);
+        });
 
         headerLayoutButton.appendTo(headerNavBar.getRightContainer());
 
