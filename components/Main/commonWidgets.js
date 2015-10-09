@@ -150,7 +150,9 @@ cm.define('alertsWidget', [
         reEmitEvents: ['marker']
     });
 
-    alertsWidget.setCollection(newsLayersCollections[sectionsManager.getActiveSectionId()]);
+    if (sectionsManager.getActiveSectionId() && sectionsManager.getActiveSectionId() !== '_empty') {
+        alertsWidget.setCollection(newsLayersCollections[sectionsManager.getActiveSectionId()]);
+    }
 
     sectionsManager.on('sectionchange', function(sectionId) {
         alertsWidget.setCollection(newsLayersCollections[sectionId]);
