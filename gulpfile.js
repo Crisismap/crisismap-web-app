@@ -79,6 +79,9 @@ require('./external/GMXBuilder')(gulp, {
         bowerComponent: 'backbone#1.1.2',
         distFiles: ['backbone.js']
     }, {
+        bowerComponent: 'handlebars',
+        distFiles: ['handlebars.js']
+    }, {
         id: 'ThoraxDummy',
         srcDir: './components/ThoraxDummy',
         build: false
@@ -190,6 +193,11 @@ require('./external/GMXBuilder')(gulp, {
         id: 'SectionsManager',
         srcDir: './components/SectionsManager',
         build: false
+    }, {
+        id: 'CalendarWidget',
+        srcDir: './external/GMXCommonComponents/CalendarWidget',
+        distDir: './build',
+        build: true
     }, {
         id: 'Main',
         srcDir: './components/Main',

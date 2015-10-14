@@ -2,7 +2,13 @@ cm.define('gmxApplication', ['config', 'mapContainer', 'leafletProductionIssues'
     var config = cm.get('config');
     var mapContainer = cm.get('mapContainer');
 
-    var gmxApplication = nsGmx.createGmxApplication(mapContainer, config);
+    var cfg = $.extend(true, config, {
+        app: {
+            calendarWidget: !nsGmx.Utils.isMobile()
+        }
+    });
+
+    var gmxApplication = nsGmx.createGmxApplication(mapContainer, cfg);
     gmxApplication.create().then(function() {
         cb(gmxApplication);
     });
@@ -66,3 +72,7 @@ cm.define('logoControl', ['gmxApplication', 'map'], function(cm) {
 cm.define('gmxMap', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('gmxMap');
 });
+
+cm.define('calendarModel', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('calendar');
+})
