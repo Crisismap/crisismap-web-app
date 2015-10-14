@@ -73,6 +73,37 @@ cm.define('gmxMap', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('gmxMap');
 });
 
-cm.define('calendarModel', ['gmxApplication'], function (cm) {
+cm.define('calendarModel', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('calendar');
-})
+});
+
+cm.define('markerCursor', ['map'], function(cm) {
+    var map = cm.get('map');
+
+    var desktopMarker = new(L.Marker.extend({
+        options: {
+            icon: new L.DivIcon({
+                iconSize: [10, 10],
+                className: 'markerCursor'
+            })
+        }
+    }))([0, 0], {
+        zIndexOffset: 9999999
+    });
+    var mobileMarker = L.marker([0, 0], {
+        zIndexOffset: 9999999
+    });
+    var marker = nsGmx.Utils.isMobile() ? mobileMarker : desktopMarker;
+
+    return {
+        show: function() {
+            map.addLayer(marker);
+        },
+        hide: function() {
+            map.removeLayer(marker);
+        },
+        setLatLng: function() {
+            marker.setLatLng.apply(marker, arguments);
+        }
+    };
+});

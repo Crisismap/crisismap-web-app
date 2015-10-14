@@ -58,3 +58,5 @@ div { outline: none; }
 .crisisMap_desktop .alertItemView_expanded { box-shadow: none; }
 
 .leaflet-popup-content-wrapper { border-radius: 4px; }
+
+.markerCursor { background: #d00; border-radius: 10px; }

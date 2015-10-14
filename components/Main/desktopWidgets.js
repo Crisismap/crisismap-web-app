@@ -75,11 +75,12 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return radioGroupWidget;
     });
 
-    cm.define('popups', ['layersHash', 'markersClickHandler', 'map', 'config', 'alertsWidget'], function(cm) {
+    cm.define('popups', ['layersHash', 'markersClickHandler', 'map', 'config', 'alertsWidget', 'markerCursor'], function(cm) {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var alertsWidget = cm.get('alertsWidget');
+        var markerCursor = cm.get('markerCursor');
         var markersClickHandler = cm.get('markersClickHandler');
 
         function openPopup(model) {
@@ -90,7 +91,13 @@ if (!nsGmx.CrisisMap.isMobile()) {
             p.setContent(detailsView.getContainer());
             p.setLatLng(model.get('latLng'));
             map.openPopup(p);
+            markerCursor.setLatLng(model.get('latLng'));
+            markerCursor.show();
         }
+
+        map.on('popupclose', function () {
+            markerCursor.hide();
+        });
 
         markersClickHandler.on('click', function(e) {
             openPopup(e.model);

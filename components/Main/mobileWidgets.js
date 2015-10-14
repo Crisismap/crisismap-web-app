@@ -23,22 +23,6 @@ if (nsGmx.CrisisMap.isMobile()) {
         return scrollView;
     });
 
-    cm.define('markerCursor', ['map'], function(cm) {
-        var map = cm.get('map');
-        var marker = L.marker([0, 0]);
-        return {
-            show: function() {
-                map.addLayer(marker);
-            },
-            hide: function() {
-                map.removeLayer(marker);
-            },
-            setLatLng: function() {
-                marker.setLatLng.apply(marker, arguments);
-            }
-        }
-    });
-
     cm.define('infoControl', ['map', 'mapLayoutHelper', 'markerCursor'], function(cm) {
         var map = cm.get('map');
         var mlh = cm.get('mapLayoutHelper');
