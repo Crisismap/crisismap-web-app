@@ -4,7 +4,7 @@ cm.define('gmxApplication', ['config', 'mapContainer', 'leafletProductionIssues'
 
     var cfg = $.extend(true, config, {
         app: {
-            calendarWidget: !nsGmx.Utils.isMobile()
+            calendarWidget: !nsGmx.CrisisMap.isMobile()
         }
     });
 
