@@ -1,8 +1,8 @@
-<% if (title || topIcon) { %>
+<% if (title || topIconClass) { %>
     <div class="gmx-table eventDetailsView-topTable">
-        <% if (topIcon) { %>
+        <% if (topIconClass) { %>
             <div class="gmx-table-cell eventDetailsView-topIconCell">
-                <div class="eventDetailsView-topIcon eventDetailsView-topIcon_<%=topIcon%>"></div>
+                <div class="eventDetailsView-topIcon <%= topIconClass %>"></div>
             </div>
         <% } %>
         <% if (title) { %>
