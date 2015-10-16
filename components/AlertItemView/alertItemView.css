@@ -3,3 +3,16 @@
 
 .alertItemView-collapsed-date { display: inline; font-weight: bold; }
 .alertItemView-collapsed-title { display: inline; }
+
+.alertItemView-collapsed-topIcon { 
+    display: inline-block; 
+    width: 10px; 
+    height: 10px; 
+    border-radius: 5px;
+    opacity: .75;
+}
+
+.alertItemView-collapsed-topIcon_class0 { background-color: #D52627; }
+.alertItemView-collapsed-topIcon_class1 { background-color: #E18B26; }
+.alertItemView-collapsed-topIcon_class2 { background-color: #008041; }
+.alertItemView-collapsed-topIcon_class3 { background-color: #C6C0B9; }

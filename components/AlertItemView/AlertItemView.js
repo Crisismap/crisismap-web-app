@@ -13,7 +13,7 @@ nsGmx.AlertItemView = nsGmx.GmxWidget.extend({
             this.$el.empty();
             var detailsView = new nsGmx.EventDetailsView({
                 model: this.model,
-                topIcon: this.model.get('class') && ('class' + this.model.get('class')),
+                topIcon: (typeof this.model.get('class') == 'number') && ('class' + this.model.get('class')),
                 bottomIcon: 'location'
             });
             detailsView.on('bottomiconclick', function () {
@@ -22,9 +22,11 @@ nsGmx.AlertItemView = nsGmx.GmxWidget.extend({
             detailsView.appendTo(this.$el);
         } else {
             this.$el.html(
-                _.template(nsGmx.Templates.AlertItemView.collapsed)(
-                    this.model.attributes
-                )
+                _.template(nsGmx.Templates.AlertItemView.collapsed)({
+                    cls: this.model.get('class'),
+                    date: this.model.get('date'),
+                    title: this.model.get('title')
+                })
             );
         }
         return this;
