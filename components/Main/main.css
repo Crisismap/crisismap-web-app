@@ -60,3 +60,13 @@ div { outline: none; }
 .leaflet-popup-content-wrapper { border-radius: 4px; }
 
 .markerCursor { background: #d00; border-radius: 10px; }
+
+
+.marker-cluster-small { background-color: rgba(255, 226, 163, 0.62); }
+.marker-cluster-small div { background-color: rgba(246, 174, 92, 0.58); }
+
+.marker-cluster-medium { background-color: rgba(241, 171, 87, 0.56); }
+.marker-cluster-medium div { background-color: rgba(253, 150, 48, 0.53); }
+
+.marker-cluster-large { background-color: rgba(247, 125, 74, 0.85); }
+.marker-cluster-large div { background-color: rgb(245, 142, 96); }
