@@ -7,7 +7,6 @@ var html2jsobject = require('gulp-html2jsobject');
 
 var styles = ['eventDetailsView.css'];
 var scripts = ['EventDetailsView.js', 'translations.js'];
-var images = ['class0.png', 'class1.png', 'class2.png', 'class3.png'];
 var templates = ['eventDetailsView.html'];
 
 gulp.task('default', function() {

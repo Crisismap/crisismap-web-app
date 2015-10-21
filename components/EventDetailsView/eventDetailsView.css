@@ -1,9 +1,4 @@
-.eventDetailsView-topTable { width: 100%; margin-bottom: 5px; }
-.eventDetailsView-topIconCell { width: 30px; vertical-align: middle; }
-.eventDetailsView-topIcon { }
-.eventDetailsView-titleCell { width: 100%; vertical-align: middle; }
-.eventDetailsView-title { font-weight: bold; }
-
+.eventDetailsView-title { font-weight: bold; margin-bottom: 5px; }
 .eventDetailsView-description { }
 
 .eventDetailsView-bottomTable { width: 100%; margin-top: 5px; }
@@ -13,9 +8,3 @@
 .eventDetailsView-bottomIcon { font-size: 1.5em; }
 .eventDetailsView-urlCell { width: 50%; text-align: right; vertical-align: middle; }
 .eventDetailsView-url { }
-
-.eventDetailsView-topIcon { width: 27px; height: 27px; display: block; padding-right: 1em; background-repeat: no-repeat; }
-.eventDetailsView-topIcon_class0 { background-image: url('class0.png'); }
-.eventDetailsView-topIcon_class1 { background-image: url('class1.png'); }
-.eventDetailsView-topIcon_class2 { background-image: url('class2.png'); }
-.eventDetailsView-topIcon_class3 { background-image: url('class3.png'); }

@@ -9,20 +9,25 @@ nsGmx.AlertItemView = nsGmx.GmxWidget.extend({
         this.collapse();
     },
     render: function() {
+        var cls = this.model.get('class') + '' || '3';
         if (this._expanded) {
-            this.$el.empty();
-            var detailsView = new nsGmx.EventDetailsView({
-                model: this.model,
-                bottomIcon: 'location'
-            });
-            detailsView.on('bottomiconclick', function() {
+            this.$el.html(
+                _.template(nsGmx.Templates.AlertItemView.expanded)({
+                    cls: cls,
+                    title: this.model.get('title'),
+                    description: this.model.get('description'),
+                    date: this.model.get('date'),
+                    url: this.model.get('url')
+                })
+            );
+            this.$el.find('.alertItemView-expanded-bottomIcon').on('click', function(je) {
+                je.stopPropagation();
                 this.trigger('marker', this.model);
             }.bind(this));
-            detailsView.appendTo(this.$el);
         } else {
             this.$el.html(
                 _.template(nsGmx.Templates.AlertItemView.collapsed)({
-                    cls: this.model.get('class'),
+                    cls: cls,
                     date: this.model.get('date'),
                     title: this.model.get('title')
                 })

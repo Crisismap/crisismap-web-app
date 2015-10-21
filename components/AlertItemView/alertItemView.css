@@ -16,3 +16,32 @@
 .alertItemView-collapsed-topIcon_class1 { background-color: #E18B26; }
 .alertItemView-collapsed-topIcon_class2 { background-color: #008041; }
 .alertItemView-collapsed-topIcon_class3 { background-color: #C6C0B9; }
+
+.alertItemView-expanded-topTable { width: 100%; margin-bottom: 5px; }
+.alertItemView-expanded-topIconCell { width: 30px; vertical-align: middle; }
+.alertItemView-expanded-topIcon { }
+.alertItemView-expanded-titleCell { width: 100%; vertical-align: middle; }
+.alertItemView-expanded-title { font-weight: bold; }
+
+.alertItemView-expanded-description { }
+
+.alertItemView-expanded-bottomTable { width: 100%; margin-top: 5px; }
+.alertItemView-expanded-dateCell { width: 50%; text-align: left; vertical-align: middle; }
+.alertItemView-expanded-date { }
+.alertItemView-expanded-bottomIconCell { vertical-align: middle; }
+.alertItemView-expanded-bottomIcon { font-size: 1.5em; }
+.alertItemView-expanded-urlCell { width: 50%; text-align: right; vertical-align: middle; }
+.alertItemView-expanded-url { }
+
+.alertItemView-expanded-topIcon { 
+    width: 27px; 
+    height: 27px; 
+    display: block; 
+    padding-right: 1em; 
+    background-repeat: no-repeat; 
+}
+
+.alertItemView-expanded-topIcon_class0 { background-image: url('class0.png'); }
+.alertItemView-expanded-topIcon_class1 { background-image: url('class1.png'); }
+.alertItemView-expanded-topIcon_class2 { background-image: url('class2.png'); }
+.alertItemView-expanded-topIcon_class3 { background-image: url('class3.png'); }

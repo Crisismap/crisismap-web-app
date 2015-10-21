@@ -1,0 +1,34 @@
+<% if (title || cls) { %>
+    <div class="gmx-table alertItemView-expanded-topTable">
+        <% if (cls) { %>
+            <div class="gmx-table-cell alertItemView-expanded-topIconCell">
+                <div class="alertItemView-expanded-topIcon alertItemView-expanded-topIcon_class<%= cls %>"></div>
+            </div>
+        <% } %>
+        <% if (title) { %>
+            <div class="gmx-table-cell alertItemView-expanded-titleCell">
+                <div class="alertItemView-expanded-title"><%= title %></div>
+            </div>
+        <% } %>
+    </div>
+<% } %>
+<% if (description) { %>
+    <div class="alertItemView-expanded-description"><%= description %></div>
+<% } %>
+<% if (date || url) { %>
+    <div class="gmx-table alertItemView-expanded-bottomTable">
+        <% if (date) { %>
+            <div class="gmx-table-cell alertItemView-expanded-dateCell">
+                <div class="alertItemView-expanded-date"><%= nsGmx.CrisisMap.formatDate(date) %></div>
+            </div>
+        <% } %>
+        <div class="gmx-table-cell alertItemView-expanded-bottomIconCell">
+            <div class="alertItemView-expanded-bottomIcon icon-location"></div>
+        </div>
+        <% if (url) { %>
+            <div class="gmx-table-cell alertItemView-expanded-urlCell">
+                <a class="alertItemView-expanded-url"  href="<%=url%>" target="_blank"><%= nsGmx.Translations.getText('eventDetailsView.sourceLink') %></a>
+            </div>
+        <% } %>
+    </div>
+<% } %>
