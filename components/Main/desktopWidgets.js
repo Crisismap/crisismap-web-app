@@ -86,7 +86,8 @@ if (!nsGmx.CrisisMap.isMobile()) {
         function openPopup(model) {
             var p = L.popup();
             var detailsView = new nsGmx.EventDetailsView({
-                model: model
+                model: model,
+                topIconClass: null
             });
             p.setContent(detailsView.getContainer());
             p.setLatLng(model.get('latLng'));
