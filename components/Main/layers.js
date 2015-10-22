@@ -43,11 +43,13 @@ cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar']
     var sectionsIds = sectionsManager.getSectionsIds();
     var collections = {};
     for (var i = 0; i < sectionsIds.length; i++) {
-        var dataLayer = layersHash[sectionsManager.getSectionProperties(sectionsIds[i]).dataLayerId];
-        if (dataLayer) {
+        var dataLayers = sectionsManager.getSectionProperties(sectionsIds[i]).dataLayersIds.map(function(layerId) {
+            return layersHash[layerId];
+        });
+        if (dataLayers) {
             collections[sectionsIds[i]] = new nsGmx.LayerMarkersCollection([], {
                 model: MarkerModel,
-                layer: dataLayer,
+                layers: dataLayers,
                 calendar: calendar,
                 comparator: function(a, b) {
                     a = a.get('date').getTime();
@@ -78,24 +80,23 @@ cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCo
         includes: [L.Mixin.Events],
         initialize: function() {
             sectionsManager.getSectionsIds().map(function(sectionId) {
-                var layer = layersHash[sectionsManager.getSectionProperties(sectionId).dataLayerId];
-                if (!layer) {
-                    return;
-                }
-                var collection = newsLayersCollections[sectionId];
-                unbindPopup(layer);
-                layer.on('click', function(e) {
-                    if (!e.eventFrom || e.originalEventType === 'click') {
-                        // кликнули не по кластерам
-                        var id = layer.getItemProperties(e.gmx.target.properties)['id'];
-                        this.fire('click', {
-                            model: collection.findWhere({
-                                id: id
-                            }),
-                            layer: layer,
-                            name: sectionId
-                        });
-                    }
+                sectionsManager.getSectionProperties(sectionId).dataLayersIds.map(function(layerID) {
+                    var layer = layersHash[layerID];
+                    var collection = newsLayersCollections[sectionId];
+                    unbindPopup(layer);
+                    layer.on('click', function(e) {
+                        if (!e.eventFrom || e.originalEventType === 'click') {
+                            // кликнули не по кластерам
+                            var id = layer.getItemProperties(e.gmx.target.properties)['id'];
+                            this.fire('click', {
+                                model: collection.findWhere({
+                                    id: id
+                                }),
+                                layer: layer,
+                                name: sectionId
+                            });
+                        }
+                    }.bind(this));
                 }.bind(this));
             }.bind(this));
         }

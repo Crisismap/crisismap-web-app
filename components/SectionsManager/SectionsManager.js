@@ -70,7 +70,7 @@ nsGmx.SectionsManager = L.Class.extend({
             this._sections[sectionId] = {
                 id: sectionId,
                 title: section.get('properties').title,
-                dataLayerId: this._getDataLayerId(sectionId),
+                dataLayersIds: this._getDataLayersIds(sectionId),
                 tree: section
             }
         }
@@ -107,24 +107,24 @@ nsGmx.SectionsManager = L.Class.extend({
         }
         return null;
     },
-    _getDataLayerId: function(sectionId) {
-        var dataLayer = this._getDataLayer(sectionId);
-        return dataLayer ?
-            dataLayer.get('properties').LayerID :
-            '';
+    _getDataLayersIds: function(sectionId) {
+        var dataLayers = this._getDataLayers(sectionId);
+        return dataLayers.map(function(dataLayer) {
+            return dataLayer.get('properties').LayerID;
+        });
     },
-    _getDataLayer: function(sectionId) {
-        var dataLayer = null;
+    _getDataLayers: function(sectionId) {
+        var dataLayers = [];
         var group = this.sectionsTree.find(sectionId);
-        // выбираем слой, у которого в мета-данных есть
+        // выбираем слои, у которых в мета-данных есть
         // свойство data_provider
         group.eachNode(function(model) {
             var mp = model.get('properties').MetaProperties;
             if (mp && mp['data_provider']) {
-                dataLayer = model;
+                dataLayers.push(model);
             }
         });
-        return dataLayer;
+        return dataLayers;
     }
 });
 
