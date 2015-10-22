@@ -22,8 +22,6 @@ gulp.task('default', function() {
     var cssStream = gulp.src(styles)
         .pipe(concat('eventDetailsView.css'));
 
-    var imgStream = gulp.src(images);
-
     var jsStream = streamqueue({
             objectMode: true
         }, templatesStream, sourcesStream)
@@ -32,7 +30,7 @@ gulp.task('default', function() {
 
     var finalStream = streamqueue({
             objectMode: true
-        }, jsStream, cssStream, imgStream)
+        }, jsStream, cssStream)
         .pipe(gulp.dest('build'));
 });
 
