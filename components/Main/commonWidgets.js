@@ -136,7 +136,7 @@ cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager']
 });
 
 cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], function(cm) {
-    return new (L.Class.extend({
+    return new(L.Class.extend({
         includes: [Backbone.Events],
         initialize: function(opts) {
             this.options = opts;
@@ -145,7 +145,7 @@ cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], fu
             update(this.options.sectionsManager.getActiveSectionId());
             this._prevCollection = null;
         },
-        getAlertsNumber: function () {
+        getAlertsNumber: function() {
             return this.number;
         },
         _update: function(sectionId) {
@@ -158,7 +158,7 @@ cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], fu
             collection && collection.on('update', onCollectionUpdate);
             this._prevCollection = collection;
         },
-        _onCollectionUpdate: function (collection) {
+        _onCollectionUpdate: function(collection) {
             this.number = collection.length;
             this.trigger('change', this.number);
         }
@@ -194,4 +194,34 @@ cm.define('alertsWidget', [
     alertsWidgetScrollView.addView(alertsWidget);
 
     return alertsWidget;
+});
+
+cm.define('geolocationControl', ['map', 'config', 'sidebarWidget'], function() {
+    var map = cm.get('map');
+    var config = cm.get('config');
+    var sidebarWidget = cm.get('sidebarWidget');
+
+    var ctrl = new L.Control.gmxIcon({
+        id: 'geolocationControl',
+        className: 'geolocationControl icon-direction leaflet-bar'
+    });
+
+    ctrl.addTo(map);
+
+    sidebarWidget.on('stick', function(e) {
+        if (e.isStuck) {
+            ctrl && L.DomUtil.addClass(ctrl.getContainer(), 'leaflet-control-gmx-hidden');
+        } else {
+            ctrl && L.DomUtil.removeClass(ctrl.getContainer(), 'leaflet-control-gmx-hidden');
+        }
+    });
+
+    ctrl.on('click', function() {
+        map.locate({
+            setView: true,
+            maxZoom: config.user.geolocationMaxZoom
+        });
+    });
+
+    return ctrl;
 });

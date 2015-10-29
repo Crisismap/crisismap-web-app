@@ -70,3 +70,14 @@ div { outline: none; }
 
 .marker-cluster-large { background-color: rgba(247, 125, 74, 0.85); }
 .marker-cluster-large div { background-color: rgb(245, 142, 96); }
+
+.geolocationControl { 
+    background-color: #fff;
+    color: hsl(0, 0%, 35%);
+    text-align: center;
+    font-size: 18px;
+    line-height: 32px;
+}
+
+.geolocationControl:hover { background-color: #f4f4f4; }
+.leaflet-left .leaflet-gmx-icon.geolocationControl { margin-left: 10px; }
