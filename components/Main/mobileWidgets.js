@@ -23,10 +23,9 @@ if (nsGmx.CrisisMap.isMobile()) {
         return scrollView;
     });
 
-    cm.define('infoControl', ['map', 'mapLayoutHelper', 'markerCursor'], function(cm) {
+    cm.define('infoControl', ['map', 'mapLayoutHelper'], function(cm) {
         var map = cm.get('map');
         var mlh = cm.get('mapLayoutHelper');
-        var mc = cm.get('markerCursor');
 
         var infoControl = new nsGmx.InfoControl({
             position: 'center'
@@ -176,21 +175,20 @@ if (nsGmx.CrisisMap.isMobile()) {
                 map.setActiveArea({
                     bottom: getFullHeight(this.options.infoControl.getContainer()) + 'px'
                 });
-                map.setView(model.get('latLng'), config.user.markerZoom);
-                this.options.markerCursor.setLatLng(model.get('latLng'));
-                this.options.markerCursor.show();
+                map.setView(model.get('latLng'));
+                if (map.getZoom > config.user.markerZoom) {
+                    map.setZoom(config.user.markerZoom);
+                }
             },
             reset: function() {
                 this.options.infoControl.hide();
                 this.options.mapLayoutHelper && this.options.mapLayoutHelper.showBottomControls();
                 this.options.mapLayoutHelper.resetActiveArea();
-                this.options.markerCursor.hide();
             }
         });
 
         var mlpm = new MLPM({
             infoControl: cm.get('infoControl'),
-            markerCursor: cm.get('markerCursor'),
             mapLayoutHelper: cm.get('mapLayoutHelper')
         });
 

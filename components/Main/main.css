@@ -59,9 +59,6 @@ div { outline: none; }
 
 .leaflet-popup-content-wrapper { border-radius: 4px; }
 
-.markerCursor { background: #d00; border-radius: 10px; }
-
-
 .marker-cluster-small { background-color: rgba(255, 226, 163, 0.62); }
 .marker-cluster-small div { background-color: rgba(246, 174, 92, 0.58); }
 
@@ -81,3 +78,5 @@ div { outline: none; }
 
 .geolocationControl:hover { background-color: #f4f4f4; }
 .leaflet-left .leaflet-gmx-icon.geolocationControl { margin-left: 10px; }
+
+.marker-circled { border: 3px solid hsla(0, 50%, 50%, 0.75); border-radius: 15px; width: 20px; height: 20px; }

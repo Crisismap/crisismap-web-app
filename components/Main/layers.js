@@ -73,6 +73,7 @@ cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar']
 
 cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCollections'], function(cm) {
     var layersHash = cm.get('layersHash');
+    var markerCircle = cm.get('markerCircle');
     var sectionsManager = cm.get('sectionsManager');
     var newsLayersCollections = cm.get('newsLayersCollections');
 
@@ -88,12 +89,14 @@ cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCo
                         if (!e.eventFrom || e.originalEventType === 'click') {
                             // кликнули не по кластерам
                             var id = layer.getItemProperties(e.gmx.target.properties)['id'];
+                            var model = collection.findWhere({
+                                id: id
+                            });
                             this.fire('click', {
-                                model: collection.findWhere({
-                                    id: id
-                                }),
+                                model: model,
                                 layer: layer,
-                                name: sectionId
+                                name: sectionId,
+                                markerLatLng: e.eventFrom ? e.latlng : model.get('latLng')
                             });
                         }
                     }.bind(this));
@@ -103,4 +106,42 @@ cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCo
     });
 
     return new MarkersClickHandler();
+});
+
+cm.define('markerCircle', ['map', 'markersClickHandler'], function(cm) {
+    var map = cm.get('map');
+    var markersClickHandler = cm.get('markersClickHandler');
+
+    var MarkerCircle = L.Class.extend({
+        initialize: function(opts) {
+            L.setOptions(this, opts);
+            this.marker = L.marker(e.latlng, {
+                icon: L.divIcon({
+                    iconSize: [20, 20],
+                    iconAnchor: [8, 10],
+                    className: 'marker-circled'
+                }),
+                zIndexOffset: 9999999
+            });
+            this.options.map.on('click', this.hide.bind(this));
+            this.options.map.on('zoomstart', this.hide.bind(this));
+        },
+        show: function() {
+            this.marker.setLatLng.apply(this.marker, arguments);
+            this.marker.addTo(this.options.map);
+        },
+        hide: function() {
+            this.options.map.removeLayer(this.marker);
+        }
+    });
+
+    var markerCircle = new MarkerCircle({
+        map: map
+    });
+
+    markersClickHandler.on('click', function(e) {
+        markerCircle.show(e.markerLatLng);
+    });
+
+    return markerCircle;
 });
