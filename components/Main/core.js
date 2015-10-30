@@ -147,3 +147,14 @@ cm.define('leafletProductionIssues', [], function(cm) {
 
     return null;
 });
+
+cm.define('resetter', [], function(cm) {
+    return new(L.Class.extend({
+        includes: [L.Mixin.Events],
+        initialize: function() {
+        },
+        reset: function() {
+            this.fire('reset');
+        }
+    }));
+});

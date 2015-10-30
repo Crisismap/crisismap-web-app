@@ -1,42 +1,3 @@
-cm.define('widgetsManager', ['map'], function(cm) {
-    var map = cm.get('map');
-
-    var wm = new(L.Class.extend({
-        includes: [L.Mixin.Events],
-        initialize: function() {
-            this._widgets = [];
-            this._currentWidget = {};
-        },
-        add: function(widget) {
-            if (!widget.cid || !widget.getContainer) {
-                throw 'widget must be instance of nsGmx.GmxWidget';
-            }
-            this._widgets.push(widget);
-            $(widget.getContainer()).on('click', function() {
-                this._currentWidget = widget;
-            }.bind(this));
-        },
-        reset: function() {
-            this._widgets.map(function(widget) {
-                if (widget.cid !== this._currentWidget.cid) {
-                    widget.reset && widget.reset();
-                }
-            }.bind(this));
-            this._currentWidget = {};
-        }
-    }));
-
-    map.on('click', function() {
-        wm.reset();
-    });
-
-    $('body').on('click', function() {
-        wm.reset();
-    });
-
-    return wm;
-});
-
 cm.define('headerNavBar', ['layoutManager'], function(cm) {
     var layoutManager = cm.get('layoutManager');
 
@@ -65,10 +26,10 @@ cm.define('headerNavBar', ['layoutManager'], function(cm) {
     return headerNavBar;
 });
 
-cm.define('headerMainMenu', ['headerNavBar', 'map', 'widgetsManager'], function(cm) {
+cm.define('headerMainMenu', ['headerNavBar', 'map', 'resetter'], function(cm) {
     var map = cm.get('map');
     var headerNavBar = cm.get('headerNavBar');
-    var widgetsManager = cm.get('widgetsManager');
+    var resetter = cm.get('resetter');
 
     var dropdownWidget = new nsGmx.DropdownWidget({
         titleClassName: 'icon-menu',
@@ -93,7 +54,9 @@ cm.define('headerMainMenu', ['headerNavBar', 'map', 'widgetsManager'], function(
 
     dropdownWidget.appendTo(headerNavBar.getLeftContainer());
 
-    widgetsManager.add(dropdownWidget);
+    resetter.on('reset', function() {
+        dropdownWidget.reset();
+    });
 
     return dropdownWidget;
 });

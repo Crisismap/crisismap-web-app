@@ -14,8 +14,19 @@ cm.define('gmxApplication', ['config', 'mapContainer', 'leafletProductionIssues'
     });
 });
 
-cm.define('map', ['gmxApplication'], function(cm) {
-    return cm.get('gmxApplication').get('map');
+cm.define('map', ['gmxApplication', 'resetter'], function(cm) {
+    var map = cm.get('gmxApplication').get('map');
+    var resetter = cm.get('resetter');
+
+    map.on('click', function(e) {
+        resetter.reset();
+    });
+
+    resetter.on('reset', function() {
+        map.closePopup();
+    });
+
+    return map;
 });
 
 cm.define('mapLayoutHelper', ['map'], function(cm) {

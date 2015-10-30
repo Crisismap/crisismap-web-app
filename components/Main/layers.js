@@ -10,12 +10,20 @@ cm.define('layersTree', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersTree');
 });
 
-cm.define('sectionsManager', ['config', 'layersTree'], function() {
+cm.define('sectionsManager', ['config', 'resetter', 'layersTree'], function() {
     var config = cm.get('config');
+    var resetter = cm.get('resetter');
     var layersTree = cm.get('layersTree');
-    return new nsGmx.SectionsManager({
+
+    var sectionsManager = new nsGmx.SectionsManager({
         sectionsTree: layersTree.find(config.user.sectionsTree)
     });
+
+    sectionsManager.on('sectionchange', function() {
+        resetter.reset();
+    });
+
+    return sectionsManager;
 });
 
 cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar'], function(cm) {
@@ -108,8 +116,10 @@ cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCo
     return new MarkersClickHandler();
 });
 
-cm.define('markerCircle', ['map', 'markersClickHandler'], function(cm) {
+cm.define('markerCircle', ['map', 'markersClickHandler', 'sectionsManager', 'resetter'], function(cm) {
     var map = cm.get('map');
+    var resetter = cm.get('resetter');
+    var sectionsManager = cm.get('sectionsManager');
     var markersClickHandler = cm.get('markersClickHandler');
 
     var MarkerCircle = L.Class.extend({
@@ -141,6 +151,10 @@ cm.define('markerCircle', ['map', 'markersClickHandler'], function(cm) {
 
     markersClickHandler.on('click', function(e) {
         markerCircle.show(e.markerLatLng);
+    });
+
+    resetter.on('reset', function(e) {
+        markerCircle.hide();
     });
 
     return markerCircle;

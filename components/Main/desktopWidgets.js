@@ -37,13 +37,13 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return scrollView;
     });
 
-    cm.define('headerLayersMenu', ['map', 'config', 'sectionsManager', 'layersHash', 'headerNavBar', 'widgetsManager'], function() {
+    cm.define('headerLayersMenu', ['map', 'config', 'sectionsManager', 'layersHash', 'headerNavBar', 'resetter'], function() {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var headerNavBar = cm.get('headerNavBar');
         var sectionsManager = cm.get('sectionsManager');
-        var widgetsManager = cm.get('widgetsManager');
+        var resetter = cm.get('resetter');
 
         var items = sectionsManager.getSectionsIds().map(function(sectionId) {
             return {

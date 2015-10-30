@@ -36,13 +36,13 @@ if (nsGmx.CrisisMap.isMobile()) {
         return infoControl;
     });
 
-    cm.define('headerLayersMenu', ['map', 'config', 'sectionsManager', 'layersHash', 'headerNavBar', 'widgetsManager'], function() {
+    cm.define('headerLayersMenu', ['map', 'config', 'sectionsManager', 'layersHash', 'headerNavBar', 'resetter'], function() {
         var map = cm.get('map');
         var config = cm.get('config');
         var layersHash = cm.get('layersHash');
         var headerNavBar = cm.get('headerNavBar');
         var sectionsManager = cm.get('sectionsManager');
-        var widgetsManager = cm.get('widgetsManager');
+        var resetter = cm.get('resetter');
 
         var dropdownWidget = new nsGmx.DropdownWidget({
             title: sectionsManager.getSectionProperties(sectionsManager.getActiveSectionId()).title,
@@ -70,7 +70,9 @@ if (nsGmx.CrisisMap.isMobile()) {
 
         dropdownWidget.appendTo(headerNavBar.getCenterContainer());
 
-        widgetsManager.add(dropdownWidget);
+        resetter.on('reset', function() {
+            dropdownWidget.reset();
+        });
 
         return dropdownWidget;
     });
