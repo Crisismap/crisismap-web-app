@@ -130,11 +130,11 @@ cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function() {
         var originalStyle = layer.getStyle(stylesNum);
         layer.setStyle($.extend(true, originalStyle, {
             'RenderStyle': {
-                'iconAnchor': [13, 13],
+                'iconAnchor': [12, 12],
                 'iconCenter': false
             },
             'HoverStyle': {
-                'iconAnchor': [13, 13],
+                'iconAnchor': [12, 12],
                 'iconCenter': false
             }
         }), stylesNum);
