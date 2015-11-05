@@ -18,7 +18,7 @@ cm.define('map', ['gmxApplication', 'resetter'], function(cm) {
     var map = cm.get('gmxApplication').get('map');
     var resetter = cm.get('resetter');
 
-    map.on('click', function(e) {
+    map.on('click zoomstart', function(le) {
         resetter.reset();
     });
 

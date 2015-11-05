@@ -150,6 +150,7 @@ if (nsGmx.CrisisMap.isMobile()) {
     cm.define('markerLayersPopupsManager', [
         'map',
         'config',
+        'resetter',
         'infoControl',
         'headerNavBar',
         'alertsWidget',
@@ -158,6 +159,7 @@ if (nsGmx.CrisisMap.isMobile()) {
     ], function(cm) {
         var map = cm.get('map');
         var config = cm.get('config');
+        var resetter = cm.get('resetter');
         var layersHash = cm.get('layersHash');
         var headerNavBar = cm.get('headerNavBar');
         var alertsWidget = cm.get('alertsWidget');
@@ -194,11 +196,7 @@ if (nsGmx.CrisisMap.isMobile()) {
             mapLayoutHelper: cm.get('mapLayoutHelper')
         });
 
-        headerNavBar.on('select', function() {
-            mlpm.reset();
-        });
-
-        map.on('click', function() {
+        resetter.on('reset', function() {
             mlpm.reset();
         });
 
