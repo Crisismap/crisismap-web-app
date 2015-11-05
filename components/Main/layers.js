@@ -126,19 +126,19 @@ cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function() {
 
     dataLayersIds.map(function(dataLayerId) {
         var layer = layersHash[dataLayerId];
-        var stylesNum = layer.getStyles().length - 1;
-        var originalStyle = layer.getStyle(stylesNum);
-        layer.setStyle($.extend(true, originalStyle, {
-            'RenderStyle': {
-                'iconAnchor': [12, 12],
-                'iconCenter': false
-            },
-            'HoverStyle': {
-                'iconAnchor': [12, 12],
-                'iconCenter': false
-            }
-        }), stylesNum);
-        console.log(layer.getStyle(stylesNum));
+        for (var i = 0; i < layer.getStyles().length; i++) {
+            var originalStyle = layer.getStyle(i);
+            layer.setStyle($.extend(true, originalStyle, {
+                'RenderStyle': {
+                    'iconAnchor': [12, 12],
+                    'iconCenter': false
+                },
+                'HoverStyle': {
+                    'iconAnchor': [12, 12],
+                    'iconCenter': false
+                }
+            }), i);
+        }
     });
 
     return null;
