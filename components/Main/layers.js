@@ -116,6 +116,34 @@ cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCo
     return new MarkersClickHandler();
 });
 
+cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function() {
+    var layersHash = cm.get('layersHash');
+    var sectionsManager = cm.get('sectionsManager');
+
+    var dataLayersIds = [].concat.apply([], sectionsManager.getSectionsIds().map(function(sectionId) {
+        return sectionsManager.getSectionProperties(sectionId).dataLayersIds;
+    }));
+
+    dataLayersIds.map(function(dataLayerId) {
+        var layer = layersHash[dataLayerId];
+        var stylesNum = layer.getStyles().length - 1;
+        var originalStyle = layer.getStyle(stylesNum);
+        layer.setStyle($.extend(true, originalStyle, {
+            'RenderStyle': {
+                'iconAnchor': [13, 13],
+                'iconCenter': false
+            },
+            'HoverStyle': {
+                'iconAnchor': [13, 13],
+                'iconCenter': false
+            }
+        }), stylesNum);
+        console.log(layer.getStyle(stylesNum));
+    });
+
+    return null;
+});
+
 cm.define('markerCircle', ['map', 'markersClickHandler', 'sectionsManager', 'resetter'], function(cm) {
     var map = cm.get('map');
     var resetter = cm.get('resetter');
@@ -127,8 +155,8 @@ cm.define('markerCircle', ['map', 'markersClickHandler', 'sectionsManager', 'res
             L.setOptions(this, opts);
             this.marker = L.marker(e.latlng, {
                 icon: L.divIcon({
-                    iconSize: [20, 20],
-                    iconAnchor: [8, 10],
+                    iconSize: [23, 23],
+                    iconAnchor: [13, 13],
                     className: 'marker-circled'
                 }),
                 zIndexOffset: 9999999

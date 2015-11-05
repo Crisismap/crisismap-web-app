@@ -83,24 +83,24 @@ if (!nsGmx.CrisisMap.isMobile()) {
         var markerCircle = cm.get('markerCircle');
         var markersClickHandler = cm.get('markersClickHandler');
 
-        function openPopup(model) {
+        function openPopup(model, latLng) {
             var p = L.popup();
             var detailsView = new nsGmx.EventDetailsView({
                 model: model,
                 topIconClass: null
             });
             p.setContent(detailsView.getContainer());
-            p.setLatLng(model.get('latLng'));
+            p.setLatLng(latLng);
             map.openPopup(p);
         }
 
         markersClickHandler.on('click', function(e) {
-            openPopup(e.model);
+            openPopup(e.model, e.markerLatLng);
         });
 
         alertsWidget.on('marker', function(model) {
             map.setView(model.get('latLng'), config.user.markerZoom);
-            openPopup(model);
+            openPopup(model, model.get('latLng'));
         })
 
         return null;
