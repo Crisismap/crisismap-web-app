@@ -130,11 +130,11 @@ cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function() {
             var originalStyle = layer.getStyle(i);
             layer.setStyle($.extend(true, originalStyle, {
                 'RenderStyle': {
-                    'iconAnchor': [12, 12],
+                    'iconAnchor': [13, 13],
                     'iconCenter': false
                 },
                 'HoverStyle': {
-                    'iconAnchor': [12, 12],
+                    'iconAnchor': [13, 13],
                     'iconCenter': false
                 }
             }), i);
@@ -156,7 +156,7 @@ cm.define('markerCircle', ['map', 'markersClickHandler', 'sectionsManager', 'res
             this.marker = L.marker(e.latlng, {
                 icon: L.divIcon({
                     iconSize: [23, 23],
-                    iconAnchor: [13, 13],
+                    iconAnchor: [14, 14],
                     className: 'marker-circled'
                 }),
                 zIndexOffset: 9999999
