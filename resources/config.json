@@ -1,16 +1,16 @@
 {
     "app": {
-        "map": {
-            "center": [
-                55.750303,
-                37.619934
+		"map": {
+        	"center": [
+                54,
+                90
             ],
-            "zoom": 8,
+            "zoom": 3,
             "minZoom": 1
         },
         "gmxMap": {
             "mapID": "1BD4282D27914CD4B70F89E93B38B290",
-            "apiKey": "159CED7DA8534FD286B7E7139AD03BD6"
+            "apiKey": "W4IH6K7CJ4"
         },
         "zoomControl": "leaflet",
         "hideControl": false,
@@ -44,14 +44,14 @@
             }
         },
         "A854633809CB44B088DD51B70A312EEC": {
-            "clusters": {}
+            "clusters": {"maxClusterRadius": 50}
         },
         "B078737025C54D26B87DDD9CACBB70B7": {
-            "clusters": {}
+            "clusters": {"maxClusterRadius": 50}
         },
         "0013A58990D94C1B9B71E868F0C29C30": {
-            "clusters": {}
+            "clusters": {"maxClusterRadius": 50}
         },
-        "256FE2A3D5C84BF09443E2DADE0F00AD": {}
+        "256FE2A3D5C84BF09443E2DADE0F00AD": {"maxClusterRadius": 50}
     }
 }
