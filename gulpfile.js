@@ -27,7 +27,8 @@ require('./external/GMXBuilder')(gulp, {
             'dist/images/marker-shadow.png'
         ]
     }, {
-        bowerComponent: 'leaflet.markercluster',
+        id: 'leaflet.markercluster',
+        bowerComponent: 'git://github.com/Leaflet/Leaflet.markercluster.git',
         distFiles: ['dist/MarkerCluster.css', 'dist/MarkerCluster.Default.css', 'dist/leaflet.markercluster.js']
     }, {
         id: 'LeafletMethodsKeeper',
