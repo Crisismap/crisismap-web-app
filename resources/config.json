@@ -1,7 +1,7 @@
 {
     "app": {
-		"map": {
-        	"center": [
+        "map": {
+            "center": [
                 54,
                 90
             ],
@@ -24,6 +24,7 @@
     },
     "user": {
         "sectionsTree": "U4okmqmPwu38rDNW",
+        "layersIdField": "news_location_id",
         "markerZoom": 9,
         "geolocationMaxZoom": 12
     },
@@ -43,15 +44,20 @@
                 "eng": "War in Ukraine"
             }
         },
-        "A854633809CB44B088DD51B70A312EEC": {
-            "clusters": {"maxClusterRadius": 50}
+        "0063FE5347284163B43E863FCFFA9161": {
+            "clusters": {
+                "maxClusterRadius": 50
+            }
         },
-        "B078737025C54D26B87DDD9CACBB70B7": {
-            "clusters": {"maxClusterRadius": 50}
+        "57A675E1579948DEB32C45B996ADD9AB": {
+            "clusters": {
+                "maxClusterRadius": 50
+            }
         },
-        "0013A58990D94C1B9B71E868F0C29C30": {
-            "clusters": {"maxClusterRadius": 50}
-        },
-        "256FE2A3D5C84BF09443E2DADE0F00AD": {"maxClusterRadius": 50}
+        "31C5118DCD1249318E9576D68793B485": {
+            "clusters": {
+                "maxClusterRadius": 50
+            }
+        }
     }
 }
