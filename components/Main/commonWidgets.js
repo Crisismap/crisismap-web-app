@@ -106,24 +106,20 @@ cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], fu
             var update = this._update.bind(this);
             this.options.sectionsManager.on('sectionchange', update);
             update(this.options.sectionsManager.getActiveSectionId());
-            this._prevCollection = null;
         },
         getAlertsNumber: function() {
-            return this.number;
+            return this._currentCollection.length;
         },
         _update: function(sectionId) {
-            var onCollectionUpdate = this._onCollectionUpdate.bind(this);
             sectionId = sectionId || this.options.sectionsManager.getActiveSectionId();
-            var collection = this.options.newsLayersCollections[sectionId];
-            this._prevCollection && this._prevCollection.off('update', onCollectionUpdate);
-            collection && onCollectionUpdate(collection);
-            collection && collection.off('update', onCollectionUpdate)
-            collection && collection.on('update', onCollectionUpdate);
-            this._prevCollection = collection;
+            var newCollection = this.options.newsLayersCollections[sectionId];
+            this._currentCollection && this._currentCollection.off('update', this._onCollectionUpdate, this);
+            this._currentCollection = newCollection;
+            newCollection && newCollection.on('update', this._onCollectionUpdate, this);
+            newCollection && this._onCollectionUpdate(newCollection);
         },
         _onCollectionUpdate: function(collection) {
-            this.number = collection.length;
-            this.trigger('change', this.number);
+            this.trigger('change', this.getAlertsNumber());
         }
     }))({
         sectionsManager: cm.get('sectionsManager'),
