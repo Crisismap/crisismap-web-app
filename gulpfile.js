@@ -27,7 +27,8 @@ require('./external/GMXBuilder')(gulp, {
             'dist/images/marker-shadow.png'
         ]
     }, {
-        bowerComponent: 'leaflet.markercluster',
+        id: 'leaflet.markercluster',
+        bowerComponent: 'git://github.com/leaflet/leaflet.markercluster.git',
         distFiles: ['dist/MarkerCluster.css', 'dist/MarkerCluster.Default.css', 'dist/leaflet.markercluster.js']
     }, {
         id: 'LeafletMethodsKeeper',
@@ -122,7 +123,8 @@ require('./external/GMXBuilder')(gulp, {
     }, {
         id: 'ComponentsManager',
         srcDir: './external/GMXCommonComponents/ComponentsManager',
-        build: false
+        distDir: './build',
+        build: true
     }, {
         id: 'AnimationHelpers',
         srcDir: './external/GMXCommonComponents/AnimationHelpers',
