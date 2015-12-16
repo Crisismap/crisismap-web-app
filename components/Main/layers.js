@@ -26,7 +26,8 @@ cm.define('sectionsManager', ['config', 'resetter', 'layersTree'], function() {
     return sectionsManager;
 });
 
-cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar'], function(cm) {
+cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar', 'config'], function(cm) {
+    var config = cm.get('config');
     var calendar = cm.get('calendar');
     var layersHash = cm.get('layersHash')
     var sectionsManager = cm.get('sectionsManager');
@@ -34,7 +35,7 @@ cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar']
     var MarkerModel = Backbone.Model.extend({
         constructor: function(properties) {
             Backbone.Model.call(this, {
-                id: properties['id'],
+                id: properties[config.user.layersIdField],
                 title: properties['Title'],
                 description: properties['Description'],
                 date: new Date(properties['pub_date'] * 1000),
@@ -79,7 +80,8 @@ cm.define('newsLayersCollections', ['sectionsManager', 'layersHash', 'calendar']
     return collections;
 });
 
-cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCollections'], function(cm) {
+cm.define('markersClickHandler', ['config', 'layersHash', 'sectionsManager', 'newsLayersCollections'], function(cm) {
+    var config = cm.get('config');
     var layersHash = cm.get('layersHash');
     var markerCircle = cm.get('markerCircle');
     var sectionsManager = cm.get('sectionsManager');
@@ -96,7 +98,7 @@ cm.define('markersClickHandler', ['layersHash', 'sectionsManager', 'newsLayersCo
                     layer.on('click', function(e) {
                         if (!e.eventFrom || e.originalEventType === 'click') {
                             // кликнули не по кластерам
-                            var id = layer.getItemProperties(e.gmx.target.properties)['id'];
+                            var id = layer.getItemProperties(e.gmx.target.properties)[config.user.layersIdField];
                             var model = collection.findWhere({
                                 id: id
                             });
