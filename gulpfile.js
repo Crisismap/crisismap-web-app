@@ -77,7 +77,7 @@ require('./external/GMXBuilder')(gulp, {
         bowerComponent: 'underscore',
         distFiles: ['underscore.js']
     }, {
-        bowerComponent: 'backbone#1.1.2',
+        bowerComponent: 'backbone',
         distFiles: ['backbone.js']
     }, {
         bowerComponent: 'handlebars',

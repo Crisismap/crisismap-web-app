@@ -103,22 +103,21 @@ cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], fu
         includes: [Backbone.Events],
         initialize: function(opts) {
             this.options = opts;
-            var update = this._update.bind(this);
-            this.options.sectionsManager.on('sectionchange', update);
-            update(this.options.sectionsManager.getActiveSectionId());
+            this.options.sectionsManager.on('sectionchange', this._update, this);
+            this._update();
         },
         getAlertsNumber: function() {
             return this._currentCollection.length;
         },
-        _update: function(sectionId) {
-            sectionId = sectionId || this.options.sectionsManager.getActiveSectionId();
+        _update: function() {
+            var sectionId = this.options.sectionsManager.getActiveSectionId();
             var newCollection = this.options.newsLayersCollections[sectionId];
             this._currentCollection && this._currentCollection.off('update', this._onCollectionUpdate, this);
             this._currentCollection = newCollection;
             newCollection && newCollection.on('update', this._onCollectionUpdate, this);
-            newCollection && this._onCollectionUpdate(newCollection);
+            newCollection && this._onCollectionUpdate();
         },
-        _onCollectionUpdate: function(collection) {
+        _onCollectionUpdate: function() {
             this.trigger('change', this.getAlertsNumber());
         }
     }))({
