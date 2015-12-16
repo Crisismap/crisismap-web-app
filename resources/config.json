@@ -24,7 +24,7 @@
     },
     "user": {
         "sectionsTree": "U4okmqmPwu38rDNW",
-        "layersIdField": "news_location_id",
+        "layerMarkersIdField": "news_location_id",
         "markerZoom": 9,
         "geolocationMaxZoom": 12
     },

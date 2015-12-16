@@ -14,6 +14,8 @@ cm.create().then(function() {
     window.ld = cm.get('layersDebugger');
     window.sm = cm.get('sectionsManager');
     window.cal = cm.get('calendar');
-    window.nlc = cm.get('newsLayersCollections')
+    window.lmc = cm.get('layersMarkersCollections');
+    window.nlc = cm.get('newsLayersCollections');
     window.ltw = cm.get('layersTreeWidget');
+    window.aan = cm.get('activeAlertsNumber');
 });
