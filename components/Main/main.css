@@ -53,7 +53,7 @@ div { outline: none; }
 .crisisMap_desktop .alertsCollectionView { padding: 0px; }
 .crisisMap_mobile .alertsCollectionView { padding: 5px; padding-left: 10px; }
 
-.crisisMap_mobile .markerItemViewCollapsed, .crisisMap_mobile .markerItemViewExpanded { font-size: 13px; }
+.crisisMap_mobile .markerItemViewCollapsed, .crisisMap_mobile .markerItemViewExpanded { font-size: 13px; border: none; }
 .crisisMap_mobile .markerItemViewExpanded { box-shadow: 0 0 2px hsla(0, 0%, 0%, .5); }
 
 .leaflet-popup-content-wrapper { border-radius: 4px; }
