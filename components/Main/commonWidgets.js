@@ -36,15 +36,36 @@ cm.define('headerMainMenu', ['headerNavBar', 'map', 'resetter'], function(cm) {
         trigger: 'click'
     });
 
+    var AnchorWidget = nsGmx.GmxWidget.extend({
+        className: 'anchorWidget',
+        // options.href
+        // options.title
+        // options.target
+        initialize: function(options) {
+            this.options = options;
+            this.render();
+        },
+        render: function() {
+            $('<a>')
+                .html(this.options.title)
+                .attr('href', this.options.href)
+                .attr('target', this.options.target)
+                .appendTo(this.$el);
+            return this;
+        }
+    });
+
     dropdownWidget.addItem('login', new nsGmx.PlainTextWidget(
         nsGmx.Translations.getText('crisismap.login')
     ));
     dropdownWidget.addItem('help', new nsGmx.PlainTextWidget(
         nsGmx.Translations.getText('crisismap.help')
     ));
-    dropdownWidget.addItem('caw', new nsGmx.PlainTextWidget(
-        nsGmx.Translations.getText('crisismap.crisisalertweb')
-    ));
+    dropdownWidget.addItem('caw', new AnchorWidget({
+        href: 'http://crisisalert.ru',
+        title: nsGmx.Translations.getText('crisismap.crisisalertweb'),
+        target: '_blank'
+    }));
     dropdownWidget.addItem('rate', new nsGmx.PlainTextWidget(
         nsGmx.Translations.getText('crisismap.rateapp')
     ));
