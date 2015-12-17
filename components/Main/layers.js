@@ -69,18 +69,7 @@ cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', '
         collections[id] = new nsGmx.LayerMarkersCollection([], {
             model: MarkerModel,
             layer: layersHash[id],
-            calendar: calendar,
-            comparator: function(a, b) {
-                a = a.get('date').getTime();
-                b = b.get('date').getTime();
-                if (a > b) {
-                    return -1
-                } else if (a < b) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
+            calendar: calendar
         });
     });
 
@@ -134,7 +123,19 @@ cm.define('newsLayersCollections', ['layersMarkersCollections', 'sectionsManager
         var dataLayersCollections = dataLayersIds.map(function(dataLayerId) {
             return layersMarkersCollections[dataLayerId];
         });
-        collections[sectionId] = new nsGmx.MergedCollection(dataLayersCollections);
+        collections[sectionId] = new nsGmx.MergedCollection(dataLayersCollections, {
+            comparator: function(a, b) {
+                a = a.get('date').getTime();
+                b = b.get('date').getTime();
+                if (a > b) {
+                    return -1
+                } else if (a < b) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
         return collections;
     }.bind(this), {});
 });
