@@ -137,7 +137,7 @@ cm.define('alertsWidget', [
 
     var alertsWidget = new nsGmx.SwitchingCollectionWidget({
         className: 'alertsCollectionView',
-        itemView: nsGmx.AlertItemView,
+        itemView: nsGmx.MarkerItemView,
         reEmitEvents: ['marker']
     });
 

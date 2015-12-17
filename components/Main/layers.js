@@ -41,6 +41,7 @@ cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', '
                 date: new Date(properties['pub_date'] * 1000),
                 url: properties['URL'],
                 class: properties['class'],
+                styles: properties['styles'],
                 latLng: L.Projection.Mercator.unproject({
                     x: properties['mercX'],
                     y: properties['mercY']

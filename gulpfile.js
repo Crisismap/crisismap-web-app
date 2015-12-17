@@ -179,8 +179,8 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
-        id: 'AlertItemView',
-        srcDir: './components/AlertItemView',
+        id: 'MarkerItemView',
+        srcDir: './external/GMXCommonComponents/MarkerItemView',
         distDir: './build',
         build: true
     }, {
