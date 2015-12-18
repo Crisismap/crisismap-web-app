@@ -1,6 +1,7 @@
 node_modules
 temp
 dist
+bugs
 /*.html
 /*.sublime-*
 local
