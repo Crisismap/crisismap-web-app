@@ -200,6 +200,10 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './components/SectionsManager',
         build: false
     }, {
+        id: 'DateInterval',
+        srcDir: './external/GMXCommonComponents/DateInterval',
+        build: false
+    }, {
         id: 'CalendarWidget',
         srcDir: './external/GMXCommonComponents/CalendarWidget',
         distDir: './build',
