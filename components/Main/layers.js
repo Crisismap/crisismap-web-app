@@ -35,7 +35,7 @@ cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', '
     var MarkerModel = Backbone.Model.extend({
         constructor: function(properties) {
             Backbone.Model.call(this, {
-                id: properties[config.user.layerMarkersIdField],
+                id: properties['id'],
                 title: properties['Title'],
                 description: properties['Description'],
                 date: new Date(properties['pub_date'] * 1000),
@@ -51,35 +51,40 @@ cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', '
     });
 
     var nodes = layersTree.select(function(node) {
-        if (
+        return !!(
             node.get('properties').MetaProperties &&
             node.get('properties').MetaProperties.data_provider &&
             node.get('properties').MetaProperties.data_provider.Value
-        ) {
-            return true;
-        }
+        )
     });
 
     var collections = {};
     nodes.map(function(node) {
-        var id = node.get('properties').LayerID;
+        var id = node.get('id');
         if (!id || !layersHash[id]) {
             return;
         }
-        collections[id] = new nsGmx.LayerMarkersCollection([], {
-            model: MarkerModel,
-            layer: layersHash[id],
-            calendar: calendar
+
+        var col = new nsGmx.LayerMarkersCollection(layersHash[id], {
+            model: MarkerModel
         });
+
+        col.setDateInterval(calendar.get('dateBegin'), calendar.get('dateEnd'));
+        calendar.on('change', function() {
+            col.setDateInterval(calendar.get('dateBegin'), calendar.get('dateEnd'));
+        });
+
+        collections[id] = col;
     });
 
     return collections;
 });
 
-cm.define('markersClickHandler', ['layersMarkersCollections', 'sectionsManager', 'layersHash', 'config'], function(cm) {
+cm.define('markersClickHandler', ['layersMarkersCollections', 'sectionsManager', 'layersHash', 'layersTree', 'config'], function(cm) {
     var layersMarkersCollections = cm.get('layersMarkersCollections');
     var sectionsManager = cm.get('sectionsManager');
     var layersHash = cm.get('layersHash');
+    var layersTree = cm.get('layersTree');
     var config = cm.get('config');
 
     var MarkersClickHandler = L.Class.extend({
@@ -92,8 +97,9 @@ cm.define('markersClickHandler', ['layersMarkersCollections', 'sectionsManager',
                     unbindPopup(layer);
                     layer.on('click', function(e) {
                         if (!e.eventFrom || e.originalEventType === 'click') {
+                            var identityField = layersTree.find(layerId).get('properties').identityField;
                             // кликнули не по кластерам
-                            var id = layer.getItemProperties(e.gmx.target.properties)[config.user.layerMarkersIdField];
+                            var id = layer.getItemProperties(e.gmx.target.properties)[identityField];
                             var model = collection.findWhere({
                                 id: id
                             });
