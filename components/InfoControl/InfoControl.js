@@ -9,14 +9,8 @@ nsGmx.InfoControl = L.Control.extend({
         this.render(null);
         this.hide();
     },
-    render: function(model) {
-        this._container.innerHTML = '';
-        if (model) {
-            var contentView = new nsGmx.EventDetailsView({
-                model: model
-            });
-            contentView.appendTo(this._container);
-        }
+    render: function(html) {
+        this._container.innerHTML = html;
         return this;
     },
     onAdd: function(map) {

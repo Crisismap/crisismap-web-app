@@ -52,7 +52,6 @@ if (nsGmx.CrisisMap.isMobile()) {
 
         dropdownWidget.on('item', function(id) {
             sectionsManager.setActiveSectionId(id);
-            cm.get('markerLayersPopupsManager') && cm.get('markerLayersPopupsManager').reset();
             var layer = layersHash[sectionsManager.getSectionProperties(id).dataLayerId];
             layer && nsGmx.L.Map.fitBounds.call(
                 map,
@@ -146,70 +145,36 @@ if (nsGmx.CrisisMap.isMobile()) {
         return headerLayoutButton;
     });
 
-    // компонент, отображающий попапы маркеров
-    cm.define('markerLayersPopupsManager', [
-        'map',
-        'config',
-        'resetter',
-        'infoControl',
-        'headerNavBar',
-        'alertsWidget',
-        'headerLayoutButton',
-        'markersClickHandler',
-    ], function(cm) {
-        var map = cm.get('map');
-        var config = cm.get('config');
-        var resetter = cm.get('resetter');
+    cm.define('mobilePopups', ['mapLayoutHelper', 'infoControl', 'layersHash', 'resetter', 'map'], function(cm) {
+        var mapLayoutHelper = cm.get('mapLayoutHelper');
+        var infoControl = cm.get('infoControl');
         var layersHash = cm.get('layersHash');
-        var headerNavBar = cm.get('headerNavBar');
-        var alertsWidget = cm.get('alertsWidget');
-        var headerLayoutButton = cm.get('headerLayoutButton');
-        var markersClickHandler = cm.get('markersClickHandler');
+        var resetter = cm.get('resetter');
+        var map = cm.get('map');
 
-        var MLPM = L.Class.extend({
-            initialize: function(options) {
-                L.setOptions(this, options);
-            },
-            show: function(model) {
-                var map = cm.get('map');
-                var mapLayoutHelper = cm.get('mapLayoutHelper');
-                this.options.mapLayoutHelper.hideBottomControls();
-                this.options.infoControl.render(model);
-                this.options.infoControl.show();
-                map.setActiveArea({
-                    bottom: getFullHeight(this.options.infoControl.getContainer()) + 'px'
+        _.mapObject(layersHash, function(layer, layerId) {
+            unbindPopup(layer); 
+            layer.on('click', function(ev) {
+                var style = layer.getStyle(ev.gmx.layer.getStylesByProperties([ev.gmx.id])[0]);
+                var balloonHtml = L.gmxUtil.parseBalloonTemplate(style.Balloon, {
+                    properties: ev.gmx.properties,
+                    tileAttributeTypes: layer._gmx.tileAttributeTypes
                 });
-                map.setView(model.get('latLng'));
-                if (map.getZoom > config.user.markerZoom) {
-                    map.setZoom(config.user.markerZoom);
-                }
-            },
-            reset: function() {
-                this.options.infoControl.hide();
-                this.options.mapLayoutHelper && this.options.mapLayoutHelper.showBottomControls();
-                this.options.mapLayoutHelper.resetActiveArea();
-            }
-        });
-
-        var mlpm = new MLPM({
-            infoControl: cm.get('infoControl'),
-            mapLayoutHelper: cm.get('mapLayoutHelper')
+                infoControl.render(balloonHtml); 
+                infoControl.show();
+                map.setActiveArea({
+                    bottom: getFullHeight(infoControl.getContainer()) + 'px'
+                });
+                map.setView(ev.latlng);
+            });
         });
 
         resetter.on('reset', function() {
-            mlpm.reset();
+            infoControl.hide();
+            mapLayoutHelper.resetActiveArea();
         });
 
-        markersClickHandler.on('click', function(e) {
-            mlpm.show(e.model);
-        });
-
-        alertsWidget.on('marker', function(model) {
-            headerLayoutButton.toggleState();
-            mlpm.show(model);
-        })
-
-        return mlpm;
+        return null;
     });
 
     cm.define('calendarPage', ['calendar', 'rootPageView', 'headerMainMenu'], function(cm) {

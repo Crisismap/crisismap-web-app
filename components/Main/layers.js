@@ -94,7 +94,6 @@ cm.define('markersClickHandler', ['layersMarkersCollections', 'sectionsManager',
                 sectionsManager.getSectionProperties(sectionId).dataLayersIds.map(function(layerId) {
                     var layer = layersHash[layerId];
                     var collection = layersMarkersCollections[layerId];
-                    unbindPopup(layer);
                     layer.on('click', function(e) {
                         if (!e.eventFrom || e.originalEventType === 'click') {
                             var identityField = layersTree.find(layerId).get('properties').identityField;
