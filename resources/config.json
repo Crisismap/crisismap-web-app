@@ -20,7 +20,8 @@
         "copyrightControl": false,
         "bottomControl": false,
         "logoControl": false,
-        "sidebarWidget": true
+        "sidebarWidget": true,
+        "globals": true
     },
     "user": {
         "sectionsTree": "U4okmqmPwu38rDNW",

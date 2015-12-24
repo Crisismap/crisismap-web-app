@@ -83,10 +83,6 @@ require('./external/GMXBuilder')(gulp, {
         bowerComponent: 'handlebars',
         distFiles: ['handlebars.js']
     }, {
-        id: 'ThoraxDummy',
-        srcDir: './components/ThoraxDummy',
-        build: false
-    }, {
         id: 'translations',
         url: 'http://maps.kosmosnimki.ru/api/translations.js'
     }, {
@@ -165,10 +161,6 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './components/EventDetailsView',
         distDir: './build',
         build: true
-    }, {
-        id: 'InfoControl',
-        srcDir: './components/InfoControl',
-        build: false
     }, {
         id: 'PageView',
         srcDir: './components/PageView',

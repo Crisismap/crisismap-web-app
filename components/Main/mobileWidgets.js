@@ -23,17 +23,20 @@ if (nsGmx.CrisisMap.isMobile()) {
         return scrollView;
     });
 
-    cm.define('infoControl', ['map', 'mapLayoutHelper'], function(cm) {
+    cm.define('alertsWidgetMarkerHandler', ['sidebarWidget', 'rootPageView', 'alertsWidget', 'config'], function() {
+        var sidebarWidget = cm.get('sidebarWidget');
+        var rootPageView = cm.get('rootPageView');
+        var alertsWidget = cm.get('alertsWidget');
+        var config = cm.get('config');
         var map = cm.get('map');
-        var mlh = cm.get('mapLayoutHelper');
 
-        var infoControl = new nsGmx.InfoControl({
-            position: 'center'
+        alertsWidget.on('marker', function(model) {
+            rootPageView.setActivePage('map');
+            sidebarWidget.close();
+            map.setView(model.get('latLng'), config.user.markerZoom);
         });
 
-        map.addControl(infoControl);
-
-        return infoControl;
+        return null;
     });
 
     cm.define('headerLayersMenu', ['map', 'config', 'sectionsManager', 'layersHash', 'headerNavBar', 'resetter'], function() {
@@ -101,11 +104,13 @@ if (nsGmx.CrisisMap.isMobile()) {
             toggleState: function() {
                 this.setState(this._state === 'map' ? 'alerts' : 'map');
             },
-            setState: function(state) {
+            setState: function(state, silent) {
                 this._state = state;
                 this.setIconClass(state === 'map' ? 'icon-bell' : 'icon-globe');
                 this._updateLabel();
-                this.trigger('stateswitch', this.getState());
+                if (!silent) {
+                    this.trigger('stateswitch', this.getState());
+                }
             },
             getState: function() {
                 return this._state;
@@ -142,39 +147,11 @@ if (nsGmx.CrisisMap.isMobile()) {
             }
         });
 
+        rootPageView.on('switch', function(id) {
+            headerLayoutButton.setState(id, true);
+        })
+
         return headerLayoutButton;
-    });
-
-    cm.define('mobilePopups', ['mapLayoutHelper', 'infoControl', 'layersHash', 'resetter', 'map'], function(cm) {
-        var mapLayoutHelper = cm.get('mapLayoutHelper');
-        var infoControl = cm.get('infoControl');
-        var layersHash = cm.get('layersHash');
-        var resetter = cm.get('resetter');
-        var map = cm.get('map');
-
-        _.mapObject(layersHash, function(layer, layerId) {
-            unbindPopup(layer); 
-            layer.on('click', function(ev) {
-                var style = layer.getStyle(ev.gmx.layer.getStylesByProperties([ev.gmx.id])[0]);
-                var balloonHtml = L.gmxUtil.parseBalloonTemplate(style.Balloon, {
-                    properties: ev.gmx.properties,
-                    tileAttributeTypes: layer._gmx.tileAttributeTypes
-                });
-                infoControl.render(balloonHtml); 
-                infoControl.show();
-                map.setActiveArea({
-                    bottom: getFullHeight(infoControl.getContainer()) + 'px'
-                });
-                map.setView(ev.latlng);
-            });
-        });
-
-        resetter.on('reset', function() {
-            infoControl.hide();
-            mapLayoutHelper.resetActiveArea();
-        });
-
-        return null;
     });
 
     cm.define('calendarPage', ['calendar', 'rootPageView', 'headerMainMenu'], function(cm) {

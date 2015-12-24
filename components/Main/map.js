@@ -6,68 +6,23 @@ cm.define('gmxApplication', ['config', 'mapContainer', 'leafletProductionIssues'
         app: {
             calendarWidget: nsGmx.CrisisMap.isMobile() ? false : {
                 type: 'fire'
-            }
+            },
+            mobilePopups: nsGmx.CrisisMap.isMobile()
         }
     });
 
-    var gmxApplication = nsGmx.createGmxApplication(mapContainer, cfg);
+    var gmxApplication = window.gacm = nsGmx.createGmxApplication(mapContainer, cfg);
     gmxApplication.create().then(function() {
         cb(gmxApplication);
     });
 });
 
-cm.define('map', ['gmxApplication', 'resetter'], function(cm) {
-    var map = cm.get('gmxApplication').get('map');
-    var resetter = cm.get('resetter');
-
-    map.on('click zoomstart', function(le) {
-        resetter.reset();
-    });
-
-    resetter.on('reset', function() {
-        map.closePopup();
-    });
-
-    return map;
+cm.define('resetter', ['gmxApplication'], function(cm) {
+    return cm.get('gmxApplication').get('resetter');
 });
 
-cm.define('mapLayoutHelper', ['map'], function(cm) {
-    var map = cm.get('map');
-
-    function resetActiveArea() {
-        map.setActiveArea({
-            position: 'absolute',
-            border: '1 px solid red',
-            left: '0',
-            top: '40px',
-            bottom: '0',
-            right: '0'
-        });
-    }
-
-    function getBottomControls() {
-        var bottomControls = [];
-        cm.get('bottomControl') && bottomControls.push(cm.get('bottomControl'));
-        cm.get('copyrightControl') && bottomControls.push(cm.get('copyrightControl'));
-        cm.get('logoControl') && bottomControls.push(cm.get('logoControl'));
-        return bottomControls;
-    }
-
-    resetActiveArea();
-
-    return {
-        hideBottomControls: function() {
-            getBottomControls().map(function(ctrl) {
-                L.DomUtil.addClass(ctrl.getContainer(), 'leaflet-control-gmx-hidden');
-            });
-        },
-        showBottomControls: function() {
-            getBottomControls().map(function(ctrl) {
-                L.DomUtil.removeClass(ctrl.getContainer(), 'leaflet-control-gmx-hidden');
-            });
-        },
-        resetActiveArea: resetActiveArea
-    }
+cm.define('map', ['gmxApplication'], function(cm) {
+    return cm.get('gmxApplication').get('map');
 });
 
 cm.define('bottomControl', ['gmxApplication'], function(cm) {

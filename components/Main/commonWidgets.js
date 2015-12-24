@@ -148,13 +148,17 @@ cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], fu
 });
 
 cm.define('alertsWidget', [
-    'sectionsManager',
+    'alertsWidgetScrollView',
     'newsLayersCollections',
-    'alertsWidgetScrollView'
+    'sectionsManager',
+    'config',
+    'map'
 ], function(cm) {
-    var sectionsManager = cm.get('sectionsManager');
-    var newsLayersCollections = cm.get('newsLayersCollections');
     var alertsWidgetScrollView = cm.get('alertsWidgetScrollView');
+    var newsLayersCollections = cm.get('newsLayersCollections');
+    var sectionsManager = cm.get('sectionsManager');
+    var config = cm.get('config');
+    var map = cm.get('map');
 
     var alertsWidget = new nsGmx.SwitchingCollectionWidget({
         className: 'alertsCollectionView',

@@ -37,6 +37,18 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return scrollView;
     });
 
+    cm.define('alertsWidgetMarkerHandler', ['alertsWidget', 'config', 'map'], function() {
+        var alertsWidget = cm.get('alertsWidget');
+        var config = cm.get('config');
+        var map = cm.get('map');
+
+        alertsWidget.on('marker', function(model) {
+            map.setView(model.get('latLng'), config.user.markerZoom);
+        });
+
+        return null;
+    });
+
     cm.define('headerLayersMenu', ['map', 'config', 'sectionsManager', 'layersHash', 'headerNavBar', 'resetter'], function() {
         var map = cm.get('map');
         var config = cm.get('config');
@@ -73,36 +85,5 @@ if (!nsGmx.CrisisMap.isMobile()) {
         radioGroupWidget.appendTo(headerNavBar.getCenterContainer());
 
         return radioGroupWidget;
-    });
-
-    cm.define('popups', ['layersHash', 'markersClickHandler', 'map', 'config', 'alertsWidget', 'markerCircle'], function(cm) {
-        var map = cm.get('map');
-        var config = cm.get('config');
-        var layersHash = cm.get('layersHash');
-        var alertsWidget = cm.get('alertsWidget');
-        var markerCircle = cm.get('markerCircle');
-        var markersClickHandler = cm.get('markersClickHandler');
-
-        function openPopup(model, latLng) {
-            var p = L.popup();
-            var detailsView = new nsGmx.EventDetailsView({
-                model: model,
-                topIconClass: null
-            });
-            p.setContent(detailsView.getContainer());
-            p.setLatLng(latLng);
-            map.openPopup(p);
-        }
-
-        markersClickHandler.on('click', function(e) {
-            openPopup(e.model, e.markerLatLng);
-        });
-
-        alertsWidget.on('marker', function(model) {
-            map.setView(model.get('latLng'), config.user.markerZoom);
-            openPopup(model, model.get('latLng'));
-        })
-
-        return null;
     });
 }

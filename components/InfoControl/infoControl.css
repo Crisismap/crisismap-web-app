@@ -1,3 +1,0 @@
-.infoControl { position: absolute; top: auto; bottom: 0; left: 0; right: 0; background-color: hsla(0, 0%, 100%, .9); box-shadow: 0 0 4px hsla(0, 0%, 0%, .3); }
-.infoControl.leaflet-control { margin: 0; padding: 10px; }
-.infoControl .eventDetailsView-title { font-size: 1.2em; }

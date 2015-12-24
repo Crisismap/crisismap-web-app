@@ -12,6 +12,7 @@ nsGmx.PageView = nsGmx.GmxWidget.extend({
             var $el = $(el);
             $el.toggleClass('pageView-item_active', $el.attr('data-id') === id);
         }.bind(this));
+        this.trigger('switch', id);
     },
     back: function () {
         this.setActivePage(this._previousPageId);

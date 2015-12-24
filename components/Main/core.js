@@ -15,14 +15,6 @@ function getFullHeight(el) {
         r($el.css('margin-bottom'))
 }
 
-function unbindPopup(layer) {
-    var styles = layer.getStyles();
-    for (var i = 0; i < styles.length; i++) {
-        styles[i].DisableBalloonOnClick = true;
-    }
-    layer.setStyles(styles);
-}
-
 function getQueryVariable(variable) {
     var parser = document.createElement('a');
     parser.href = window.location.href;
@@ -146,15 +138,4 @@ cm.define('leafletProductionIssues', [], function(cm) {
     });
 
     return null;
-});
-
-cm.define('resetter', [], function(cm) {
-    return new(L.Class.extend({
-        includes: [L.Mixin.Events],
-        initialize: function() {
-        },
-        reset: function() {
-            this.fire('reset');
-        }
-    }));
 });
