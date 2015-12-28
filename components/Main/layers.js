@@ -69,11 +69,6 @@ cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', '
             model: MarkerModel
         });
 
-        col.setDateInterval(calendar.get('dateBegin'), calendar.get('dateEnd'));
-        calendar.on('change', function() {
-            col.setDateInterval(calendar.get('dateBegin'), calendar.get('dateEnd'));
-        });
-
         collections[id] = col;
     });
 
