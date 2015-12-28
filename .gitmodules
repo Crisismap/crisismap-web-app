@@ -22,3 +22,6 @@
 [submodule "external/winnie"]
 	path = external/winnie
 	url = git@github.com:Kosmosnimki/winnie.git
+[submodule "external/leaflet.markercluster"]
+	path = external/leaflet.markercluster
+	url = git@github.com:leaflet/leaflet.markercluster.git

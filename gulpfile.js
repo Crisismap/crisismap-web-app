@@ -28,8 +28,10 @@ require('./external/GMXBuilder')(gulp, {
         ]
     }, {
         id: 'leaflet.markercluster',
-        bowerComponent: 'git://github.com/Leaflet/Leaflet.markercluster.git',
-        distFiles: ['dist/MarkerCluster.css', 'dist/MarkerCluster.Default.css', 'dist/leaflet.markercluster.js']
+        srcDir: './external/leaflet.markercluster',
+        distFiles: ['dist/MarkerCluster.css', 'dist/MarkerCluster.Default.css', 'dist/leaflet.markercluster.js'],
+        build: true,
+        watch: true
     }, {
         id: 'LeafletMethodsKeeper',
         srcDir: './components/LeafletMethodsKeeper',
