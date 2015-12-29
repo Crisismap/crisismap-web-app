@@ -41,7 +41,7 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/Leaflet-GeoMixer',
         distFiles: ['./dist/leaflet-geomixer-src.js'],
         build: true,
-        watch: false
+        watch: true
     }, {
         id: 'Leaflet.TileLayer.Mercator',
         srcDir: './external/Leaflet.TileLayer.Mercator',
