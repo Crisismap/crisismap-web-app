@@ -189,6 +189,7 @@ cm.define('markerCircle', ['map', 'markersClickHandler', 'sectionsManager', 'res
             this.options.map.on('zoomstart', this.hide.bind(this));
         },
         show: function() {
+            this.options.map.removeLayer(this.marker);
             this.marker.setLatLng.apply(this.marker, arguments);
             this.marker.addTo(this.options.map);
         },
