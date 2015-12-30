@@ -10,7 +10,7 @@ cm.define('layersTree', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersTree');
 });
 
-cm.define('sectionsManager', ['config', 'resetter', 'layersTree'], function() {
+cm.define('sectionsManager', ['config', 'resetter', 'layersTree'], function(cm) {
     var config = cm.get('config');
     var resetter = cm.get('resetter');
     var layersTree = cm.get('layersTree');
@@ -140,7 +140,7 @@ cm.define('newsLayersCollections', ['layersMarkersCollections', 'sectionsManager
     }.bind(this), {});
 });
 
-cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function() {
+cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function(cm) {
     var layersHash = cm.get('layersHash');
     var sectionsManager = cm.get('sectionsManager');
 
@@ -168,11 +168,16 @@ cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function() {
     return null;
 });
 
-cm.define('markerCircle', ['map', 'markersClickHandler', 'sectionsManager', 'resetter'], function(cm) {
-    var map = cm.get('map');
-    var resetter = cm.get('resetter');
-    var sectionsManager = cm.get('sectionsManager');
+cm.define('layersClusters', ['gmxApplication'], function(cm) {
+    return cm.get('gmxApplication').get('layersClusters');
+});
+
+cm.define('markerCircle', ['markersClickHandler', 'sectionsManager', 'layersClusters', 'resetter', 'map'], function(cm) {
     var markersClickHandler = cm.get('markersClickHandler');
+    var sectionsManager = cm.get('sectionsManager');
+    var layersClusters = cm.get('layersClusters');
+    var resetter = cm.get('resetter');
+    var map = cm.get('map');
 
     var MarkerCircle = L.Class.extend({
         initialize: function(opts) {
@@ -202,12 +207,24 @@ cm.define('markerCircle', ['map', 'markersClickHandler', 'sectionsManager', 'res
         map: map
     });
 
+    var currentMarkerId = null;
     markersClickHandler.on('click', function(e) {
+        currentMarkerId = e.model.get('id');
         markerCircle.show(e.markerLatLng);
     });
 
     resetter.on('reset', function(e) {
         markerCircle.hide();
+        currentMarkerId = null;
+    });
+
+    layersClusters.on('unspiderfied', function(ev) {
+        ev.markers.map(function(marker) {
+            var id = marker.options.properties[0];
+            if (id === currentMarkerId) {
+                markerCircle.hide();
+            }
+        });
     });
 
     return markerCircle;
