@@ -1,7 +1,7 @@
 window.nsGmx = window.nsGmx || {};
 
 window.nsGmx.ModalDialog = Backbone.View.extend({
-    className: 'modalDialog modalDialog-curtain',
+    className: 'modalDialog modalDialog-curtain modalDialog_desktop',
     options: {
         content: '<h1>modal dialog</h1>'
     },
