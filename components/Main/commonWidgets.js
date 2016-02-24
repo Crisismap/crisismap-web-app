@@ -97,13 +97,28 @@ cm.define('switchLanguageButton', ['headerMainMenu'], function(cm) {
     return null;
 });
 
-cm.define('helpDialog', ['headerMainMenu'], function (cm) {
-    var headerMainMenu = cm.get('headerMainMenu');
+cm.define('helpDialog', ['config'], function (cm, cb) {
+    var config = cm.get('config');
+    var q = Handlebars.compile(config.user.helpDialogUrl)({
+        lang: nsGmx.Translations.getLanguage()
+    });
+    $.ajax(q).then(function(resp) {
+        cb(new nsGmx.ModalDialog({
+            content: resp
+        }))
+    }).fail(function() {
+        cb(new nsGmx.ModalDialog({
+            content: 'unable to load ' + q
+        }))
+    });
+});
 
-    var aboutDialog = new nsGmx.ModalDialog();
+cm.define('helpButton', ['headerMainMenu', 'helpDialog'], function (cm, cb) {
+    var headerMainMenu = cm.get('headerMainMenu');
+    var helpDialog = cm.get('helpDialog');
 
     headerMainMenu.on('item:help', function () {
-        aboutDialog.open();
+        helpDialog.open();
     });
 });
 
