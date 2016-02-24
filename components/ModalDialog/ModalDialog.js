@@ -1,7 +1,7 @@
 window.nsGmx = window.nsGmx || {};
 
 window.nsGmx.ModalDialog = Backbone.View.extend({
-    className: 'modalDialog modalDialog-curtain modalDialog_desktop',
+    className: 'modalDialog modalDialog-curtain',
     options: {
         content: '<h1>modal dialog</h1>'
     },
@@ -15,6 +15,11 @@ window.nsGmx.ModalDialog = Backbone.View.extend({
         this.options = _.extend({}, this.options, {
             dialogsContainer: document.body // declare it here because document may be not ready
         }, options);
+        if (nsGmx.Utils && nsGmx.Utils.isMobile()) {
+            this.$el.addClass('modalDialog_mobile');
+        } else {
+            this.$el.addClass('modalDialog_desktop');
+        }
         this.render();
     },
     render: function() {

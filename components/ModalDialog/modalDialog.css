@@ -1,11 +1,12 @@
 .modalDialog { position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 99; }
 .modalDialog { display: flex; align-items: center; justify-content: center; }
 .modalDialog-curtain { background-color: hsla(0, 0%, 0%, 0.5); }
-.modalDialog-window { position: relative; background: #fff; min-width: 600px; box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.5); border-radius: 2px; }
+.modalDialog-window { position: relative; background: #fff; box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.5); border-radius: 2px; }
 .modalDialog-windowCloseButton { position: absolute; right: 0; font-size: 21px; cursor: pointer; }
 .modalDialog-windowBody { padding: 4px 8px; }
 
 .modalDialog_desktop .modalDialog-window { min-width: 50%; max-width: 75%; }
+.modalDialog_mobile .modalDialog-window { width: 100%; height: 100%; border-radius: 0; }
 
 .modalDialog-windowBody { font-size: 12px; }
 .modalDialog-windowBody p { font-size: 12px; }
