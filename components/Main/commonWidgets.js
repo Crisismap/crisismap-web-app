@@ -97,6 +97,16 @@ cm.define('switchLanguageButton', ['headerMainMenu'], function(cm) {
     return null;
 });
 
+cm.define('helpDialog', ['headerMainMenu'], function (cm) {
+    var headerMainMenu = cm.get('headerMainMenu');
+
+    var aboutDialog = new nsGmx.ModalDialog();
+
+    headerMainMenu.on('item:help', function () {
+        aboutDialog.open();
+    });
+});
+
 cm.define('sidebarWidget', ['gmxApplication'], function() {
     return cm.get('gmxApplication').get('sidebarWidget');
 });

@@ -203,6 +203,10 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
+        id: 'ModalDialog',
+        srcDir: './components/ModalDialog',
+        build: false
+    }, {
         id: 'Main',
         srcDir: './components/Main',
         distDir: './build',
