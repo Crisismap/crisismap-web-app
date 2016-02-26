@@ -120,6 +120,8 @@ cm.define('helpButton', ['headerMainMenu', 'helpDialog'], function (cm, cb) {
     headerMainMenu.on('item:help', function () {
         helpDialog.open();
     });
+
+    return null;
 });
 
 cm.define('sidebarWidget', ['gmxApplication'], function() {
