@@ -211,5 +211,9 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './components/Main',
         distDir: './build',
         build: true
+    }, {
+        id: 'Entry',
+        srcDir: './components/Entry',
+        build: false
     }]
 });

@@ -86,14 +86,19 @@ cm.define('i18n', ['urlManager'], function(cm) {
 cm.define('config', [], function(cm, cb) {
     $.ajax('resources/config.json').then(function(config) {
         $.ajax('local/config.json').then(function(localConfig) {
-            cb($.extend(true, config, localConfig));
+            cb(mimeFix($.extend(true, config, localConfig)));
         }).fail(function() {
-            cb(config);
+            cb(mimeFix(config));
         });
     }).fail(function() {
         console.error('Config: error loading config file');
-        cb(false);
+        cb(mimeFix(false));
     });
+
+    // seems that cordova does'nt support JSON mime type
+    function mimeFix(resp) {
+        return typeof resp === 'object' ? resp : JSON.parse(resp);
+    }
 });
 
 cm.define('layoutManager', [], function(cm) {
