@@ -182,7 +182,7 @@ cm.define('markerCircle', ['markersClickHandler', 'sectionsManager', 'layersClus
     var MarkerCircle = L.Class.extend({
         initialize: function(opts) {
             L.setOptions(this, opts);
-            this.marker = L.marker(e.latlng, {
+            this.marker = L.marker(this.options.latLng, {
                 icon: L.divIcon({
                     iconSize: [23, 23],
                     iconAnchor: [14, 14],
