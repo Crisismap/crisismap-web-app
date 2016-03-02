@@ -128,8 +128,8 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/AnimationHelpers',
         build: false
     }, {
-        id: 'IconSidebarWidget',
-        srcDir: './external/GMXCommonComponents/IconSidebarWidget',
+        id: 'IconSidebarControl',
+        srcDir: './external/GMXCommonComponents/IconSidebarControl',
         build: false
     }, {
         id: 'LayersTreeWidget',
