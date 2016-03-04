@@ -4,7 +4,7 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return $(layoutManager.getContentContainer());
     });
 
-    cm.define('alertsWidgetScrollView', ['sidebarWidget', 'activeAlertsNumber'], function() {
+    cm.define('alertsWidgetContainer', ['sidebarWidget', 'activeAlertsNumber'], function() {
         var sidebarWidget = cm.get('sidebarWidget');
         var activeAlertsNumber = cm.get('activeAlertsNumber');
 
@@ -21,20 +21,12 @@ if (!nsGmx.CrisisMap.isMobile()) {
         });
 
         var alertsWidgetContainer = sidebarWidget.addTab('alertsWidget', iconWidget);
-        var scrollView = new nsGmx.ScrollView();
-        scrollView.appendTo(alertsWidgetContainer);
-        sidebarWidget.on('opened', function(e) {
-            if (e.id === 'alertsWidget') {
-                scrollView.repaint();
-                iconWidget.hideLabel();
-            } else {
-                iconWidget.showLabel();
-            }
-        });
+
         sidebarWidget.on('closed', function(e) {
             iconWidget.showLabel();
         });
-        return scrollView;
+
+        return alertsWidgetContainer;
     });
 
     cm.define('alertsWidgetMarkerHandler', ['alertsWidget', 'config', 'map'], function() {

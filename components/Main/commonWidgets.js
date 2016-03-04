@@ -175,20 +175,19 @@ cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], fu
 });
 
 cm.define('alertsWidget', [
-    'alertsWidgetScrollView',
+    'alertsWidgetContainer',
     'newsLayersCollections',
     'sectionsManager',
     'config',
     'map'
 ], function(cm) {
-    var alertsWidgetScrollView = cm.get('alertsWidgetScrollView');
+    var alertsWidgetContainer = cm.get('alertsWidgetContainer');
     var newsLayersCollections = cm.get('newsLayersCollections');
     var sectionsManager = cm.get('sectionsManager');
     var config = cm.get('config');
     var map = cm.get('map');
 
     var alertsWidget = new nsGmx.SwitchingCollectionWidget({
-        className: 'alertsCollectionView',
         itemView: nsGmx.MarkerItemView,
         reEmitEvents: ['marker']
     });
@@ -201,7 +200,7 @@ cm.define('alertsWidget', [
         alertsWidget.setCollection(newsLayersCollections[sectionId]);
     });
 
-    alertsWidgetScrollView.addView(alertsWidget);
+    alertsWidget.appendTo(alertsWidgetContainer);
 
     return alertsWidget;
 });

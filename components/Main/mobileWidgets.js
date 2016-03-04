@@ -15,12 +15,10 @@ if (nsGmx.CrisisMap.isMobile()) {
         return $('<div>').addClass('crisisMap-mapPage').appendTo(mapPage)[0];
     });
 
-    cm.define('alertsWidgetScrollView', ['rootPageView'], function() {
+    cm.define('alertsWidgetContainer', ['rootPageView'], function() {
         var rootPageView = cm.get('rootPageView');
         var alertsWidgetContainer = $(rootPageView.addPage('alerts')).addClass('pageView-item_alerts');
-        var scrollView = new nsGmx.ScrollView();
-        scrollView.appendTo(alertsWidgetContainer);
-        return scrollView;
+        return alertsWidgetContainer;
     });
 
     cm.define('alertsWidgetMarkerHandler', ['sidebarWidget', 'rootPageView', 'alertsWidget', 'config'], function() {
