@@ -100,6 +100,14 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/SwitchingCollectionWidget',
         build: false
     }, {
+        id: 'CollectionFilterWidget',
+        srcDir: './components/CollectionFilterWidget',
+        build: false
+    }, {
+        id: 'CompositeScrollView',
+        srcDir: './components/CompositeScrollView',
+        build: false
+    }, {
         srcDir: './external/GMXCommonComponents/CommonStyles',
         id: 'CommonStyles',
         distDir: './build',

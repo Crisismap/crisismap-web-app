@@ -97,7 +97,7 @@ cm.define('switchLanguageButton', ['headerMainMenu'], function(cm) {
     return null;
 });
 
-cm.define('helpDialog', ['config'], function (cm, cb) {
+cm.define('helpDialog', ['config'], function(cm, cb) {
     var config = cm.get('config');
     var q = Handlebars.compile(config.user.helpDialogUrl)({
         lang: nsGmx.Translations.getLanguage()
@@ -113,11 +113,11 @@ cm.define('helpDialog', ['config'], function (cm, cb) {
     });
 });
 
-cm.define('helpButton', ['headerMainMenu', 'helpDialog'], function (cm, cb) {
+cm.define('helpButton', ['headerMainMenu', 'helpDialog'], function(cm, cb) {
     var headerMainMenu = cm.get('headerMainMenu');
     var helpDialog = cm.get('helpDialog');
 
-    headerMainMenu.on('item:help', function () {
+    headerMainMenu.on('item:help', function() {
         helpDialog.open();
     });
 
@@ -200,7 +200,14 @@ cm.define('alertsWidget', [
         alertsWidget.setCollection(newsLayersCollections[sectionId]);
     });
 
-    alertsWidget.appendTo(alertsWidgetContainer);
+    var compositeScrollWidget = new nsGmx.CompositeScrollView({
+        staticWidget: new nsGmx.CollectionFilterWidget(),
+        scrollingWidget: alertsWidget
+    });
+
+    compositeScrollWidget.appendTo(alertsWidgetContainer);
+
+    // alertsWidget.appendTo(alertsWidgetContainer);
 
     return alertsWidget;
 });
