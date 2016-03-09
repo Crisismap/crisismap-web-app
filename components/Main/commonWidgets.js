@@ -178,12 +178,14 @@ cm.define('alertsWidget', [
     'alertsWidgetContainer',
     'newsLayersCollections',
     'sectionsManager',
+    'sidebarWidget',
     'config',
     'map'
 ], function(cm) {
     var alertsWidgetContainer = cm.get('alertsWidgetContainer');
     var newsLayersCollections = cm.get('newsLayersCollections');
     var sectionsManager = cm.get('sectionsManager');
+    var sidebarWidget = cm.get('sidebarWidget');
     var config = cm.get('config');
     var map = cm.get('map');
 
@@ -207,7 +209,13 @@ cm.define('alertsWidget', [
 
     compositeScrollWidget.appendTo(alertsWidgetContainer);
 
-    // alertsWidget.appendTo(alertsWidgetContainer);
+    sidebarWidget && sidebarWidget.on('opened', function () {
+        compositeScrollWidget.reset();
+    });
+
+    $(window).on('resize', function () {
+        compositeScrollWidget.reset();
+    });
 
     return alertsWidget;
 });
