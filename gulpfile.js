@@ -167,6 +167,10 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './components/RadioGroupWidget',
         build: false
     }, {
+        id: 'CheckboxWidget',
+        srcDir: './components/CheckboxWidget',
+        build: false
+    }, {
         id: 'EventDetailsView',
         srcDir: './components/EventDetailsView',
         distDir: './build',
