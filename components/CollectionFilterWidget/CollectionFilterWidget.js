@@ -31,9 +31,17 @@ window.nsGmx.CollectionFilterWidget = nsGmx.GmxWidget.extend({
     },
 
     setCollection: function (collection) {
+        if (this.collection) {
+            this.collection.off('update', this._onCollectionUpdate, this);
+        }
         this.collection = collection;
+        this.collection.on('update', this._onCollectionUpdate, this);
+        this._onCollectionUpdate();
+    },
+
+    _onCollectionUpdate: function () {
         this._models = [];
-        collection.map(function (model) {
+        this.collection.map(function (model) {
             if (this._models.indexOf(model.get(this.options.field)) === -1) {
                 this._models[model.get(this.options.field)] = new Backbone.Model({
                     state: true

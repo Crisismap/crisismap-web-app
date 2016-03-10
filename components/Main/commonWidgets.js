@@ -194,16 +194,22 @@ cm.define('alertsWidget', [
         reEmitEvents: ['marker']
     });
 
+    var collectionFilterWidget = new nsGmx.CollectionFilterWidget({
+        field: 'class'
+    });
+
     if (sectionsManager.getActiveSectionId() && sectionsManager.getActiveSectionId() !== '_empty') {
         alertsWidget.setCollection(newsLayersCollections[sectionsManager.getActiveSectionId()]);
+        collectionFilterWidget.setCollection(newsLayersCollections[sectionsManager.getActiveSectionId()]);
     }
 
     sectionsManager.on('sectionchange', function(sectionId) {
         alertsWidget.setCollection(newsLayersCollections[sectionId]);
+        collectionFilterWidget.setCollection(newsLayersCollections[sectionId]);
     });
 
     var compositeScrollWidget = new nsGmx.CompositeScrollView({
-        staticWidget: new nsGmx.CollectionFilterWidget(),
+        staticWidget: collectionFilterWidget,
         scrollingWidget: alertsWidget
     });
 
