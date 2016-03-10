@@ -179,48 +179,25 @@ cm.define('alertsWidget', [
     'newsLayersCollections',
     'sectionsManager',
     'sidebarWidget',
-    'config',
-    'map'
 ], function(cm) {
     var alertsWidgetContainer = cm.get('alertsWidgetContainer');
     var newsLayersCollections = cm.get('newsLayersCollections');
     var sectionsManager = cm.get('sectionsManager');
     var sidebarWidget = cm.get('sidebarWidget');
-    var config = cm.get('config');
-    var map = cm.get('map');
 
-    var alertsWidget = new nsGmx.SwitchingCollectionWidget({
-        itemView: nsGmx.MarkerItemView,
-        reEmitEvents: ['marker']
+    var alertsWidget = new nsGmx.AlertsWidget({
+        newsLayersCollections: newsLayersCollections,
+        sectionsManager: sectionsManager
     });
 
-    var collectionFilterWidget = new nsGmx.CollectionFilterWidget({
-        field: 'class'
-    });
-
-    if (sectionsManager.getActiveSectionId() && sectionsManager.getActiveSectionId() !== '_empty') {
-        alertsWidget.setCollection(newsLayersCollections[sectionsManager.getActiveSectionId()]);
-        collectionFilterWidget.setCollection(newsLayersCollections[sectionsManager.getActiveSectionId()]);
-    }
-
-    sectionsManager.on('sectionchange', function(sectionId) {
-        alertsWidget.setCollection(newsLayersCollections[sectionId]);
-        collectionFilterWidget.setCollection(newsLayersCollections[sectionId]);
-    });
-
-    var compositeScrollWidget = new nsGmx.CompositeScrollView({
-        staticWidget: collectionFilterWidget,
-        scrollingWidget: alertsWidget
-    });
-
-    compositeScrollWidget.appendTo(alertsWidgetContainer);
-
-    sidebarWidget && sidebarWidget.on('opened', function () {
-        compositeScrollWidget.reset();
-    });
+    alertsWidget.appendTo(alertsWidgetContainer);
 
     $(window).on('resize', function () {
-        compositeScrollWidget.reset();
+        alertsWidget.reset();
+    });
+
+    sidebarWidget && sidebarWidget.on('opened', function () {
+        alertsWidget.reset();
     });
 
     return alertsWidget;

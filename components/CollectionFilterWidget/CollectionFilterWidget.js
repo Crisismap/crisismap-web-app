@@ -26,7 +26,6 @@ window.nsGmx.CollectionFilterWidget = nsGmx.GmxWidget.extend({
                 label: value
             });
             w.appendTo(this.$el);
-            console.log(typeof value);
         }.bind(this));
     },
 

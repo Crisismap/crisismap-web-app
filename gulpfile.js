@@ -219,6 +219,10 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './components/ModalDialog',
         build: false
     }, {
+        id: 'AlertsWidget',
+        srcDir: './components/AlertsWidget',
+        build: false
+    }, {
         id: 'Main',
         srcDir: './components/Main',
         distDir: './build',
