@@ -71,7 +71,8 @@ window.nsGmx.AlertsWidget = nsGmx.CompositeScrollView.extend({
     },
 
     _onSectionChange: function(sectionId) {
-        // this.updateCollection();
+        this._updateAlertsListWidget();
+        this._updateCollectionFilterWidget();
     },
 
     _onSectionCollectionUpdate: function(collection) {
