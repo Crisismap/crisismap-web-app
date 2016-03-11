@@ -10,6 +10,7 @@ window.nsGmx.CheckboxWidget = nsGmx.GmxWidget.extend({
     // options.model (new Backbone.Model({ state: <Boolean> }))
     initialize: function(options) {
         this.options = _.extend({
+            showLabel: true,
             label: ''
         }, options);
         this.options.model.on('change', this.render, this);
@@ -19,13 +20,16 @@ window.nsGmx.CheckboxWidget = nsGmx.GmxWidget.extend({
     render: function() {
         this.$el.empty();
 
+        this.$el.removeClass();
+        this.$el.addClass(this.className).addClass(this.className + '-value_' + this.model.get('value'));
+
         $('<div>')
             .addClass('checkboxWidget-checkbox')
             .addClass(this.model.get('state') ? 'icon-check' : '')
             .html(this.model.get('state') ? '' : '&nbsp;')
             .appendTo(this.$el);
 
-        if (this.options.label || this.model.get('value')) {
+        if (this.options.showLabel && (this.options.label || this.model.get('value'))) {
             $('<div>')
                 .addClass('checkboxWidget-label')
                 .html(this.options.label || this.model.get('value'))
