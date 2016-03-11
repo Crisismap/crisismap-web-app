@@ -25,10 +25,10 @@ window.nsGmx.CheckboxWidget = nsGmx.GmxWidget.extend({
             .html(this.model.get('state') ? '' : '&nbsp;')
             .appendTo(this.$el);
 
-        if (this.options.label) {
+        if (this.options.label || this.model.get('value')) {
             $('<div>')
                 .addClass('checkboxWidget-label')
-                .html(this.options.label)
+                .html(this.options.label || this.model.get('value'))
                 .appendTo(this.$el);
         }
     },
