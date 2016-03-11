@@ -147,6 +147,7 @@ if (nsGmx.CrisisMap.isMobile()) {
 
         rootPageView.on('switch', function(id) {
             headerLayoutButton.setState(id, true);
+            alertsWidget.reset();
         })
 
         return headerLayoutButton;

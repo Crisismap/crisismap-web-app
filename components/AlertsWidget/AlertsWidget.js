@@ -12,6 +12,10 @@ window.nsGmx.AlertsWidget = nsGmx.CompositeScrollView.extend({
             reEmitEvents: ['marker']
         });
 
+        this.alertsListWidget.on('marker', function (model) {
+            this.trigger.call(this, 'marker', model);
+        }.bind(this));
+
         this.collectionFilterWidget = new nsGmx.CollectionFilterWidget({
             field: this.options.field
         });

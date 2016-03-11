@@ -54,7 +54,7 @@ div { outline: none; }
 .crisisMap_mobile .alertsCollectionView { padding: 5px; padding-left: 10px; }
 
 .crisisMap_mobile .markerItemViewCollapsed, .crisisMap_mobile .markerItemViewExpanded { font-size: 13px; border: none; }
-.crisisMap_mobile .markerItemViewExpanded { box-shadow: 0 0 2px hsla(0, 0%, 0%, .5); }
+.crisisMap_mobile .markerItemViewExpanded { border: 1px solid hsl(0, 0%, 80%); }
 
 .leaflet-popup-content-wrapper { border-radius: 4px; }
 
@@ -81,3 +81,5 @@ div { outline: none; }
 .marker-circled { border: 3px solid hsla(0, 50%, 50%, 0.75); border-radius: 30px; width: 20px; height: 20px; }
 
 .anchorWidget a, .anchorWidget a:hover, .anchorWidget a:visited { text-decoration: none; color: inherit; }
+
+.pageView-item_alerts { padding: 10px; box-sizing: border-box; }
