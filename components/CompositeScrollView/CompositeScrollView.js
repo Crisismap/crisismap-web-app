@@ -29,6 +29,8 @@ window.nsGmx.CompositeScrollView = nsGmx.GmxWidget.extend({
 
     reset: function () {
         this._recalcuatePanes();
+        this.options.staticWidget.reset && this.options.staticWidget.reset();
+        this.scrollView.reset && this.scrollView.reset();
     },
 
     _recalcuatePanes: function () {
@@ -36,6 +38,5 @@ window.nsGmx.CompositeScrollView = nsGmx.GmxWidget.extend({
             this.$el.height() -
             this.$('.compositeScrollView-staticWidgetContainer').outerHeight(true)
         );
-        this.scrollView.reset();
     }
 });
