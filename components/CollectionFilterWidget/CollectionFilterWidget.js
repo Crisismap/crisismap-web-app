@@ -18,7 +18,8 @@ window.nsGmx.CollectionFilterWidget = nsGmx.GmxWidget.extend({
 
         this._models.map(function(model) {
             var w = new nsGmx.CheckboxWidget({
-                model: model
+                model: model,
+                showLabel: false
             });
             w.appendTo(this.$el);
         }.bind(this));

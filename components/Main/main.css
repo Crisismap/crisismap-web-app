@@ -83,3 +83,11 @@ div { outline: none; }
 .anchorWidget a, .anchorWidget a:hover, .anchorWidget a:visited { text-decoration: none; color: inherit; }
 
 .pageView-item_alerts { padding: 10px; box-sizing: border-box; }
+
+.checkboxWidget { padding-right: 5px; color: #fff; font-size: 14px; }
+.checkboxWidget .checkboxWidget-checkbox { border: none; width: 24px; height: 24px; line-height: 24px; border-radius: 12px; }
+.checkboxWidget-value_ .checkboxWidget-checkbox { background: hsl(30, 10%, 75%); }
+.checkboxWidget-value_0 .checkboxWidget-checkbox { background: hsl(0, 70%, 50%); }
+.checkboxWidget-value_1 .checkboxWidget-checkbox { background: hsl(30, 75%, 50%); }
+.checkboxWidget-value_2 .checkboxWidget-checkbox { background: hsl(150, 100%, 25%); }
+.checkboxWidget-value_3 .checkboxWidget-checkbox { background: hsl(30, 10%, 75%); }
