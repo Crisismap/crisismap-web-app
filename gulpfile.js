@@ -101,7 +101,7 @@ require('./external/GMXBuilder')(gulp, {
         build: false
     }, {
         id: 'CollectionFilterWidget',
-        srcDir: './components/CollectionFilterWidget',
+        srcDir: './external/GMXCommonComponents/CollectionFilterWidget',
         build: false
     }, {
         id: 'CompositeScrollView',
