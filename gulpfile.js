@@ -168,7 +168,7 @@ require('./external/GMXBuilder')(gulp, {
         build: false
     }, {
         id: 'CheckboxWidget',
-        srcDir: './components/CheckboxWidget',
+        srcDir: './external/GMXCommonComponents/CheckboxWidget',
         build: false
     }, {
         id: 'EventDetailsView',
