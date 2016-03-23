@@ -105,7 +105,7 @@ require('./external/GMXBuilder')(gulp, {
         build: false
     }, {
         id: 'CompositeScrollView',
-        srcDir: './components/CompositeScrollView',
+        srcDir: './external/GMXCommonComponents/CompositeScrollView',
         build: false
     }, {
         srcDir: './external/GMXCommonComponents/CommonStyles',
