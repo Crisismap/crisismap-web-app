@@ -146,9 +146,9 @@ require('./external/GMXBuilder')(gulp, {
         build: true
     }, {
         id: 'winnie.core',
-        srcDir: './external/winnie',
-        distDir: './core',
-        build: false
+        srcDir: './external/winnie-core',
+        distDir: './dist',
+        build: true
     }, {
         id: 'LayerMarkersCollection',
         srcDir: './external/GMXCommonComponents/LayerMarkersCollection',

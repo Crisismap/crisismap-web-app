@@ -19,9 +19,9 @@
 [submodule "external/GMXBuilder"]
 	path = external/GMXBuilder
 	url = git@github.com:ScanEx/GMXBuilder.git
-[submodule "external/winnie"]
-	path = external/winnie
-	url = git@github.com:Kosmosnimki/winnie.git
 [submodule "external/leaflet.markercluster"]
 	path = external/leaflet.markercluster
 	url = git@github.com:leaflet/leaflet.markercluster.git
+[submodule "external/winnie-core"]
+	path = external/winnie-core
+	url = git@github.com:Kosmosnimki/winnie-core.git
