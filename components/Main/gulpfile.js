@@ -8,14 +8,16 @@ var html2jsobject = require('gulp-html2jsobject');
 
 var styles = ['main.css'];
 var scripts = [
-    'core.js',
-    'map.js',
-    'layers.js',
-    'commonWidgets.js',
-    'mobileWidgets.js',
-    'desktopWidgets.js',
-    'tail.js',
-    'translations.js'
+    'lib/utils.js',
+    'runtime/core.js'
+    // 'core.js',
+    // 'map.js',
+    // 'layers.js',
+    // 'commonWidgets.js',
+    // 'mobileWidgets.js',
+    // 'desktopWidgets.js',
+    // 'tail.js',
+    // 'translations.js'
 ];
 var images = ['tiny-grid.png'];
 var templates = ['main.html'];
