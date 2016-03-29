@@ -1,30 +1,3 @@
-cm.define('headerNavBar', ['layoutManager'], function(cm) {
-    var layoutManager = cm.get('layoutManager');
-
-    var HeaderNavBar = nsGmx.GmxWidget.extend({
-        className: 'headerNavBar',
-        initialize: function() {
-            $('<div>').addClass('headerNavBar-leftContainer').appendTo(this.$el);
-            $('<div>').addClass('headerNavBar-centerContainer').appendTo(this.$el);
-            $('<div>').addClass('headerNavBar-rightContainer').appendTo(this.$el);
-        },
-        getLeftContainer: function() {
-            return this.$el.find('.headerNavBar-leftContainer')[0];
-        },
-        getCenterContainer: function() {
-            return this.$el.find('.headerNavBar-centerContainer')[0];
-        },
-        getRightContainer: function() {
-            return this.$el.find('.headerNavBar-rightContainer')[0];
-        }
-    });
-
-    var headerNavBar = new HeaderNavBar();
-
-    headerNavBar.appendTo(layoutManager.getHeaderContainer());
-
-    return headerNavBar;
-});
 
 cm.define('headerMainMenu', ['headerNavBar', 'map', 'resetter'], function(cm) {
     var map = cm.get('map');

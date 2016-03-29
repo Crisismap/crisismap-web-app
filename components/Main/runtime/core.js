@@ -1,4 +1,4 @@
-cm.define('container', [], function () {
+cm.define('rootContainer', [], function () {
     return document.body;
 });
 
@@ -44,8 +44,8 @@ cm.define('leafletProductionIssues', [], function(cm) {
     return null;
 });
 
-cm.define('gmxApplication', ['leafletProductionIssues', 'container', 'config'], function(cm, cb) {
-    var container = cm.get('container');
+cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config'], function(cm, cb) {
+    var rootContainer = cm.get('rootContainer');
     var config = cm.get('config');
 
     var cfg = $.extend(true, config, {
@@ -57,8 +57,12 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'container', 'config'], 
         }
     });
 
-    var gmxApplication = window.gacm = nsGmx.createGmxApplication(container, cfg);
+    var gmxApplication = window.gacm = nsGmx.createGmxApplication(rootContainer, cfg);
     gmxApplication.create().then(function() {
         cb(gmxApplication);
     });
 });
+
+cm.define('map', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('map');
+})
