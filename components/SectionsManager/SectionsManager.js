@@ -19,6 +19,7 @@ var nsGmx = nsGmx || {};
 // options.sectionsTree
 nsGmx.SectionsManager = L.Class.extend({
     includes: [Backbone.Events],
+
     initialize: function(options) {
         this.sectionsTree = options.sectionsTree;
         if (!this.sectionsTree.get('list')) {
@@ -37,6 +38,7 @@ nsGmx.SectionsManager = L.Class.extend({
         };
         this._activeSectionId = '_empty';
     },
+
     getSectionsIds: function() {
         if (!this._sectionsIds) {
             this._sectionsIds = [];
@@ -46,6 +48,7 @@ nsGmx.SectionsManager = L.Class.extend({
         }
         return this._sectionsIds;
     },
+
     setActiveSectionId: function(sectionId) {
         sectionId = sectionId || '_empty';
         if (sectionId === '_empty') {
@@ -54,6 +57,7 @@ nsGmx.SectionsManager = L.Class.extend({
             this.sectionsTree.find(sectionId).setNodeVisibility(true);
         }
     },
+
     getActiveSectionId: function() {
         var group = this._getActiveSection();
         if (group) {
@@ -64,6 +68,7 @@ nsGmx.SectionsManager = L.Class.extend({
             return this._activeSectionId;
         }
     },
+
     getSectionProperties: function(sectionId) {
         if (!this._sections[sectionId]) {
             var section = this.sectionsTree.find(sectionId);
@@ -76,6 +81,7 @@ nsGmx.SectionsManager = L.Class.extend({
         }
         return this._sections[sectionId];
     },
+
     _checkSections: function() {
         var sections = this.getSectionsIds();
         for (var i = 0; i < sections.length; i++) {
@@ -85,6 +91,7 @@ nsGmx.SectionsManager = L.Class.extend({
             }
         }
     },
+
     _bindGroupEvents: function() {
         var sections = this.getSectionsIds();
         for (var i = 0; i < sections.length; i++) {
@@ -96,6 +103,7 @@ nsGmx.SectionsManager = L.Class.extend({
             }.bind(this))
         }
     },
+
     _getActiveSection: function() {
         var activeSectionId = null;
         var sections = this.getSectionsIds();
@@ -107,12 +115,14 @@ nsGmx.SectionsManager = L.Class.extend({
         }
         return null;
     },
+
     _getDataLayersIds: function(sectionId) {
         var dataLayers = this._getDataLayers(sectionId);
         return dataLayers.map(function(dataLayer) {
             return dataLayer.get('properties').LayerID;
         });
     },
+
     _getDataLayers: function(sectionId) {
         var dataLayers = [];
         var group = this.sectionsTree.find(sectionId);

@@ -1,13 +1,21 @@
-cm.define('sectionsManager', ['config', 'resetter', 'layersTree'], function(cm) {
-    var config = cm.get('config');
-    var resetter = cm.get('resetter');
+cm.define('sectionsManager', ['layersTree', 'layersHash', 'resetter', 'config', 'map'], function(cm) {
+    var layersHash = cm.get('layersHash');
     var layersTree = cm.get('layersTree');
+    var resetter = cm.get('resetter');
+    var config = cm.get('config');
+    var map = cm.get('map');
 
     var sectionsManager = new nsGmx.SectionsManager({
         sectionsTree: layersTree.find(config.user.sectionsTree)
     });
 
     sectionsManager.on('sectionchange', function() {
+        var id = sectionsManager.getActiveSectionId();
+        var layer = layersHash[sectionsManager.getSectionProperties(id).dataLayerId];
+        layer && nsGmx.L.Map.fitBounds.call(
+            map,
+            layer.getBounds()
+        );
         resetter.reset();
     });
 

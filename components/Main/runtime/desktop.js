@@ -73,11 +73,6 @@ if (!nsGmx.CrisisMap.isMobile()) {
 
         radioGroupWidget.on('select', function(id) {
             sectionsManager.setActiveSectionId(id);
-            var layer = layersHash[sectionsManager.getSectionProperties(id).dataLayerId];
-            layer && nsGmx.L.Map.fitBounds.call(
-                map,
-                layer.getBounds()
-            );
         });
 
         sectionsManager.on('sectionchange', function(sectionId) {
