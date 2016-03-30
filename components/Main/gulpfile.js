@@ -10,7 +10,8 @@ var styles = ['main.css'];
 var scripts = [
     'lib/utils.js',
     'runtime/containers.js',
-    'runtime/core.js'
+    'runtime/core.js',
+    'runtime/sections.js'
     // 'core.js',
     // 'map.js',
     // 'layers.js',

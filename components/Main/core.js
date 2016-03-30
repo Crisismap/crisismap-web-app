@@ -1,5 +1,3 @@
-
-
 // вернуть глобальную переменную underscore _
 cm.define('gmxUtils', [], function() {
     return nsGmx.Utils.noConflicts();
@@ -28,8 +26,6 @@ cm.define('i18n', ['urlManager'], function(cm) {
     }
     return nsGmx.Translations;
 });
-
-
 
 cm.define('layoutManager', [], function(cm) {
     var rootContainer = document.body;

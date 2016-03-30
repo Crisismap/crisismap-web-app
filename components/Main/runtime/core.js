@@ -63,6 +63,22 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config
     });
 });
 
+cm.define('resetter', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('map');
+});
+
 cm.define('map', ['gmxApplication'], function (cm) {
     return cm.get('gmxApplication').get('map');
-})
+});
+
+cm.define('calendar', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('calendar');
+});
+
+cm.define('layersTree', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('layersTree');
+});
+
+cm.define('layersHash', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('layersHash');
+});
