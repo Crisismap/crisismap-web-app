@@ -21,6 +21,7 @@ nsGmx.SectionsManager = L.Class.extend({
     includes: [Backbone.Events],
 
     initialize: function(options) {
+        L.setOptions(this, options);
         this.sectionsTree = options.sectionsTree;
         if (!this.sectionsTree.get('list')) {
             throw 'sections groups must be radios';
@@ -76,7 +77,8 @@ nsGmx.SectionsManager = L.Class.extend({
                 id: sectionId,
                 title: section.get('properties').title,
                 dataLayersIds: this._getDataLayersIds(sectionId),
-                tree: section
+                tree: section,
+                icon: this.options.sectionsIcons[sectionId]
             }
         }
         return this._sections[sectionId];

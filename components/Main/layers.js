@@ -1,17 +1,3 @@
-cm.define('layersHash', ['gmxMap'], function(cm) {
-    return cm.get('gmxMap').getLayersHash();
-});
-
-cm.define('calendar', ['gmxApplication'], function(cm) {
-    return cm.get('gmxApplication').get('calendar');
-});
-
-cm.define('layersTree', ['gmxApplication'], function(cm) {
-    return cm.get('gmxApplication').get('layersTree');
-});
-
-
-
 cm.define('markersClickHandler', ['layersMarkersCollections', 'sectionsManager', 'layersHash', 'layersTree', 'config'], function(cm) {
     var layersMarkersCollections = cm.get('layersMarkersCollections');
     var sectionsManager = cm.get('sectionsManager');

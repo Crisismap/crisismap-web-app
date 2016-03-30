@@ -6,7 +6,8 @@ cm.define('sectionsManager', ['layersTree', 'layersHash', 'resetter', 'config', 
     var map = cm.get('map');
 
     var sectionsManager = new nsGmx.SectionsManager({
-        sectionsTree: layersTree.find(config.user.sectionsTree)
+        sectionsTree: layersTree.find(config.user.sectionsTree),
+        sectionsIcons: config.user.sectionsIcons
     });
 
     sectionsManager.on('sectionchange', function() {

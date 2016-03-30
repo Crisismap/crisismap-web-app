@@ -68,6 +68,18 @@ div { outline: none; }
 
 .leaflet-popup-content-wrapper { border-radius: 4px; }*/
 
+.iconTextWidget { }
+.iconTextWidget-icon { display: inline-block; padding-right: 5px; }
+.iconTextWidget-text { display: inline-block; }
+
+.mobileButtonsPaneControl .dropdownWidget { background: hsl(0, 100%, 50%); color: #fff; border-radius: 4px; }
+.mobileButtonsPaneControl .dropdownWidget-dropdown { color: #000; }
+.mobileButtonsPaneControl .dropdownWidget [class^="icon-"] { font-size: 18px; }
+.mobileButtonsPaneControl .iconTextWidget-icon { font-size: 18px; padding-right: 10px; }
+.mobileButtonsPaneControl .iconTextWidget-text { font-size: 14px; }
+
+.mobileButtonsPaneWidget { display: flex; justify-content: space-around; }
+
 .marker-cluster-small { background-color: rgba(255, 226, 163, 0.62); }
 .marker-cluster-small div { background-color: rgba(246, 174, 92, 0.58); }
 

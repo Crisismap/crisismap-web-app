@@ -9,9 +9,11 @@ var html2jsobject = require('gulp-html2jsobject');
 var styles = ['main.css'];
 var scripts = [
     'lib/utils.js',
+    'lib/IconDropdownWidget.js',
     'runtime/core.js',
     'runtime/sections.js',
-    'runtime/desktop.js'
+    'runtime/desktop.js',
+    'runtime/mobile.js'
     // 'core.js',
     // 'map.js',
     // 'layers.js',
