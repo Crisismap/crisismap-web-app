@@ -4,6 +4,7 @@ html, body {
     padding: 0;
     margin: 0;
     font-family: 'Open sans', Tahomam sans-serif;
+    overflow: hidden;
 }
 
 a { color: hsl(235, 90%, 60%); }
@@ -16,12 +17,12 @@ div { outline: none; }
 .leaflet-control-container { font-family: 'Open sans', Tahoma, sans-serif; }
 .leaflet-gmx-copyrights { font-family: 'Open sans', Tahoma, sans-serif; }
 
+.leaflet-gmx-logo { display: none; }
+
 /*.crisisMap-contentContainer { top: 40px; bottom: 0px; z-index: 1; }
 
 .crisisMap-mapPage { width: 100%; height: 100%; }
 .leaflet-container { background-image: url('tiny-grid.png'); }
-
-
 
 .leaflet-bar { box-shadow: 0 0 4px hsla(0, 0%, 0%, 0.5); border-radius: 4px; }
 .leaflet-bar a, .leaflet-bar a:hover { width: 30px; height: 30px; line-height: 30px; }
@@ -30,8 +31,7 @@ div { outline: none; }
 .leaflet-gmx-copyright-location-bg { opacity: 1; }
 .leaflet-gmx-copyright-location { box-shadow: 0 0 4px hsla(0, 0%, 0%, 0.5); }
 .leaflet-gmx-copyrights { color: hsl(0, 0%, 50%); }
-
-.leaflet-gmx-logo { display: none; }*/
+*/
 
 /*.topBarContainerControl, .crisisMap-contentContainer { position: absolute; left: 0; right: 0; }*/
 .topBarContainerControl { top: 0px; height: 40px; box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.5); z-index: 2; padding: 0 10px; }

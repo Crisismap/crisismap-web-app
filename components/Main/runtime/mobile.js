@@ -1,0 +1,3 @@
+if (nsGmx.CrisisMap.isMobile()) {
+    
+}

@@ -50,7 +50,7 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config
 
     var cfg = $.extend(true, config, {
         app: {
-            calendarWidget: nsGmx.CrisisMap.isMobile() ? false : {
+            calendarWidget: {
                 type: 'fire'
             },
             mobilePopups: nsGmx.CrisisMap.isMobile()
@@ -63,13 +63,12 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config
     });
 });
 
-
-cm.define('map', ['gmxApplication'], function (cm) {
+cm.define('resetter', ['gmxApplication'], function (cm) {
     return cm.get('gmxApplication').get('map');
 });
 
-cm.define('resetter', ['gmxApplication'], function (cm) {
-    return cm.get('gmxApplication').get('resetter');
+cm.define('map', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('map');
 });
 
 cm.define('calendar', ['gmxApplication'], function (cm) {
