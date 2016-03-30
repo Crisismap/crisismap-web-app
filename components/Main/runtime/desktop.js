@@ -49,3 +49,41 @@ cm.define('headerNavBar', ['topBarContainerControl'], function(cm) {
 
     return headerNavBar;
 });
+
+cm.define('sectionsMenu', ['map', 'config', 'resetter', 'layersHash', 'headerNavBar', 'sectionsManager'], function() {
+    var sectionsManager = cm.get('sectionsManager');
+    var headerNavBar = cm.get('headerNavBar');
+    var layersHash = cm.get('layersHash');
+    var resetter = cm.get('resetter');
+    var config = cm.get('config');
+    var map = cm.get('map');
+
+    var items = sectionsManager.getSectionsIds().map(function(sectionId) {
+        return {
+            id: sectionId,
+            title: sectionsManager.getSectionProperties(sectionId).title
+        }
+    });
+
+    var radioGroupWidget = new nsGmx.RadioGroupWidget({
+        items: items,
+        activeItem: sectionsManager.getActiveSectionId()
+    });
+
+    radioGroupWidget.on('select', function(id) {
+        sectionsManager.setActiveSectionId(id);
+        var layer = layersHash[sectionsManager.getSectionProperties(id).dataLayerId];
+        layer && nsGmx.L.Map.fitBounds.call(
+            map,
+            layer.getBounds()
+        );
+    });
+
+    sectionsManager.on('sectionchange', function(sectionId) {
+        radioGroupWidget.setActiveItem(sectionId);
+    });
+
+    radioGroupWidget.appendTo(headerNavBar.getCenterContainer());
+
+    return radioGroupWidget;
+});

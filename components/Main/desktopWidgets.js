@@ -41,41 +41,5 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return null;
     });
 
-    cm.define('headerLayersMenu', ['map', 'config', 'sectionsManager', 'layersHash', 'headerNavBar', 'resetter'], function() {
-        var map = cm.get('map');
-        var config = cm.get('config');
-        var layersHash = cm.get('layersHash');
-        var headerNavBar = cm.get('headerNavBar');
-        var sectionsManager = cm.get('sectionsManager');
-        var resetter = cm.get('resetter');
 
-        var items = sectionsManager.getSectionsIds().map(function(sectionId) {
-            return {
-                id: sectionId,
-                title: sectionsManager.getSectionProperties(sectionId).title
-            }
-        });
-
-        var radioGroupWidget = new nsGmx.RadioGroupWidget({
-            items: items,
-            activeItem: sectionsManager.getActiveSectionId()
-        });
-
-        radioGroupWidget.on('select', function(id) {
-            sectionsManager.setActiveSectionId(id);
-            var layer = layersHash[sectionsManager.getSectionProperties(id).dataLayerId];
-            layer && nsGmx.L.Map.fitBounds.call(
-                map,
-                layer.getBounds()
-            );
-        });
-
-        sectionsManager.on('sectionchange', function(sectionId) {
-            radioGroupWidget.setActiveItem(sectionId);
-        });
-
-        radioGroupWidget.appendTo(headerNavBar.getCenterContainer());
-
-        return radioGroupWidget;
-    });
 }

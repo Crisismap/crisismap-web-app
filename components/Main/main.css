@@ -12,16 +12,16 @@ a { color: hsl(235, 90%, 60%); }
 
 div { outline: none; }
 
-.crisisMap-headerContainer, .crisisMap-contentContainer { position: absolute; left: 0; right: 0; }
-.crisisMap-headerContainer { top: 0px; height: 40px; box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.5); z-index: 2; padding: 0 10px; }
-.crisisMap-contentContainer { top: 40px; bottom: 0px; z-index: 1; }
+.ui-widget { font-family: 'Open sans', Tahoma, sans-serif; }
+.leaflet-control-container { font-family: 'Open sans', Tahoma, sans-serif; }
+.leaflet-gmx-copyrights { font-family: 'Open sans', Tahoma, sans-serif; }
+
+/*.crisisMap-contentContainer { top: 40px; bottom: 0px; z-index: 1; }
 
 .crisisMap-mapPage { width: 100%; height: 100%; }
 .leaflet-container { background-image: url('tiny-grid.png'); }
 
-.ui-widget { font-family: 'Open sans', Tahoma, sans-serif; }
-.leaflet-control-container { font-family: 'Open sans', Tahoma, sans-serif; }
-.leaflet-gmx-copyrights { font-family: 'Open sans', Tahoma, sans-serif; }
+
 
 .leaflet-bar { box-shadow: 0 0 4px hsla(0, 0%, 0%, 0.5); border-radius: 4px; }
 .leaflet-bar a, .leaflet-bar a:hover { width: 30px; height: 30px; line-height: 30px; }
@@ -31,23 +31,32 @@ div { outline: none; }
 .leaflet-gmx-copyright-location { box-shadow: 0 0 4px hsla(0, 0%, 0%, 0.5); }
 .leaflet-gmx-copyrights { color: hsl(0, 0%, 50%); }
 
-.leaflet-gmx-logo { display: none; }
+.leaflet-gmx-logo { display: none; }*/
 
-.crisisMap-headerContainer .radioGroupWidget { width: 100%; height: 100%; }
-.crisisMap-headerContainer .radioGroupWidget-item { }
-.crisisMap-headerContainer .radioGroupWidget-item_active { border-bottom: 2px solid hsla(0, 50%, 50%, 1); border-top: 2px solid hsla(0, 50%, 50%, 0); }
-
-.leaflet-gmx-copyright-window { background-color: rgba(255, 255, 255, 0.9); border: none; box-shadow: 0 0 8px hsla(0, 0%, 0%, .5); }
-
-.headerNavBar, .topBarContainerControl { width: 100%; height: 100%; display: table; }
+/*.topBarContainerControl, .crisisMap-contentContainer { position: absolute; left: 0; right: 0; }*/
+.topBarContainerControl { top: 0px; height: 40px; box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.5); z-index: 2; padding: 0 10px; }
+.topBarContainerControl-controlCorner { background: #fff; bottom: initial; height: 40px; z-index: 100500; }
 .headerNavBar.leaflet-control, .topBarContainerControl.leaflet-control { margin: 0; }
+.headerNavBar, .topBarContainerControl { width: 100%; height: 100%; display: table; }
+
+.crisisMap_withTopBar .leaflet-top { top: 40px; }
+.crisisMap_withTopBar .topBarContainerControl-controlCorner { top: 0; }
+
 .headerNavBar-leftContainer, .headerNavBar-centerContainer, .headerNavBar-rightContainer { display: table-cell; vertical-align: middle; text-align: center; }
 .headerNavBar-leftContainer, .headerNavBar-rightContainer { width: 40px; }
 .headerNavBar-centerContainer { width: auto; }
-
-.headerNavBar .dropdownWidget { font-size: 14px; }
-.headerNavBar .radioGroupWidget { max-width: 700px; margin: 0 auto; font-size: 12px; }
 .headerNavBar-leftContainer .dropdownWidget-dropdown { text-align: left; }
+
+.topBarContainerControl .radioGroupWidget { width: 100%; height: 100%; }
+.topBarContainerControl .radioGroupWidget-item { }
+.topBarContainerControl .radioGroupWidget-item_active { border-bottom: 2px solid hsla(0, 50%, 50%, 1); border-top: 2px solid hsla(0, 50%, 50%, 0); }
+.topBarContainerControl .dropdownWidget { font-size: 14px; }
+.topBarContainerControl .radioGroupWidget { max-width: 700px; margin: 0 auto; font-size: 12px; }
+
+/*.leaflet-gmx-copyright-window { background-color: rgba(255, 255, 255, 0.9); border: none; box-shadow: 0 0 8px hsla(0, 0%, 0%, .5); }
+
+
+
 
 .headerLayoutButton { font-size: 16px; color: hsl(0, 0%, 20%); cursor: pointer; }
 
@@ -57,7 +66,7 @@ div { outline: none; }
 .crisisMap_mobile .markerItemViewCollapsed, .crisisMap_mobile .markerItemViewExpanded { font-size: 13px; border: none; }
 .crisisMap_mobile .markerItemViewExpanded { border: 1px solid hsl(0, 0%, 80%); }
 
-.leaflet-popup-content-wrapper { border-radius: 4px; }
+.leaflet-popup-content-wrapper { border-radius: 4px; }*/
 
 .marker-cluster-small { background-color: rgba(255, 226, 163, 0.62); }
 .marker-cluster-small div { background-color: rgba(246, 174, 92, 0.58); }
@@ -68,7 +77,7 @@ div { outline: none; }
 .marker-cluster-large { background-color: rgba(247, 125, 74, 0.85); }
 .marker-cluster-large div { background-color: rgb(245, 142, 96); }
 
-.geolocationControl {
+/*.geolocationControl {
     background-color: #fff;
     color: hsl(0, 0%, 35%);
     text-align: center;
@@ -85,14 +94,10 @@ div { outline: none; }
 
 .pageView-item_alerts { padding: 10px; box-sizing: border-box; }
 
-.topBarContainerControl-controlCorner { background: #fff; bottom: initial; height: 40px; z-index: 100500; }
-.crisisMap_withTopBar .leaflet-top { top: 40px; }
-.crisisMap_withTopBar .topBarContainerControl-controlCorner { top: 0; }
-
 .checkboxWidget { padding-right: 5px; color: #fff; font-size: 14px; }
 .checkboxWidget .checkboxWidget-checkbox { border: none; width: 24px; height: 24px; line-height: 24px; border-radius: 12px; }
 .checkboxWidget-value_ .checkboxWidget-checkbox { background: hsl(30, 10%, 75%); }
 .checkboxWidget-value_0 .checkboxWidget-checkbox { background: hsl(0, 70%, 50%); }
 .checkboxWidget-value_1 .checkboxWidget-checkbox { background: hsl(30, 75%, 50%); }
 .checkboxWidget-value_2 .checkboxWidget-checkbox { background: hsl(150, 100%, 25%); }
-.checkboxWidget-value_3 .checkboxWidget-checkbox { background: hsl(30, 10%, 75%); }
+.checkboxWidget-value_3 .checkboxWidget-checkbox { background: hsl(30, 10%, 75%); }*/

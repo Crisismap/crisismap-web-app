@@ -63,12 +63,13 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config
     });
 });
 
-cm.define('resetter', ['gmxApplication'], function (cm) {
-    return cm.get('gmxApplication').get('map');
-});
 
 cm.define('map', ['gmxApplication'], function (cm) {
     return cm.get('gmxApplication').get('map');
+});
+
+cm.define('resetter', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('resetter');
 });
 
 cm.define('calendar', ['gmxApplication'], function (cm) {
