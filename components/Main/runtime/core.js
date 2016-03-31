@@ -94,3 +94,7 @@ cm.define('layersClusters', ['gmxApplication'], function(cm) {
 cm.define('mobileButtonsPane', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('mobileButtonsPane');
 });
+
+cm.define('fullscreenPagingPane', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('fullscreenPagingPane');
+});

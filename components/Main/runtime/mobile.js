@@ -19,4 +19,32 @@ if (nsGmx.CrisisMap.isMobile()) {
 
         return dropdownWidget;
     });
+
+    cm.define('alertsWidgetContainer', ['fullscreenPagingPane', 'mobileButtonsPane', 'alertsButton'], function(cm) {
+        var fullscreenPagingPane = cm.get('fullscreenPagingPane');
+        var mobileButtonsPane = cm.get('mobileButtonsPane');
+        var alertsButton = cm.get('alertsButton');
+
+        return {
+            addView: function(alertsWidget) {
+                var pane = fullscreenPagingPane.addView('alertsWidget', alertsWidget);
+
+                alertsButton.$el.on('click', function() {
+                    fullscreenPagingPane.showView('alertsWidget');
+                });
+
+                fullscreenPagingPane.on('showview', function(le) {
+                    if (le.id === 'alertsWidget') {
+                        alertsWidget.reset();
+                    }
+                });
+
+                alertsWidget.on('marker', function () {
+                    fullscreenPagingPane.hideView();
+                });
+
+                mobileButtonsPane.addView(alertsButton, 60);
+            }
+        };
+    })
 }

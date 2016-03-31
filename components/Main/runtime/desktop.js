@@ -84,34 +84,22 @@ if (!nsGmx.CrisisMap.isMobile()) {
         return radioGroupWidget;
     });
 
-    cm.define('alertsWidgetContainer', ['activeAlertsNumber', 'sidebarWidget'], function() {
-        var activeAlertsNumber = cm.get('activeAlertsNumber');
+    cm.define('alertsWidgetContainer', ['sidebarWidget', 'alertsButton'], function(cm) {
         var sidebarWidget = cm.get('sidebarWidget');
-
-        var iconWidget = new nsGmx.LabelIconWidget({
-            iconClass: 'icon-bell'
-        });
-
-        function setn(num) {
-            iconWidget.setLabel(num || null);
-        }
-        setn(activeAlertsNumber.getAlertsNumber());
-        activeAlertsNumber.on('change', function(num) {
-            setn(num);
-        });
+        var alertsButton = cm.get('alertsButton');
 
         sidebarWidget.on('closed', function(e) {
-            iconWidget.showLabel();
+            alertsButton.showLabel();
         });
 
         return {
             addView: function(alertsWidget) {
-                var alertsWidgetContainer = sidebarWidget.addTab('alertsWidget', iconWidget);
+                var alertsWidgetContainer = sidebarWidget.addTab('alertsWidget', alertsButton);
                 alertsWidget.appendTo(alertsWidgetContainer);
 
                 sidebarWidget && sidebarWidget.on('opened', function(le) {
                     if (le.id === 'alertsWidget') {
-                        iconWidget.hideLabel();
+                        alertsButton.hideLabel();
                         alertsWidget.reset();
                     }
                 });

@@ -1,3 +1,21 @@
+cm.define('alertsButton', ['activeAlertsNumber'], function(cm) {
+    var activeAlertsNumber = cm.get('activeAlertsNumber');
+
+    var iconWidget = new nsGmx.LabelIconWidget({
+        iconClass: 'icon-newspaper'
+    });
+
+    function setn(num) {
+        iconWidget.setLabel(num || null);
+    }
+    setn(activeAlertsNumber.getAlertsNumber());
+    activeAlertsNumber.on('change', function(num) {
+        setn(num);
+    });
+
+    return iconWidget;
+});
+
 cm.define('alertsWidget', [
     'alertsWidgetContainer',
     'newsLayersCollections',

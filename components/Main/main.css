@@ -75,7 +75,8 @@ div { outline: none; }
 .mobileButtonsPaneControl .iconTextWidget-icon { font-size: 18px; padding-right: 10px; }
 .mobileButtonsPaneControl .iconTextWidget-text { font-size: 14px; }
 
-.mobileButtonsPaneWidget { display: flex; justify-content: space-around; }
+.mobileButtonsPaneWidget { display: flex; justify-content: space-around; font-size: 18px; }
+.mobileButtonsPaneWidget .labelIconWidget-label { right: -8px; }
 
 .marker-cluster-small { background-color: rgba(255, 226, 163, 0.62); }
 .marker-cluster-small div { background-color: rgba(246, 174, 92, 0.58); }
@@ -87,6 +88,8 @@ div { outline: none; }
 .marker-cluster-large div { background-color: rgb(245, 142, 96); }
 
 .marker-circled { border: 3px solid hsla(0, 50%, 50%, 0.75); border-radius: 30px; width: 20px; height: 20px; }
+
+.fullscreenPagingPaneControl_page-alertsWidget .filterWidget { display: flex; justify-content: space-around; padding: 5px; padding-top: 0;}
 
 /*.geolocationControl {
     background-color: #fff;
