@@ -14,7 +14,8 @@ var scripts = [
     'runtime/sections.js',
     'runtime/markers.js',
     'runtime/desktop.js',
-    'runtime/mobile.js'
+    'runtime/mobile.js',
+    'runtime/widgets.js'
     // 'core.js',
     // 'map.js',
     // 'layers.js',

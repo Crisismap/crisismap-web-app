@@ -119,62 +119,7 @@ cm.define('layersTreeWidget', ['layersTree', 'sidebarWidget', 'sectionsManager']
     return switchingLayersTreeWidget;
 });
 
-cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], function(cm) {
-    return new(L.Class.extend({
-        includes: [Backbone.Events],
-        initialize: function(opts) {
-            this.options = opts;
-            this.options.sectionsManager.on('sectionchange', this._update, this);
-            this._update();
-        },
-        getAlertsNumber: function() {
-            return this._currentCollection.length;
-        },
-        _update: function() {
-            var sectionId = this.options.sectionsManager.getActiveSectionId();
-            var newCollection = this.options.newsLayersCollections[sectionId];
-            this._currentCollection && this._currentCollection.off('update', this._onCollectionUpdate, this);
-            this._currentCollection = newCollection;
-            newCollection && newCollection.on('update', this._onCollectionUpdate, this);
-            newCollection && this._onCollectionUpdate();
-        },
-        _onCollectionUpdate: function() {
-            this.trigger('change', this.getAlertsNumber());
-        }
-    }))({
-        sectionsManager: cm.get('sectionsManager'),
-        newsLayersCollections: cm.get('newsLayersCollections')
-    });
-});
 
-cm.define('alertsWidget', [
-    'alertsWidgetContainer',
-    'newsLayersCollections',
-    'sectionsManager',
-    'sidebarWidget',
-], function(cm) {
-    var alertsWidgetContainer = cm.get('alertsWidgetContainer');
-    var newsLayersCollections = cm.get('newsLayersCollections');
-    var sectionsManager = cm.get('sectionsManager');
-    var sidebarWidget = cm.get('sidebarWidget');
-
-    var alertsWidget = new nsGmx.AlertsWidget({
-        newsLayersCollections: newsLayersCollections,
-        sectionsManager: sectionsManager
-    });
-
-    alertsWidget.appendTo(alertsWidgetContainer);
-
-    $(window).on('resize', function () {
-        alertsWidget.reset();
-    });
-
-    sidebarWidget && sidebarWidget.on('opened', function () {
-        alertsWidget.reset();
-    });
-
-    return alertsWidget;
-});
 
 cm.define('geolocationControl', ['map', 'config', 'sidebarWidget'], function() {
     var map = cm.get('map');

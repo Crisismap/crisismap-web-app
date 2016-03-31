@@ -1,4 +1,4 @@
-cm.define('rootContainer', [], function () {
+cm.define('rootContainer', [], function() {
     return document.body;
 });
 
@@ -63,30 +63,34 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config
     });
 });
 
-cm.define('map', ['gmxApplication'], function (cm) {
+cm.define('map', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('map');
 });
 
-cm.define('resetter', ['gmxApplication'], function (cm) {
+cm.define('resetter', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('resetter');
 });
 
-cm.define('calendar', ['gmxApplication'], function (cm) {
+cm.define('calendar', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('calendar');
 });
 
-cm.define('layersTree', ['gmxApplication'], function (cm) {
+cm.define('layersTree', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersTree');
 });
 
-cm.define('layersHash', ['gmxApplication'], function (cm) {
+cm.define('layersHash', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersHash');
 });
 
-cm.define('mobileButtonsPane', ['gmxApplication'], function (cm) {
-    return cm.get('gmxApplication').get('mobileButtonsPane');
+cm.define('sidebarWidget', ['gmxApplication'], function(cm) {
+    return cm.get('gmxApplication').get('sidebarWidget');
 });
 
 cm.define('layersClusters', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersClusters');
+});
+
+cm.define('mobileButtonsPane', ['gmxApplication'], function(cm) {
+    return cm.get('gmxApplication').get('mobileButtonsPane');
 });

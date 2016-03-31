@@ -98,3 +98,31 @@ cm.define('newsLayersCollections', ['layersMarkersCollections', 'sectionsManager
         return collections;
     }.bind(this), {});
 });
+
+cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], function(cm) {
+    return new(L.Class.extend({
+        includes: [Backbone.Events],
+        initialize: function(opts) {
+            this.options = opts;
+            this.options.sectionsManager.on('sectionchange', this._update, this);
+            this._update();
+        },
+        getAlertsNumber: function() {
+            return this._currentCollection.length;
+        },
+        _update: function() {
+            var sectionId = this.options.sectionsManager.getActiveSectionId();
+            var newCollection = this.options.newsLayersCollections[sectionId];
+            this._currentCollection && this._currentCollection.off('update', this._onCollectionUpdate, this);
+            this._currentCollection = newCollection;
+            newCollection && newCollection.on('update', this._onCollectionUpdate, this);
+            newCollection && this._onCollectionUpdate();
+        },
+        _onCollectionUpdate: function() {
+            this.trigger('change', this.getAlertsNumber());
+        }
+    }))({
+        sectionsManager: cm.get('sectionsManager'),
+        newsLayersCollections: cm.get('newsLayersCollections')
+    });
+});

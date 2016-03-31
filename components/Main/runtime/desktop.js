@@ -83,4 +83,39 @@ if (!nsGmx.CrisisMap.isMobile()) {
 
         return radioGroupWidget;
     });
+
+    cm.define('alertsWidgetContainer', ['activeAlertsNumber', 'sidebarWidget'], function() {
+        var activeAlertsNumber = cm.get('activeAlertsNumber');
+        var sidebarWidget = cm.get('sidebarWidget');
+
+        var iconWidget = new nsGmx.LabelIconWidget({
+            iconClass: 'icon-bell'
+        });
+
+        function setn(num) {
+            iconWidget.setLabel(num || null);
+        }
+        setn(activeAlertsNumber.getAlertsNumber());
+        activeAlertsNumber.on('change', function(num) {
+            setn(num);
+        });
+
+        sidebarWidget.on('closed', function(e) {
+            iconWidget.showLabel();
+        });
+
+        return {
+            addView: function(alertsWidget) {
+                var alertsWidgetContainer = sidebarWidget.addTab('alertsWidget', iconWidget);
+                alertsWidget.appendTo(alertsWidgetContainer);
+
+                sidebarWidget && sidebarWidget.on('opened', function(le) {
+                    if (le.id === 'alertsWidget') {
+                        iconWidget.hideLabel();
+                        alertsWidget.reset();
+                    }
+                });
+            }
+        };
+    });
 }
