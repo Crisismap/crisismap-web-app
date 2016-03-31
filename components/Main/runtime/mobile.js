@@ -11,7 +11,7 @@ if (nsGmx.CrisisMap.isMobile()) {
             direction: 'up'
         });
 
-        mobileButtonsPane.addView(dropdownWidget);
+        mobileButtonsPane.addView(dropdownWidget, 15);
 
         resetter.on('reset', function() {
             dropdownWidget.reset();
@@ -46,5 +46,35 @@ if (nsGmx.CrisisMap.isMobile()) {
                 mobileButtonsPane.addView(alertsButton, 60);
             }
         };
-    })
+    });
+
+    cm.define('mainMenu', ['fullscreenPagingPane', 'mobileButtonsPane'], function (cm) {
+        var fullscreenPagingPane = cm.get('fullscreenPagingPane');
+        var mobileButtonsPane = cm.get('mobileButtonsPane');
+
+        var mainMenuWidget = new nsGmx.MainMenuWidget();
+
+        var button = new (Backbone.View.extend({
+            el: $('<div>').addClass('icon-menu')
+        }));
+        var pane = fullscreenPagingPane.addView('mainMenuWidget', mainMenuWidget);
+
+        button.$el.on('click', function() {
+            fullscreenPagingPane.showView('mainMenuWidget');
+        });
+
+        fullscreenPagingPane.on('showview', function(le) {
+            if (le.id === 'mainMenuWidget') {
+                mainMenuWidget.reset();
+            }
+        });
+
+        mainMenuWidget.on('marker', function () {
+            fullscreenPagingPane.hideView();
+        });
+
+        mobileButtonsPane.addView(button, 5);
+
+        return null;
+    });
 }

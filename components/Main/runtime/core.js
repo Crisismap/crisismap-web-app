@@ -44,7 +44,29 @@ cm.define('leafletProductionIssues', [], function(cm) {
     return null;
 });
 
-cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config'], function(cm, cb) {
+cm.define('urlManager', [], function(cm) {
+    return {
+        getParam: getQueryVariable
+    };
+});
+
+cm.define('i18n', ['urlManager'], function(cm) {
+    var urlManager = cm.get('urlManager');
+    if (
+        urlManager.getParam('lang') &&
+        (
+            urlManager.getParam('lang') === 'eng' ||
+            urlManager.getParam('lang') === 'rus'
+        )
+    ) {
+        nsGmx.Translations.setLanguage(urlManager.getParam('lang'));
+    } else {
+        nsGmx.Translations.setLanguage(nsGmx.Translations.getLanguageFromCookies('/'));
+    }
+    return nsGmx.Translations;
+});
+
+cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config', 'i18n'], function(cm, cb) {
     var rootContainer = cm.get('rootContainer');
     var config = cm.get('config');
 

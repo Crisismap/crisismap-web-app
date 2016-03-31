@@ -1,0 +1,13 @@
+.mainMenuWidget { }
+.mainMenuWidget-section { margin-bottom: 20px; }
+.mainMenuWidget-sectionHeader {
+    font-size: 18px;
+    border-bottom: 1px solid hsl(0, 0%, 85%);
+    margin-bottom: 10px;
+}
+.mainMenuWidget-sectionContent { }
+
+.mainMenuWidget-section_language .mainMenuWidget-sectionContent { display: flex; justify-content: space-around; padding: 10px; font-size: 14px; }
+.mainMenuWidget-languageSection-eng, .mainMenuWidget-languageSection-rus { cursor: pointer; }
+
+.mainMenuWidget-section_auth .mainMenuWidget-sectionContent { display: flex; justify-content: space-around; padding: 10px; font-size: 22px; color: hsl(0, 0%, 75%); }

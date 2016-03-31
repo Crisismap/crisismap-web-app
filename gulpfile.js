@@ -228,6 +228,11 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
+        id: 'MainMenuWidget',
+        srcDir: './components/MainMenuWidget',
+        distDir: 'build',
+        build: true
+    }, {
         id: 'Entry',
         srcDir: './components/Entry',
         build: false
