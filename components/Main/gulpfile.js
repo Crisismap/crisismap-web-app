@@ -12,6 +12,7 @@ var scripts = [
     'lib/IconDropdownWidget.js',
     'runtime/core.js',
     'runtime/sections.js',
+    'runtime/markers.js',
     'runtime/desktop.js',
     'runtime/mobile.js'
     // 'core.js',

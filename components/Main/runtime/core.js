@@ -86,3 +86,7 @@ cm.define('layersHash', ['gmxApplication'], function (cm) {
 cm.define('mobileButtonsPane', ['gmxApplication'], function (cm) {
     return cm.get('gmxApplication').get('mobileButtonsPane');
 });
+
+cm.define('layersClusters', ['gmxApplication'], function(cm) {
+    return cm.get('gmxApplication').get('layersClusters');
+});

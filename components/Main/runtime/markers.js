@@ -65,10 +65,6 @@ cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function(cm) {
     return null;
 });
 
-cm.define('layersClusters', ['gmxApplication'], function(cm) {
-    return cm.get('gmxApplication').get('layersClusters');
-});
-
 cm.define('markerCircle', ['markersClickHandler', 'sectionsManager', 'layersClusters', 'resetter', 'map'], function(cm) {
     var markersClickHandler = cm.get('markersClickHandler');
     var sectionsManager = cm.get('sectionsManager');

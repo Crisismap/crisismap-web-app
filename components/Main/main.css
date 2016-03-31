@@ -55,9 +55,6 @@ div { outline: none; }
 
 /*.leaflet-gmx-copyright-window { background-color: rgba(255, 255, 255, 0.9); border: none; box-shadow: 0 0 8px hsla(0, 0%, 0%, .5); }
 
-
-
-
 .headerLayoutButton { font-size: 16px; color: hsl(0, 0%, 20%); cursor: pointer; }
 
 .crisisMap_desktop .alertsCollectionView { padding: 0px; }
@@ -89,6 +86,8 @@ div { outline: none; }
 .marker-cluster-large { background-color: rgba(247, 125, 74, 0.85); }
 .marker-cluster-large div { background-color: rgb(245, 142, 96); }
 
+.marker-circled { border: 3px solid hsla(0, 50%, 50%, 0.75); border-radius: 30px; width: 20px; height: 20px; }
+
 /*.geolocationControl {
     background-color: #fff;
     color: hsl(0, 0%, 35%);
@@ -99,8 +98,6 @@ div { outline: none; }
 
 .geolocationControl:hover { background-color: #f4f4f4; }
 .leaflet-left .leaflet-gmx-icon.geolocationControl { margin-left: 10px; }
-
-.marker-circled { border: 3px solid hsla(0, 50%, 50%, 0.75); border-radius: 30px; width: 20px; height: 20px; }
 
 .anchorWidget a, .anchorWidget a:hover, .anchorWidget a:visited { text-decoration: none; color: inherit; }
 
