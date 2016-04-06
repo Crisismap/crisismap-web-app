@@ -105,6 +105,10 @@ cm.define('layersHash', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersHash');
 });
 
+cm.define('debugWindow', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('debugWindow');
+});
+
 cm.define('sidebarWidget', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('sidebarWidget');
 });
