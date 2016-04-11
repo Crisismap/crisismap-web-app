@@ -113,3 +113,6 @@ div { outline: none; }
 .checkboxWidget-value_1 .checkboxWidget-checkbox { background: hsl(30, 75%, 50%); }
 .checkboxWidget-value_2 .checkboxWidget-checkbox { background: hsl(150, 100%, 25%); }
 .checkboxWidget-value_3 .checkboxWidget-checkbox { background: hsl(30, 10%, 75%); }
+
+.connectionErrorWidget { display: flex; align-items: center; justify-content: center; text-align: center; height: 100%; background: hsl(0, 0%, 95%); }
+.connectionErrorWidget .connectionErrorWidget-message { width: 75%; color: hsl(0, 0%, 20%); font-size: 14px; }

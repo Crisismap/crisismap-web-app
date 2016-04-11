@@ -33,7 +33,8 @@
             "Jc2t053ymObeCVLW": "icon-cloud-sun",
             "BHUKiLiSzvgJUTd0": "icon-school",
             "DflNK5phRKpJ2dZL": "icon-fighter-jet"
-        }
+        },
+        "connectionCheckUrl": "http://maps.kosmosnimki.ru/api/index.html"
     },
     "layers": {
         "E8UaLwuFxFZspAap": {
@@ -46,7 +47,7 @@
                 "eng": "Climate"
             }
         },
-		"BHUKiLiSzvgJUTd0": {
+        "BHUKiLiSzvgJUTd0": {
             "title": {
                 "eng": "Refugees"
             }
@@ -71,7 +72,7 @@
                 "maxClusterRadius": 50
             }
         },
-		"1FCA4ABAD8A5415880EA10F8071C13B3": {
+        "1FCA4ABAD8A5415880EA10F8071C13B3": {
             "clusters": {
                 "maxClusterRadius": 50
             }

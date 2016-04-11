@@ -10,6 +10,7 @@ var styles = ['main.css'];
 var scripts = [
     'lib/utils.js',
     'lib/IconDropdownWidget.js',
+    'lib/ConnectionErrorWidget.js',
     'runtime/core.js',
     'runtime/sections.js',
     'runtime/markers.js',

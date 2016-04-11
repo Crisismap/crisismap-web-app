@@ -66,7 +66,21 @@ cm.define('i18n', ['urlManager'], function(cm) {
     return nsGmx.Translations;
 });
 
-cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config', 'i18n'], function(cm, cb) {
+cm.define('connectionCheck', ['rootContainer', 'config'], function(cm, cb) {
+    var rootContainer = cm.get('rootContainer');
+    var config = cm.get('config');
+
+    $.ajax(config.user.connectionCheckUrl).then(function() {
+        cb(true);
+    }, function() {
+        var connectionErrorWidget = new nsGmx.ConnectionErrorWidget();
+        $(rootContainer).append(connectionErrorWidget.el);
+        cb(false);
+    })
+});
+
+cm.define('gmxApplication', ['leafletProductionIssues', 'connectionCheck', 'rootContainer', 'config', 'i18n'], function(cm, cb) {
+    var connectionCheck = cm.get('connectionCheck');
     var rootContainer = cm.get('rootContainer');
     var config = cm.get('config');
 
@@ -79,10 +93,14 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'rootContainer', 'config
         }
     });
 
-    var gmxApplication = window.gacm = nsGmx.createGmxApplication(rootContainer, cfg);
-    gmxApplication.create().then(function() {
-        cb(gmxApplication);
-    });
+    if (connectionCheck) {
+        var gmxApplication = window.gacm = nsGmx.createGmxApplication(rootContainer, cfg);
+        gmxApplication.create().then(function() {
+            cb(gmxApplication);
+        });
+    } else {
+        cb(false);
+    }
 });
 
 cm.define('map', ['gmxApplication'], function(cm) {
@@ -105,7 +123,7 @@ cm.define('layersHash', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersHash');
 });
 
-cm.define('debugWindow', ['gmxApplication'], function (cm) {
+cm.define('debugWindow', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('debugWindow');
 });
 
@@ -121,6 +139,6 @@ cm.define('mobileButtonsPane', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('mobileButtonsPane');
 });
 
-cm.define('fullscreenPagingPane', ['gmxApplication'], function (cm) {
+cm.define('fullscreenPagingPane', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('fullscreenPagingPane');
 });
