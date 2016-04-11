@@ -61,7 +61,8 @@ cm.define('i18n', ['urlManager'], function(cm) {
     ) {
         nsGmx.Translations.setLanguage(urlManager.getParam('lang'));
     } else {
-        nsGmx.Translations.setLanguage(nsGmx.Translations.getLanguageFromCookies('/'));
+        var lang = window.localStorage['language'] || 'rus';
+        nsGmx.Translations.setLanguage(lang);
     }
     return nsGmx.Translations;
 });

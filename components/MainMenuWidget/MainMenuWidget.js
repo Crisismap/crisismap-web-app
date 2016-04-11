@@ -24,11 +24,11 @@ nsGmx.MainMenuWidget = Backbone.View.extend({
             auth: nsGmx.Translations.getText('mainMenuWidget.auth')
         }));
         this.$el.find('.mainMenuWidget-languageSection-eng').on('click', function (je) {
-            nsGmx.Translations.updateLanguageCookies('eng');
+            window.localStorage['language'] = 'eng';
             window.location.reload(false);
         });
         this.$el.find('.mainMenuWidget-languageSection-rus').on('click', function (je) {
-            nsGmx.Translations.updateLanguageCookies('rus');
+            window.localStorage['language'] = 'rus';
             window.location.reload(false);
         });
     },
