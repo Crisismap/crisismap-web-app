@@ -28,13 +28,16 @@ function getQueryVariable(variable) {
     }
 }
 
-nsGmx.CrisisMap.isMobile = function() {
-    if (getQueryVariable('mobile')) {
-        return true;
-    } else {
-        return nsGmx.Utils.isMobile();
+(function() {
+    var isMobile = nsGmx.Utils.isMobile;
+    nsGmx.Utils.isMobile = function() {
+        if (getQueryVariable('mobile')) {
+            return true;
+        } else {
+            return isMobile();
+        }
     }
-}
+})();
 
 nsGmx.CrisisMap.formatDate = function(dt, fstr) {
     function pz(n) {

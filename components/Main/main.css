@@ -7,11 +7,11 @@ html, body {
     overflow: hidden;
 }
 
+* { outline: none; }
+
 a { color: hsl(235, 90%, 60%); }
 .leaflet-container a { color: hsl(235, 90%, 60%); }
 .leaflet-bar a { color: hsl(0, 0%, 20%); }
-
-div { outline: none; }
 
 .ui-widget { font-family: 'Open sans', Tahoma, sans-serif; }
 .leaflet-control-container { font-family: 'Open sans', Tahoma, sans-serif; }
@@ -116,3 +116,7 @@ div { outline: none; }
 
 .connectionErrorWidget { display: flex; align-items: center; justify-content: center; text-align: center; height: 100%; background: hsl(0, 0%, 95%); }
 .connectionErrorWidget .connectionErrorWidget-message { width: 75%; color: hsl(0, 0%, 20%); font-size: 14px; }
+
+.gmxApplication_mobile .leaflet-bar { border: 0; }
+.gmxApplication_mobile .leaflet-bar .leaflet-control-zoom-in,
+.gmxApplication_mobile .leaflet-bar .leaflet-control-zoom-out { outline: none; width: 40px; height: 40px; line-height: 40px; border-radius: 20px; margin-top: 5px; box-shadow: 0 0 3px hsla(0, 0%, 0%, 0.5); }

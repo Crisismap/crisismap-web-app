@@ -1,4 +1,4 @@
-if (nsGmx.CrisisMap.isMobile()) {
+if (nsGmx.Utils.isMobile()) {
     cm.define('sectionsMenu', ['mobileButtonsPane', 'sectionsManager', 'resetter'], function(cm) {
         var mobileButtonsPane = cm.get('mobileButtonsPane');
         var sectionsManager = cm.get('sectionsManager');

@@ -90,7 +90,11 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'connectionCheck', 'root
             calendarWidget: {
                 type: 'fire'
             },
-            mobilePopups: nsGmx.CrisisMap.isMobile()
+            mobilePopups: nsGmx.Utils.isMobile(),
+            zoomControl: {
+                type: 'leaflet',
+                position: nsGmx.Utils.isMobile() ? 'bottomright' : 'topleft' 
+            }
         }
     });
 

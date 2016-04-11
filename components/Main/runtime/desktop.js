@@ -1,4 +1,4 @@
-if (!nsGmx.CrisisMap.isMobile()) {
+if (!nsGmx.Utils.isMobile()) {
     cm.define('topBarContainerControl', ['map', 'rootContainer'], function(cm) {
         var rootContainer = cm.get('rootContainer');
         var map = cm.get('map');
