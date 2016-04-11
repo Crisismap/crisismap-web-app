@@ -86,7 +86,8 @@ require('./external/GMXBuilder')(gulp, {
         distFiles: ['handlebars.js']
     }, {
         id: 'translations',
-        url: 'http://maps.kosmosnimki.ru/api/translations.js'
+        srcDir: './external/GMXCommonComponents/Translations',
+        build: false
     }, {
         id: 'Utils',
         srcDir: './external/GMXCommonComponents/Utils',
