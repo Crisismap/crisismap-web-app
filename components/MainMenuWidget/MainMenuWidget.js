@@ -17,23 +17,27 @@ nsGmx.Translations.addText('eng', {
 });
 
 nsGmx.MainMenuWidget = Backbone.View.extend({
-    initialize: function () {
+    initialize: function() {
         this.$el.html(_.template(nsGmx.Templates.MainMenuWidget.mainMenuWidget)({
             about: nsGmx.Translations.getText('mainMenuWidget.about'),
             language: nsGmx.Translations.getText('mainMenuWidget.language'),
             auth: nsGmx.Translations.getText('mainMenuWidget.auth')
         }));
-        this.$el.find('.mainMenuWidget-languageSection-eng').on('click', function (je) {
+        this.$el.find('.mainMenuWidget-languageSection-eng').on('click', function(je) {
             window.localStorage['language'] = 'eng';
             window.location.reload(false);
         });
-        this.$el.find('.mainMenuWidget-languageSection-rus').on('click', function (je) {
+        this.$el.find('.mainMenuWidget-languageSection-rus').on('click', function(je) {
             window.localStorage['language'] = 'rus';
             window.location.reload(false);
         });
+
+        $.ajax('resources/about-' + nsGmx.Translations.getLanguage() + '.html').then(function(resp) {
+            this.$('.mainMenuWidget-section_about .mainMenuWidget-sectionContent').html(resp);
+        }.bind(this));
     },
 
-    reset: function () {
+    reset: function() {
 
     }
 });
