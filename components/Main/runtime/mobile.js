@@ -8,7 +8,8 @@ if (nsGmx.CrisisMap.isMobile()) {
             sectionsManager: sectionsManager,
             showTopItem: false,
             trigger: 'click',
-            direction: 'up'
+            direction: 'up',
+            align: 'center'
         });
 
         mobileButtonsPane.addView(dropdownWidget, 15);

@@ -40,5 +40,15 @@ nsGmx.IconDropdownWidget = nsGmx.DropdownWidget.extend({
                 text: sectionsManager.getSectionProperties(sectionsIds[i]).title
             }));
         }
+
+        if (options.align && options.align === 'center') {
+            // HACK: align menu center
+            this.on('expand', function() {
+                var $dropdown = this.$el.find('.dropdownWidget-dropdown');
+                var initialWidth = this.$el.outerWidth();
+                var dropdownWidth = $dropdown.outerWidth();
+                $dropdown.css('left', Math.round(initialWidth / 2 - dropdownWidth / 2) + 'px');
+            }.bind(this));
+        }
     }
 })
