@@ -1,4 +1,5 @@
-cm.define('locationMarker', ['resetter', 'map'], function(cm) {
+cm.define('locationMarkerManager', ['resetter', 'map'], function(cm) {
+    var locationModel = cm.get('locationModel');
     var resetter = cm.get('resetter');
     var map = cm.get('map');
 
@@ -10,12 +11,15 @@ cm.define('locationMarker', ['resetter', 'map'], function(cm) {
     // L.circle(e.latlng, radius).addTo(map);
 
     var locationMarkerManager = new nsGmx.LocationMarkerManager({
+        locationModel: locationModel,
         map: map
     });
 
     resetter.on('reset', function () {
         locationMarkerManager.reset();
     });
+
+    locationMarkerManager.showMarker();
 
     return locationMarkerManager;
 });

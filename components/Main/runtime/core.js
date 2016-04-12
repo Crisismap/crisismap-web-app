@@ -80,7 +80,7 @@ cm.define('connectionCheck', ['rootContainer', 'config'], function(cm, cb) {
     })
 });
 
-cm.define('viewportMeta', [], function (cm) {
+cm.define('viewportMeta', [], function(cm) {
     if (nsGmx.Utils.isMobile()) {
         $('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />').appendTo($('head'));
     }
@@ -153,4 +153,12 @@ cm.define('mobileButtonsPane', ['gmxApplication'], function(cm) {
 
 cm.define('fullscreenPagingPane', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('fullscreenPagingPane');
+});
+
+cm.define('locationModel', ['gmxApplication'], function(cm) {
+    var map = cm.get('map');
+
+    return new nsGmx.LocationModel({
+        map: map
+    })
 });
