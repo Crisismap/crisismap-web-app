@@ -80,6 +80,13 @@ cm.define('connectionCheck', ['rootContainer', 'config'], function(cm, cb) {
     })
 });
 
+cm.define('viewportMeta', [], function (cm) {
+    if (nsGmx.Utils.isMobile()) {
+        $('<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />').appendTo($('head'));
+    }
+    return null;
+});
+
 cm.define('gmxApplication', ['leafletProductionIssues', 'connectionCheck', 'rootContainer', 'config', 'i18n'], function(cm, cb) {
     var connectionCheck = cm.get('connectionCheck');
     var rootContainer = cm.get('rootContainer');
@@ -93,7 +100,7 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'connectionCheck', 'root
             mobilePopups: nsGmx.Utils.isMobile(),
             zoomControl: {
                 type: 'leaflet',
-                position: nsGmx.Utils.isMobile() ? 'bottomright' : 'topleft' 
+                position: nsGmx.Utils.isMobile() ? 'bottomright' : 'topleft'
             }
         }
     });
