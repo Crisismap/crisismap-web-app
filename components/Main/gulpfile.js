@@ -11,6 +11,7 @@ var scripts = [
     'lib/utils.js',
     'lib/IconDropdownWidget.js',
     'lib/ConnectionErrorWidget.js',
+    'lib/LocationMarkerManager.js',
     'runtime/core.js',
     'runtime/sections.js',
     'runtime/markers.js',

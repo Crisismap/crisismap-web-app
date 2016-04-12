@@ -1,3 +1,25 @@
+cm.define('locationMarker', ['resetter', 'map'], function(cm) {
+    var resetter = cm.get('resetter');
+    var map = cm.get('map');
+
+    // var radius = e.accuracy / 2;
+    //
+    // L.marker(e.latlng).addTo(map)
+    //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    //
+    // L.circle(e.latlng, radius).addTo(map);
+
+    var locationMarkerManager = new nsGmx.LocationMarkerManager({
+        map: map
+    });
+
+    resetter.on('reset', function () {
+        locationMarkerManager.reset();
+    });
+
+    return locationMarkerManager;
+});
+
 cm.define('markersClickHandler', ['layersMarkersCollections', 'sectionsManager', 'layersHash', 'layersTree', 'config'], function(cm) {
     var layersMarkersCollections = cm.get('layersMarkersCollections');
     var sectionsManager = cm.get('sectionsManager');
