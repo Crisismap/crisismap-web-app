@@ -123,3 +123,18 @@ a { color: hsl(235, 90%, 60%); }
 
 .gmxApplication_mobile .leaflet-gmx-loaderStatus { position: static; }
 .gmxApplication_mobile * { cursor: default !important; }
+
+.geolocationControl {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    font-size: 20px;
+    background-color: hsl(0,0%,100%);
+    border-radius: 20px;
+    box-shadow: 0 0 3px hsla(0,0%,0%,0.5);
+    text-align: center;
+}
+
+.gmxApplication .leaflet-bottom.leaflet-right { display: flex; flex-direction: column-reverse; }
+.gmxApplication .leaflet-bottom.leaflet-right.leaflet-top.leaflet-bottom { display: block; }

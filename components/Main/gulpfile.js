@@ -13,6 +13,7 @@ var scripts = [
     'lib/ConnectionErrorWidget.js',
     'lib/LocationModel.js',
     'lib/LocationMarkerManager.js',
+    'lib/GeolocationControl.js',
     'runtime/core.js',
     'runtime/sections.js',
     'runtime/markers.js',

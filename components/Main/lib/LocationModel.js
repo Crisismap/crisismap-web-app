@@ -7,13 +7,13 @@ nsGmx.LocationModel = Backbone.Model.extend({
     },
 
     initialize: function() {
-        map.on('locationfound', function(le) {
+        this.map.on('locationfound', function(le) {
             this.set(_.extend({
                 state: 'success'
             }, _.pick(le, 'latlng', 'accuracy')));
         }.bind(this));
 
-        map.on('locationerror', function () {
+        this.map.on('locationerror', function () {
             this.set({
                 state: 'error'
             });
@@ -21,28 +21,30 @@ nsGmx.LocationModel = Backbone.Model.extend({
         }.bind(this));
 
         this.set({
-            state: 'pending'
+            state: 'undefined'
         });
-
-        this.updateLocation();
     },
 
     updateLocation: function() {
+        this.set({
+            state: 'pending'
+        });
+
         var p = new Promise(function(resolve, reject) {
-            map.once('locationfound', function() {
+            this.map.once('locationfound', function() {
                 setTimeout(function() {
                     resolve(this);
                 }.bind(this), 0);
             }.bind(this));
 
-            map.once('locationerror', function() {
+            this.map.once('locationerror', function() {
                 setTimeout(function() {
                     reject();
                 }.bind(this), 0);
             }.bind(this));
         }.bind(this));
 
-        map.locate({
+        this.map.locate({
             setView: false
         });
 

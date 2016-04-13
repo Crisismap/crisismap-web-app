@@ -1,4 +1,23 @@
 if (nsGmx.Utils.isMobile()) {
+    cm.define('geolocationControl', ['locationMarkerManager', 'locationModel', 'map'], function (cm) {
+        var locationMarkerManager = cm.get('locationMarkerManager');
+        var locationModel = cm.get('locationModel');
+        var map = cm.get('map');
+
+        var geolocationControl = new nsGmx.GeolocationControl({
+            locationModel: locationModel,
+            position: 'bottomright'
+        });
+
+        geolocationControl.on('click', function () {
+            locationMarkerManager.showMarker();
+        });
+
+        map.addControl(geolocationControl);
+
+        return null;
+    });
+
     cm.define('sectionsMenu', ['mobileButtonsPane', 'sectionsManager', 'resetter'], function(cm) {
         var mobileButtonsPane = cm.get('mobileButtonsPane');
         var sectionsManager = cm.get('sectionsManager');

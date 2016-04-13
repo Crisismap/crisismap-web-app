@@ -18,16 +18,17 @@ nsGmx.LocationMarkerManager = L.Class.extend({
 
     render: function() {
         var latlng = this.options.locationModel.get('latlng');
-        if (latlng && this._visible) {
+        if (this.options.locationModel.get('state') === 'success' && this._visible) {
             this.options.map.setView(latlng, this.options.maxZoom)
             if (!this._marker) {
                 this._marker = new nsGmx.LocationMarker(latlng);
                 this.options.map.addLayer(this._marker);
             } else {
-                this.marker.setLatLng(latlng);
+                this._marker.setLatLng(latlng);
             }
         } else {
             this._marker && this.options.map.removeLayer(this._marker);
+            this._marker = null;
         }
     },
 
