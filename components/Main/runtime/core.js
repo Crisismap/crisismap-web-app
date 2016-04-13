@@ -94,7 +94,7 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'connectionCheck', 'root
 
     var cfg = $.extend(true, config, {
         app: {
-            calendarWidget: {
+            calendarWidget: nsGmx.Utils.isMobile() ? false : {
                 type: 'fire'
             },
             mobilePopups: nsGmx.Utils.isMobile(),
