@@ -10,6 +10,10 @@ require('./external/GMXBuilder')(gulp, {
     id: 'index',
     htmlfile: './html/index.html',
     components: [{
+        id: 'es6-promise',
+        bowerComponent: 'git://github.com/jakearchibald/es6-promise.git',
+        distFiles: ['dist/es6-promise.js']
+    }, {
         bowerComponent: 'jquery',
         distFiles: ['dist/jquery.js']
     }, {
