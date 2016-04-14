@@ -106,4 +106,41 @@ if (!nsGmx.Utils.isMobile()) {
             }
         };
     });
+
+    cm.define('layersTreeWidget', [ 'sectionsManager', 'sidebarWidget', 'layersTree'], function(cm) {
+        var sectionsManager = cm.get('sectionsManager');
+        var sidebarWidget = cm.get('sidebarWidget');
+        var layersTree = cm.get('layersTree');
+
+        var tabEl = sidebarWidget.addTab('layersTreeWidget', 'icon-layers');
+
+        var pagingLayersTreeView = new nsGmx.PagingView();
+        tabEl.appendChild(pagingLayersTreeView.el);
+
+        sectionsManager.getSectionsIds().map(function (sectionId) {
+            var model = layersTree.find(sectionId);
+
+            if (!model) {
+                return;
+            }
+
+            var layersTreeWidget = new nsGmx.LayersTreeWidget({
+                model: model
+            });
+
+            pagingLayersTreeView.addView(sectionId, layersTreeWidget);
+        });
+
+        sectionsManager.on('sectionchange', onSectionChange);
+        onSectionChange(sectionsManager.getActiveSectionId());
+
+        return pagingLayersTreeView;
+
+        function onSectionChange(sectionId) {
+            if (!sectionId) {
+                return;
+            }
+            pagingLayersTreeView.showView(sectionId);
+        }
+    });
 }
