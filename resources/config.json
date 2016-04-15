@@ -26,6 +26,7 @@
     "user": {
         "sectionsTree": "U4okmqmPwu38rDNW",
         "markerZoom": 9,
+        "globalZoom": 2,
         "geolocationMaxZoom": 12,
         "helpDialogUrl": "./resources/helpDialog/helpDialog_{{lang}}.html",
         "sectionsIcons": {
