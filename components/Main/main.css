@@ -146,3 +146,5 @@ a { color: hsl(235, 90%, 60%); }
 
 .gmxApplication .leaflet-bottom.leaflet-right { display: flex; flex-direction: column-reverse; }
 .gmxApplication .leaflet-bottom.leaflet-right.leaflet-top.leaflet-bottom { display: block; }
+
+.fullscreenPagingPaneControl_page-mainMenuWidget { overflow: scroll; }

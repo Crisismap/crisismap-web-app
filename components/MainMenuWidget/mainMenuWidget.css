@@ -1,9 +1,11 @@
 .mainMenuWidget { }
 .mainMenuWidget-section { margin-bottom: 20px; }
-.mainMenuWidget-sectionHeader {
+.mainMenuWidget-sectionHeader, .mainMenuWidget h1 {
     font-size: 18px;
     border-bottom: 1px solid hsl(0, 0%, 85%);
+    margin: 0;
     margin-bottom: 10px;
+    font-weight: normal;
 }
 .mainMenuWidget-sectionContent { }
 
