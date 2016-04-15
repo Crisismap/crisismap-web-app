@@ -18,6 +18,22 @@ if (!nsGmx.Utils.isMobile()) {
         return topBarContainerControl;
     });
 
+    cm.define('helpDialog', ['config'], function(cm, cb) {
+        var config = cm.get('config');
+        var q = Handlebars.compile(config.user.helpDialogUrl)({
+            lang: nsGmx.Translations.getLanguage()
+        });
+        $.ajax(q).then(function(resp) {
+            cb(new nsGmx.ModalDialog({
+                content: resp
+            }))
+        }).fail(function() {
+            cb(new nsGmx.ModalDialog({
+                content: 'unable to load ' + q
+            }))
+        });
+    });
+
     cm.define('headerNavBar', ['topBarContainerControl'], function(cm) {
         var topBarContainerControl = cm.get('topBarContainerControl');
 
@@ -113,10 +129,14 @@ if (!nsGmx.Utils.isMobile()) {
         return null;
     });
 
-    cm.define('helpMenuButton', ['mainMenu'], function(cm) {
+    cm.define('helpMenuButton', ['helpDialog', 'mainMenu'], function(cm) {
+        var helpDialog = cm.get('helpDialog');
         var mainMenu = cm.get('mainMenu');
 
         var item = new nsGmx.PlainTextWidget(nsGmx.Translations.getText('crisismap.help'));
+        item.on('click', function () {
+            helpDialog.open();
+        });
         mainMenu.addItem('help', item, 20);
 
         return null;
