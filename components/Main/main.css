@@ -34,7 +34,15 @@ a { color: hsl(235, 90%, 60%); }
 */
 
 /*.topBarContainerControl, .crisisMap-contentContainer { position: absolute; left: 0; right: 0; }*/
-.topBarContainerControl { top: 0px; height: 40px; box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.5); z-index: 2; padding: 0 10px; }
+.topBarContainerControl {
+    top: 0px;
+    height: 40px;
+    box-shadow: 0 0 6px hsla(0, 0%, 0%, 0.5);
+    z-index: 2;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
 .topBarContainerControl-controlCorner { background: #fff; bottom: initial; height: 40px; z-index: 100500; }
 .headerNavBar.leaflet-control, .topBarContainerControl.leaflet-control { margin: 0; }
 .headerNavBar, .topBarContainerControl { width: 100%; height: 100%; display: table; }
@@ -52,6 +60,8 @@ a { color: hsl(235, 90%, 60%); }
 .topBarContainerControl .radioGroupWidget-item_active { border-bottom: 2px solid hsla(0, 50%, 50%, 1); border-top: 2px solid hsla(0, 50%, 50%, 0); }
 .topBarContainerControl .dropdownWidget { font-size: 14px; }
 .topBarContainerControl .radioGroupWidget { max-width: 700px; margin: 0 auto; font-size: 12px; }
+
+.anchorWidget a, .anchorWidget a:hover, .anchorWidget a:visited { text-decoration: none; color: inherit; }
 
 /*.leaflet-gmx-copyright-window { background-color: rgba(255, 255, 255, 0.9); border: none; box-shadow: 0 0 8px hsla(0, 0%, 0%, .5); }
 
@@ -101,8 +111,6 @@ a { color: hsl(235, 90%, 60%); }
 
 .geolocationControl:hover { background-color: #f4f4f4; }
 .leaflet-left .leaflet-gmx-icon.geolocationControl { margin-left: 10px; }
-
-.anchorWidget a, .anchorWidget a:hover, .anchorWidget a:visited { text-decoration: none; color: inherit; }
 
 .pageView-item_alerts { padding: 10px; box-sizing: border-box; }*/
 

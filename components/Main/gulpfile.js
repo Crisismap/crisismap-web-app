@@ -19,15 +19,8 @@ var scripts = [
     'runtime/markers.js',
     'runtime/desktop.js',
     'runtime/mobile.js',
-    'runtime/widgets.js'
-    // 'core.js',
-    // 'map.js',
-    // 'layers.js',
-    // 'commonWidgets.js',
-    // 'mobileWidgets.js',
-    // 'desktopWidgets.js',
-    // 'tail.js',
-    // 'translations.js'
+    'runtime/widgets.js',
+    'translations.js'
 ];
 var images = ['tiny-grid.png'];
 var templates = ['main.html'];

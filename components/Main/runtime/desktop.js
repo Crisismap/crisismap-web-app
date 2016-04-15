@@ -84,6 +84,106 @@ if (!nsGmx.Utils.isMobile()) {
         return radioGroupWidget;
     });
 
+    cm.define('mainMenu', ['headerNavBar', 'resetter'], function(cm) {
+        var headerNavBar = cm.get('headerNavBar');
+        var resetter = cm.get('resetter');
+
+        var containerEl = headerNavBar.getLeftContainer();
+
+        var dropdownWidget = new nsGmx.DropdownWidget({
+            titleClassName: 'icon-menu',
+            trigger: 'click'
+        });
+
+        resetter.on('reset', function() {
+            dropdownWidget.reset();
+        });
+
+        dropdownWidget.appendTo(headerNavBar.getLeftContainer());
+
+        return dropdownWidget;
+    });
+
+    cm.define('loginMenuButton', ['mainMenu'], function(cm) {
+        var mainMenu = cm.get('mainMenu');
+
+        var item = new nsGmx.PlainTextWidget(nsGmx.Translations.getText('crisismap.login'));
+        mainMenu.addItem('login', item, 10);
+
+        return null;
+    });
+
+    cm.define('helpMenuButton', ['mainMenu'], function(cm) {
+        var mainMenu = cm.get('mainMenu');
+
+        var item = new nsGmx.PlainTextWidget(nsGmx.Translations.getText('crisismap.help'));
+        mainMenu.addItem('help', item, 20);
+
+        return null;
+    });
+
+    cm.define('cawMenuButton', ['mainMenu'], function(cm) {
+        var mainMenu = cm.get('mainMenu');
+
+        var AnchorWidget = nsGmx.GmxWidget.extend({
+            className: 'anchorWidget',
+            // options.href
+            // options.title
+            // options.target
+            initialize: function(options) {
+                this.options = options;
+                this.render();
+            },
+            render: function() {
+                $('<a>')
+                    .html(this.options.title)
+                    .attr('href', this.options.href)
+                    .attr('target', this.options.target)
+                    .appendTo(this.$el);
+                return this;
+            }
+        });
+
+        mainMenu.addItem('caw', new AnchorWidget({
+            href: 'http://crisisalert.ru',
+            title: nsGmx.Translations.getText('crisismap.crisisalertweb'),
+            target: '_blank'
+        }), 30);
+
+        return null;
+    });
+
+    cm.define('rateMenuButton', ['mainMenu'], function(cm) {
+        var mainMenu = cm.get('mainMenu');
+
+        var item = new nsGmx.PlainTextWidget(nsGmx.Translations.getText('crisismap.rateapp'));
+        mainMenu.addItem('rate', item, 40);
+
+        return null;
+    });
+
+    cm.define('optionsMenuButton', ['mainMenu'], function(cm) {
+        var mainMenu = cm.get('mainMenu');
+
+        var item = new nsGmx.PlainTextWidget(nsGmx.Translations.getText('crisismap.options'));
+        mainMenu.addItem('options', item, 50);
+
+        return null;
+    });
+
+    cm.define('switchLanguageMenuButton', ['mainMenu'], function(cm) {
+        var mainMenu = cm.get('mainMenu');
+
+        var item = new nsGmx.PlainTextWidget(nsGmx.Translations.getText('crisismap.switchLanguage'));
+        item.on('click', function() {
+            window.localStorage['language'] = nsGmx.Translations.getLanguage() === 'rus' ? 'eng' : 'rus';
+            window.location.reload(false);
+        });
+        mainMenu.addItem('switchLanguage', item, 60);
+
+        return null;
+    });
+
     cm.define('alertsWidgetContainer', ['sidebarWidget', 'alertsButton'], function(cm) {
         var sidebarWidget = cm.get('sidebarWidget');
         var alertsButton = cm.get('alertsButton');
@@ -107,7 +207,7 @@ if (!nsGmx.Utils.isMobile()) {
         };
     });
 
-    cm.define('layersTreeWidget', [ 'sectionsManager', 'sidebarWidget', 'layersTree'], function(cm) {
+    cm.define('layersTreeWidget', ['sectionsManager', 'sidebarWidget', 'layersTree'], function(cm) {
         var sectionsManager = cm.get('sectionsManager');
         var sidebarWidget = cm.get('sidebarWidget');
         var layersTree = cm.get('layersTree');
@@ -117,7 +217,7 @@ if (!nsGmx.Utils.isMobile()) {
         var pagingLayersTreeView = new nsGmx.PagingView();
         tabEl.appendChild(pagingLayersTreeView.el);
 
-        sectionsManager.getSectionsIds().map(function (sectionId) {
+        sectionsManager.getSectionsIds().map(function(sectionId) {
             var model = layersTree.find(sectionId);
 
             if (!model) {
