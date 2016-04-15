@@ -1,14 +1,7 @@
-cm.define('locationMarkerManager', ['resetter', 'map'], function(cm) {
+cm.define('locationMarkerManager', ['locationModel', 'resetter', 'map'], function(cm) {
     var locationModel = cm.get('locationModel');
     var resetter = cm.get('resetter');
     var map = cm.get('map');
-
-    // var radius = e.accuracy / 2;
-    //
-    // L.marker(e.latlng).addTo(map)
-    //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
-    //
-    // L.circle(e.latlng, radius).addTo(map);
 
     var locationMarkerManager = new nsGmx.LocationMarkerManager({
         locationModel: locationModel,
@@ -18,8 +11,6 @@ cm.define('locationMarkerManager', ['resetter', 'map'], function(cm) {
     resetter.on('reset', function () {
         locationMarkerManager.reset();
     });
-
-    locationMarkerManager.showMarker();
 
     return locationMarkerManager;
 });
