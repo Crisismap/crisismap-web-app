@@ -1,4 +1,19 @@
 if (nsGmx.Utils.isMobile()) {
+    cm.define('greyBaseLayer', ['baseLayersManager'], function (cm) {
+        var baseLayersManager = cm.get('baseLayersManager');
+
+        baseLayersManager.add('mapboxgrey', {
+            layers: [L.tileLayer('https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA', {
+
+            })]
+        });
+
+        baseLayersManager.setActiveIDs(['mapboxgrey']);
+        baseLayersManager.setCurrentID('mapboxgrey');
+
+        return null;
+    });
+
     cm.define('geolocationControl', ['locationMarkerManager', 'locationModel', 'map'], function (cm) {
         var locationMarkerManager = cm.get('locationMarkerManager');
         var locationModel = cm.get('locationModel');

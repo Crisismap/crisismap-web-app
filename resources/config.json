@@ -78,5 +78,12 @@
                 "maxClusterRadius": 50
             }
         }
+    },
+    "state": {
+        "baseLayersManager": {
+            "version": "1.0.0",
+            "activeIDs": [],
+            "currentID": null
+        }
     }
 }

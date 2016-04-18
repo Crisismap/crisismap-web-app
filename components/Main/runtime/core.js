@@ -147,6 +147,10 @@ cm.define('layersClusters', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersClusters');
 });
 
+cm.define('baseLayersManager', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('baseLayersManager');
+});
+
 cm.define('mobileButtonsPane', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('mobileButtonsPane');
 });

@@ -150,6 +150,10 @@ require('./external/GMXBuilder')(gulp, {
         distDir: './build',
         build: true
     }, {
+        id: 'StateManager',
+        srcDir: './external/GMXCommonComponents/StateManager',
+        build: false
+    }, {
         id: 'winnie.core',
         srcDir: './external/winnie-core',
         distDir: './dist',
