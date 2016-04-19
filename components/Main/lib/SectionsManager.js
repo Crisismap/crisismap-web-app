@@ -76,6 +76,7 @@ nsGmx.SectionsManager = L.Class.extend({
             this._sections[sectionId] = {
                 id: sectionId,
                 title: section.get('properties').title,
+                description: section.get('properties') && section.get('properties').description,
                 dataLayersIds: this._getDataLayersIds(sectionId),
                 tree: section,
                 icon: section.get('properties') &&

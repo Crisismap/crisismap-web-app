@@ -4,6 +4,7 @@ cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'r
     var layersTree = cm.get('layersTree');
     var resetter = cm.get('resetter');
     var config = cm.get('config');
+    var i18n = cm.get('i18n');
     var map = cm.get('map');
 
     var sectionsManager = new nsGmx.SectionsManager({
@@ -22,6 +23,36 @@ cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'r
         map.setZoom(config.user.globalZoom);
         resetter.reset();
     }
+});
+
+cm.define('sectionsDescriptions', ['layersTree', 'sectionsManager'], function (cm, cb) {
+    var sectionsManager = cm.get('sectionsManager');
+    var layersTree = cm.get('layersTree');
+
+    var sectionsNames = sectionsManager.getSectionsIds();
+    var sectionsDescriptionsPromises = sectionsNames.map(function (sectionName) {
+        return new Promise(function (resolve, reject) {
+            $.ajax('resources/' + sectionName + '-description_' + i18n.getLanguage() + '.html').then(function (resp) {
+                resolve(resp);
+            }, function () {
+                resolve('');
+            });
+        })
+    });
+
+    Promise.all(sectionsDescriptionsPromises).then(function (values) {
+        var sectionsDescriptions = {};
+        for (var i = 0; i < values.length; i++) {
+            var group = layersTree.find(sectionsNames[i]);
+            if (!group || !values[i]) {
+                continue;
+            }
+            group.get('properties').description = values[i];
+            group.trigger('change');
+        }
+
+        cb({});
+    });
 });
 
 cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', 'config'], function(cm, cb) {
