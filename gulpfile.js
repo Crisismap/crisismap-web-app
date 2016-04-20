@@ -223,5 +223,9 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './components/Main',
         distDir: './build',
         build: true
+    }, {
+        id: 'MobileSectionsMenuWidget',
+        srcDir: './components/MobileSectionsMenuWidget',
+        build: false
     }]
 });

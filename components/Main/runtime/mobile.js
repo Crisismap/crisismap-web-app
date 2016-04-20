@@ -1,11 +1,14 @@
 if (nsGmx.Utils.isMobile()) {
-    cm.define('greyBaseLayer', ['baseLayersManager'], function (cm) {
+    cm.define('greyBaseLayer', ['baseLayersManager'], function(cm) {
         var baseLayersManager = cm.get('baseLayersManager');
 
-        baseLayersManager.add('mapboxgrey', {
-            layers: [L.tileLayer('https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA', {
+        var tilesUrl = [
+            'https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png',
+            '?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA'
+        ].join('');
 
-            })]
+        baseLayersManager.add('mapboxgrey', {
+            layers: [L.tileLayer(tilesUrl, {})]
         });
 
         baseLayersManager.setActiveIDs(['mapboxgrey']);
@@ -14,26 +17,57 @@ if (nsGmx.Utils.isMobile()) {
         return null;
     });
 
-    cm.define('sectionsMenu', ['mobileButtonsPane', 'sectionsManager', 'resetter'], function(cm) {
+    cm.define('sectionsMenu', ['fullscreenPagingPane', 'mobileButtonsPane', 'sectionsManager'], function(cm) {
+        var fullscreenPagingPane = cm.get('fullscreenPagingPane');
         var mobileButtonsPane = cm.get('mobileButtonsPane');
         var sectionsManager = cm.get('sectionsManager');
-        var resetter = cm.get('resetter');
 
-        var dropdownWidget = new nsGmx.IconDropdownWidget({
-            sectionsManager: sectionsManager,
-            showTopItem: false,
-            trigger: 'click',
-            direction: 'up',
-            align: 'center'
+        var SectionsButton = Backbone.View.extend({
+            events: {
+                'click': '_onClick'
+            },
+
+            // options.sectionsManager
+            initialize: function(options) {
+                this.options = _.extend({}, options);
+                this.options.sectionsManager.on('sectionchange', this._updateIconClass);
+                this._updateIconClass();
+            },
+
+            _updateIconClass: function() {
+                var activeSectionId = this.options.sectionsManager.getActiveSectionId();
+                this.$el[0].className = 'sectionsButton ' + this.options.sectionsManager.getSectionProperties(activeSectionId).icon;
+            },
+
+            _onClick: function() {
+                this.trigger('click');
+            }
         });
 
-        mobileButtonsPane.addView(dropdownWidget, 15);
+        var sectionsMenuWidget = new nsGmx.MobileSectionsMenuWidget();
 
-        resetter.on('reset', function() {
-            dropdownWidget.reset();
+        var button = new SectionsButton({
+            sectionsManager: sectionsManager
+        });
+        var pane = fullscreenPagingPane.addView('sectionsMenuWidget', sectionsMenuWidget);
+
+        button.on('click', function() {
+            fullscreenPagingPane.showView('sectionsMenuWidget');
         });
 
-        return dropdownWidget;
+        fullscreenPagingPane.on('showview', function(le) {
+            if (le.id === 'sectionsMenuWidget') {
+                sectionsMenuWidget.reset();
+            }
+        });
+
+        // mainMenuWidget.on('marker', function() {
+        //     fullscreenPagingPane.hideView();
+        // });
+
+        mobileButtonsPane.addView(button, 5);
+
+        return null;
     });
 
     cm.define('alertsWidgetContainer', ['fullscreenPagingPane', 'mobileButtonsPane', 'alertsButton'], function(cm) {
@@ -55,7 +89,7 @@ if (nsGmx.Utils.isMobile()) {
                     }
                 });
 
-                alertsWidget.on('marker', function () {
+                alertsWidget.on('marker', function() {
                     fullscreenPagingPane.hideView();
                 });
 
@@ -64,13 +98,13 @@ if (nsGmx.Utils.isMobile()) {
         };
     });
 
-    cm.define('mainMenu', ['fullscreenPagingPane', 'mobileButtonsPane'], function (cm) {
+    cm.define('mainMenu', ['fullscreenPagingPane', 'mobileButtonsPane'], function(cm) {
         var fullscreenPagingPane = cm.get('fullscreenPagingPane');
         var mobileButtonsPane = cm.get('mobileButtonsPane');
 
         var mainMenuWidget = new nsGmx.MainMenuWidget();
 
-        var button = new (Backbone.View.extend({
+        var button = new(Backbone.View.extend({
             el: $('<div>').addClass('icon-menu')
         }));
         var pane = fullscreenPagingPane.addView('mainMenuWidget', mainMenuWidget);
@@ -85,7 +119,7 @@ if (nsGmx.Utils.isMobile()) {
             }
         });
 
-        mainMenuWidget.on('marker', function () {
+        mainMenuWidget.on('marker', function() {
             fullscreenPagingPane.hideView();
         });
 
