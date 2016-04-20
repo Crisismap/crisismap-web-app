@@ -17,7 +17,9 @@ var nsGmx = nsGmx || {};
             var $swiperContainer = $('<div>').addClass('swiper-container');
             var $swiperWrapper = $('<div>').addClass('swiper-wrapper');
 
-            this.options.sectionsManager.getSectionsIds().map(function(sectionId) {
+            this.sectionsIds = this.options.sectionsManager.getSectionsIds();
+
+            this.sectionsIds.map(function(sectionId) {
                 var sectionProps = this.options.sectionsManager.getSectionProperties(sectionId);
                 var $swiperSlide = $('<div>').addClass('swiper-slide');
                 $swiperSlide.html(sectionProps.description);
@@ -28,14 +30,26 @@ var nsGmx = nsGmx || {};
             $swiperContainer.appendTo(this.$el);
 
             this.swiper = new Swiper($swiperContainer);
+
+            this._bindEvents();
         },
 
         appendTo: function(el) {
             $(el).append(this.$el);
         },
 
-        reset: function () {
+        reset: function() {
             this.swiper.update();
+        },
+
+        getActiveSectionId: function () {
+            return this.sectionsIds[this.swiper.activeIndex];
+        },
+
+        _bindEvents: function() {
+            this.swiper.on('slideChangeStart', function() {
+                this.trigger('sectionchange');
+            }.bind(this))
         }
     });
 
@@ -84,6 +98,10 @@ var nsGmx = nsGmx || {};
                 sectionsManager: this.options.sectionsManager
             });
             this.sectionsMenuWidget.appendTo(this.$el);
+
+            this.sectionsSwiperWidget.on('sectionchange', function () {
+                console.log(this.sectionsSwiperWidget.getActiveSectionId());
+            }.bind(this));
         },
 
         reset: function() {
