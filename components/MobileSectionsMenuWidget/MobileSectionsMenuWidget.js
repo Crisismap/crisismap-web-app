@@ -42,7 +42,7 @@ var nsGmx = nsGmx || {};
             this.swiper.update();
         },
 
-        getActiveSectionId: function () {
+        getActiveSectionId: function() {
             return this.sectionsIds[this.swiper.activeIndex];
         },
 
@@ -58,22 +58,36 @@ var nsGmx = nsGmx || {};
         className: 'sectionsMenuWidget',
 
         // options.sectionsManager
-        initialize: function (options) {
+        initialize: function(options) {
             this.options = _.extend({}, options);
             this.render();
         },
 
-        render: function () {
-            this.options.sectionsManager.getSectionsIds().map(function (sectionId) {
+        render: function() {
+            this.options.sectionsManager.getSectionsIds().map(function(sectionId) {
                 var sectionProps = this.options.sectionsManager.getSectionProperties(sectionId)
-                $sectionButton = $('<div>').addClass('sectionsMenuWidget-sectionButton');
+                $sectionButton = $('<div>').addClass('sectionsMenuWidget-sectionButton').attr('data-sectionid', sectionId);
                 $sectionButton.html(sectionProps.title);
                 $sectionButton.appendTo(this.$el);
             }.bind(this));
+
+            this._bindEvents();
         },
 
-        appendTo: function (el) {
+        appendTo: function(el) {
             $(el).append(this.$el);
+        },
+
+        highlightItem: function(sectionId) {
+            this.$('.sectionsMenuWidget-sectionButton').removeClass('sectionsMenuWidget-sectionButton_highlighted');
+            this.$('.sectionsMenuWidget-sectionButton[data-sectionid="' + sectionId + '"]')
+                .addClass('sectionsMenuWidget-sectionButton_highlighted');
+        },
+
+        _bindEvents: function() {
+            // this.swiper.on('slideChangeStart', function () {
+            //     console.log('lu');
+            // })
         }
     });
 
@@ -99,8 +113,8 @@ var nsGmx = nsGmx || {};
             });
             this.sectionsMenuWidget.appendTo(this.$el);
 
-            this.sectionsSwiperWidget.on('sectionchange', function () {
-                console.log(this.sectionsSwiperWidget.getActiveSectionId());
+            this.sectionsSwiperWidget.on('sectionchange', function() {
+                this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
             }.bind(this));
         },
 
