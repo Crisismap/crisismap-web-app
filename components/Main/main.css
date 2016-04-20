@@ -6,8 +6,8 @@ html, body {
     font-family: 'Open sans', Tahomam sans-serif;
     overflow: hidden;
 }
-
 * { outline: none; }
+.gmxApplication a.leaflet-active * { outline: none; }
 
 a { color: hsl(235, 90%, 60%); }
 .leaflet-container a { color: hsl(235, 90%, 60%); }
@@ -140,7 +140,7 @@ a { color: hsl(235, 90%, 60%); }
 .gmxApplication_mobile .leaflet-gmx-loaderStatus { position: static; }
 .gmxApplication_mobile * { cursor: default !important; }
 
-.geolocationControl {
+.geolocationControl_mobile {
     width: 40px;
     height: 40px;
     line-height: 40px;
@@ -152,7 +152,11 @@ a { color: hsl(235, 90%, 60%); }
     text-align: center;
 }
 
-.geolocationControl,
+.geolocationControl a { color: hsl(0, 0%, 0%); }
+.geolocationControl.leaflet-bar { background: #fff; }
+.geolocationControl.leaflet-bar a { background: none; }
+
+.gmxApplication_mobile .geolocationControl,
 .gmxApplication_mobile .leaflet-bar .leaflet-control-zoom-in,
 .gmxApplication_mobile .leaflet-bar .leaflet-control-zoom-out {
     background-color: hsla(0, 0%, 100%, 0.65);

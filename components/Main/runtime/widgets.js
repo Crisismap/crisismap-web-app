@@ -1,3 +1,23 @@
+cm.define('geolocationControl', ['locationMarkerManager', 'locationModel', 'map'], function (cm) {
+    var locationMarkerManager = cm.get('locationMarkerManager');
+    var locationModel = cm.get('locationModel');
+    var map = cm.get('map');
+
+    var geolocationControl = new nsGmx.GeolocationControl({
+        locationModel: locationModel,
+        position: nsGmx.Utils.isMobile() ? 'bottomright' : 'topleft',
+        mode: nsGmx.Utils.isMobile() ? 'mobile' : 'desktop'
+    });
+
+    geolocationControl.on('click', function () {
+        locationMarkerManager.showMarker();
+    });
+
+    map.addControl(geolocationControl);
+
+    return null;
+});
+
 cm.define('alertsButton', ['activeAlertsNumber'], function(cm) {
     var activeAlertsNumber = cm.get('activeAlertsNumber');
 
