@@ -85,6 +85,10 @@ require('./external/GMXBuilder')(gulp, {
         bowerComponent: 'handlebars',
         distFiles: ['handlebars.js']
     }, {
+        id: 'Swiper',
+        bowerComponent: 'git://github.com/nolimits4web/Swiper.git',
+        distDir: './dist'
+    }, {
         id: 'translations',
         srcDir: './external/GMXCommonComponents/Translations',
         build: false

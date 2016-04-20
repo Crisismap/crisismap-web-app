@@ -44,7 +44,9 @@ if (nsGmx.Utils.isMobile()) {
             }
         });
 
-        var sectionsMenuWidget = new nsGmx.MobileSectionsMenuWidget();
+        var sectionsMenuWidget = new nsGmx.MobileSectionsMenuWidget({
+            sectionsManager: sectionsManager
+        });
 
         var button = new SectionsButton({
             sectionsManager: sectionsManager
