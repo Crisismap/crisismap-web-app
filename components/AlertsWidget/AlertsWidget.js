@@ -5,6 +5,7 @@ window.nsGmx.AlertsWidget = nsGmx.CompositeScrollView.extend({
         field: 'class'
     },
 
+    // options.customScrollbar
     initialize: function(options) {
 
         this.alertsListWidget = new nsGmx.SwitchingCollectionWidget({
@@ -32,7 +33,8 @@ window.nsGmx.AlertsWidget = nsGmx.CompositeScrollView.extend({
 
         nsGmx.CompositeScrollView.prototype.initialize.call(this, {
             staticWidget: this.collectionFilterWidget,
-            scrollingWidget: this.alertsListWidget
+            scrollingWidget: this.alertsListWidget,
+            customScrollbar: options.customScrollbar
         });
 
         this.options = _.extend(opts, this.options, options);

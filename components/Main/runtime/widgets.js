@@ -31,7 +31,8 @@ cm.define('alertsWidget', [
 
     var alertsWidget = new nsGmx.AlertsWidget({
         newsLayersCollections: newsLayersCollections,
-        sectionsManager: sectionsManager
+        sectionsManager: sectionsManager,
+        customScrollbar: !nsGmx.Utils.isMobile()
     });
 
     $(window).on('resize', function() {
