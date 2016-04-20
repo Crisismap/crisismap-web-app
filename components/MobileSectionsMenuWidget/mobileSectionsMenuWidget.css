@@ -14,3 +14,4 @@
 .sectionsMenuWidget-sectionButton { padding: 8px 16px; border-bottom: 1px solid hsla(0, 0%, 0%, 0.2); }
 .sectionsMenuWidget-sectionButton:last-child { border-bottom: none; }
 .sectionsMenuWidget-sectionButton_highlighted { background-color: hsla(0, 0%, 0%, 0.1); }
+.sectionsMenuWidget-sectionButton_activeSection { color: red; }

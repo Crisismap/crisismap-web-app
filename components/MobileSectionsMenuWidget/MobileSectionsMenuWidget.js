@@ -64,14 +64,22 @@ var nsGmx = nsGmx || {};
         },
 
         render: function() {
+            this.$el.empty();
+
+            var activeSectionId = this.options.sectionsManager.getActiveSectionId();
+
             this.options.sectionsManager.getSectionsIds().map(function(sectionId) {
                 var sectionProps = this.options.sectionsManager.getSectionProperties(sectionId)
                 $sectionButton = $('<div>').addClass('sectionsMenuWidget-sectionButton').attr('data-sectionid', sectionId);
                 $sectionButton.html(sectionProps.title);
+                if (sectionId === this._highlightedSectionId) {
+                    $sectionButton.addClass('sectionsMenuWidget-sectionButton_highlighted');
+                }
+                if (sectionId === activeSectionId) {
+                    $sectionButton.addClass('sectionsMenuWidget-sectionButton_activeSection');
+                }
                 $sectionButton.appendTo(this.$el);
             }.bind(this));
-
-            this._bindEvents();
         },
 
         appendTo: function(el) {
@@ -79,15 +87,8 @@ var nsGmx = nsGmx || {};
         },
 
         highlightItem: function(sectionId) {
-            this.$('.sectionsMenuWidget-sectionButton').removeClass('sectionsMenuWidget-sectionButton_highlighted');
-            this.$('.sectionsMenuWidget-sectionButton[data-sectionid="' + sectionId + '"]')
-                .addClass('sectionsMenuWidget-sectionButton_highlighted');
-        },
-
-        _bindEvents: function() {
-            // this.swiper.on('slideChangeStart', function () {
-            //     console.log('lu');
-            // })
+            this._highlightedSectionId = sectionId;
+            this.render();
         }
     });
 
@@ -116,6 +117,7 @@ var nsGmx = nsGmx || {};
             this.sectionsSwiperWidget.on('sectionchange', function() {
                 this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
             }.bind(this));
+            this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
         },
 
         reset: function() {
