@@ -59,7 +59,7 @@ a { color: hsl(235, 90%, 60%); }
 .topBarContainerControl .radioGroupWidget-item { }
 .topBarContainerControl .radioGroupWidget-item_active { border-bottom: 2px solid hsla(0, 50%, 50%, 1); border-top: 2px solid hsla(0, 50%, 50%, 0); }
 .topBarContainerControl .dropdownWidget { font-size: 14px; }
-.topBarContainerControl .radioGroupWidget { max-width: 800px; margin: 0 auto; font-size: 12px; }
+.topBarContainerControl .radioGroupWidget { max-width: 850px; margin: 0 auto; font-size: 12px; }
 
 .anchorWidget a, .anchorWidget a:hover, .anchorWidget a:visited { text-decoration: none; color: inherit; }
 
