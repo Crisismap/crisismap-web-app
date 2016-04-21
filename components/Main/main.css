@@ -173,3 +173,4 @@ a { color: hsl(235, 90%, 60%); }
 .gmxApplication .leaflet-bottom.leaflet-right.leaflet-top.leaflet-bottom { display: block; }
 
 .fullscreenPagingPaneControl_page-mainMenuWidget { overflow: scroll; }
+.fullscreenPagingPaneControl-controlCorner_page-sectionsMenuWidget { background-color: hsla(0, 0%, 100%, .75); }
