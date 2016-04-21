@@ -27,13 +27,10 @@
         "helpDialogUrl": "./resources/helpDialog/helpDialog_{{lang}}.html",
         "sectionsIcons": {
             "E8UaLwuFxFZspAap": "icon-fire",
-            "Jc2t053ymObeCVLW": "icon-cloud-sun",
-            "BHUKiLiSzvgJUTd0": "icon-school",
             "DflNK5phRKpJ2dZL": "icon-fighter-jet",
             "HdtQx1Xgg5DH4a5G": "icon-building",
             "2RJvbFVGQT56mByH": "icon-cloud-sun",
             "4uKrCgJ0sgUENECQ": "icon-globe"
-
         },
         "connectionCheckUrl": "http://maps.kosmosnimki.ru/api/index.html"
     },
