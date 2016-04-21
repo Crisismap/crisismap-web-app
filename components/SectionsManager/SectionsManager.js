@@ -78,7 +78,7 @@ nsGmx.SectionsManager = L.Class.extend({
                 title: section.get('properties').title,
                 dataLayersIds: this._getDataLayersIds(sectionId),
                 tree: section,
-                icon: this.options.sectionsIcons[sectionId]
+                icon: this.options.sectionsIcons[sectionId] || 'icon-bell'
             }
         }
         return this._sections[sectionId];
