@@ -15,6 +15,7 @@ var nsGmx = nsGmx || {};
             this.$el.empty();
 
             var $swiperContainer = $('<div>').addClass('swiper-container');
+
             var $swiperWrapper = $('<div>').addClass('swiper-wrapper');
 
             this.sectionsIds = this.options.sectionsManager.getSectionsIds();
@@ -29,7 +30,12 @@ var nsGmx = nsGmx || {};
             $swiperWrapper.appendTo($swiperContainer);
             $swiperContainer.appendTo(this.$el);
 
-            this.swiper = new Swiper($swiperContainer);
+            $swiperPagination = $('<div>').addClass('swiper-pagination');
+            $swiperPagination.appendTo($swiperContainer);
+
+            this.swiper = window.swiper = new Swiper($swiperContainer, {
+                pagination: $swiperPagination[0]
+            });
 
             this._bindEvents();
         },
@@ -40,6 +46,7 @@ var nsGmx = nsGmx || {};
 
         reset: function() {
             this.swiper.update();
+            this.swiper.slideTo(this.sectionsIds.indexOf(this.options.sectionsManager.getActiveSectionId()));
         },
 
         getActiveSectionId: function() {

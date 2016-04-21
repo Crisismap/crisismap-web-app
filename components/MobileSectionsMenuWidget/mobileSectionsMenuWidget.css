@@ -10,6 +10,9 @@
 .mobileSectionsMenuWidget .sectionsSwiper { width: 100% }
 .mobileSectionsMenuWidget .sectionsMenuWidget { width: 100%; }
 
+.mobileSectionsMenuWidget .swiper-pagination { position: static; }
+.mobileSectionsMenuWidget .swiper-pagination .swiper-pagination-bullet-active { background: #000; }
+
 .sectionsMenuWidget { font-size: 14px; border: 1px solid hsla(0, 0%, 0%, 0.2); }
 .sectionsMenuWidget-sectionButton { padding: 8px 16px; border-bottom: 1px solid hsla(0, 0%, 0%, 0.2); }
 .sectionsMenuWidget-sectionButton:last-child { border-bottom: none; }
