@@ -8,6 +8,8 @@ nsGmx.GeolocationControl = L.Control.extend({
     initialize: function (options) {
         L.setOptions(this, options);
         this._container = L.DomUtil.create('div', 'geolocationControl');
+        L.DomEvent.disableClickPropagation(this._container);
+        this._container.addEventListener('mousewheel', L.DomEvent.stopPropagation);
         this._iconEl = L.DomUtil.create('a', 'geolocationControl-icon', this._container);
         this.options.locationModel.on('change:state', this._updateStateIcon, this);
         if (this.options.mode === 'desktop') {

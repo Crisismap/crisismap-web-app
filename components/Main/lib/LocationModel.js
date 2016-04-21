@@ -53,14 +53,14 @@ nsGmx.LocationModel = Backbone.Model.extend({
 
     ensureLocation: function () {
         return new Promise(function (resolve, reject) {
-            if (this.get('latlng')) {
+            if (this.get('latlng') && this.get('state') === 'success') {
                 resolve(this);
             } else {
                 this.updateLocation().then(function () {
                     resolve(this);
-                }, function () {
+                }.bind(this), function () {
                     reject();
-                })
+                }.bind(this))
             }
         }.bind(this));
     }
