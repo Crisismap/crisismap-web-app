@@ -66,6 +66,7 @@ var nsGmx = nsGmx || {};
         // options.sectionsManager
         initialize: function(options) {
             this.options = _.extend({}, options);
+            this.options.sectionsManager.on('sectionchange', this.render, this);
             this.render();
         },
 
@@ -91,6 +92,12 @@ var nsGmx = nsGmx || {};
                 if (sectionId === activeSectionId) {
                     $sectionButton.addClass('sectionsMenuWidget-sectionButton_activeSection');
                 }
+
+                $sectionButton.on('click', function () {
+                    this.options.sectionsManager.setActiveSectionId(sectionId);
+                    this.trigger('sectionchange');
+                }.bind(this));
+
                 $sectionButton.appendTo(this.$el);
             }.bind(this));
         },
@@ -131,6 +138,11 @@ var nsGmx = nsGmx || {};
                 this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
             }.bind(this));
             this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
+
+            this.options.sectionsManager.on('sectionchange', function (activeSectionId) {
+                this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
+                this.sectionsSwiperWidget.reset();
+            }.bind(this));
         },
 
         reset: function() {
