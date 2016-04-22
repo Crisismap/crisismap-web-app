@@ -134,6 +134,10 @@ var nsGmx = nsGmx || {};
             });
             this.sectionsMenuWidget.appendTo(this.$el);
 
+            this.sectionsMenuWidget.on('sectionchange', function () {
+                this.trigger('sectionchange');
+            }.bind(this))
+
             this.sectionsSwiperWidget.on('sectionchange', function() {
                 this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
             }.bind(this));

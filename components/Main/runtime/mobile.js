@@ -48,6 +48,10 @@ if (nsGmx.Utils.isMobile()) {
             sectionsManager: sectionsManager
         });
 
+        sectionsMenuWidget.on('sectionchange', function() {
+            fullscreenPagingPane.hideView();
+        });
+
         var button = new SectionsButton({
             sectionsManager: sectionsManager
         });
@@ -119,10 +123,6 @@ if (nsGmx.Utils.isMobile()) {
             if (le.id === 'mainMenuWidget') {
                 mainMenuWidget.reset();
             }
-        });
-
-        mainMenuWidget.on('marker', function() {
-            fullscreenPagingPane.hideView();
         });
 
         mobileButtonsPane.addView(button, 5);
