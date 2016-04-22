@@ -22,3 +22,5 @@
 .sectionsMenuWidget-sectionButton:last-child { border-bottom: none; }
 .sectionsMenuWidget-sectionButton_highlighted { background-color: hsla(0, 0%, 0%, 0.1); }
 .sectionsMenuWidget-sectionButton_activeSection .sectionsMenuWidget-sectionButtonIcon { color: red; }
+
+.mobileSectionsMenuWidget table td { padding: 5px; }
