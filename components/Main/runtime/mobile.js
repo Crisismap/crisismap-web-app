@@ -30,7 +30,7 @@ if (nsGmx.Utils.isMobile()) {
             // options.sectionsManager
             initialize: function(options) {
                 this.options = _.extend({}, options);
-                this.options.sectionsManager.on('sectionchange', this._updateIconClass);
+                this.options.sectionsManager.on('sectionchange', this._updateIconClass, this);
                 this._updateIconClass();
             },
 

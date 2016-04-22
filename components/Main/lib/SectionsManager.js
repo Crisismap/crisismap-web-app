@@ -104,8 +104,8 @@ nsGmx.SectionsManager = L.Class.extend({
             var group = this.sectionsTree.find(sections[i]);
             group.on('change:visible', function(model, visible) {
                 if (visible) {
-                    // wait until all nodes update
-                    setTimeout(function () {
+                    // HACK: trigger sectionchange after layers tree update
+                    setTimeout(function() {
                         this.trigger('sectionchange', model.get('properties').GroupID);
                     }.bind(this), 0);
                 }
