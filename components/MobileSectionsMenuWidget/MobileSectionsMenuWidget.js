@@ -60,7 +60,6 @@ var nsGmx = nsGmx || {};
         }
     });
 
-
     var SectionsMenuWidget = Backbone.View.extend({
         className: 'sectionsMenuWidget',
 
@@ -78,7 +77,14 @@ var nsGmx = nsGmx || {};
             this.options.sectionsManager.getSectionsIds().map(function(sectionId) {
                 var sectionProps = this.options.sectionsManager.getSectionProperties(sectionId)
                 $sectionButton = $('<div>').addClass('sectionsMenuWidget-sectionButton').attr('data-sectionid', sectionId);
-                $sectionButton.html(sectionProps.title);
+
+                $sectionButtonIcon = $('<div>').addClass('sectionsMenuWidget-sectionButtonIcon').addClass(sectionProps.icon);
+                $sectionButtonIcon.appendTo($sectionButton);
+
+                $sectionButtonTitle = $('<div>').addClass('sectionsMenuWidget-sectionButtonTitle');
+                $sectionButtonTitle.html(sectionProps.title);
+                $sectionButtonTitle.appendTo($sectionButton);
+
                 if (sectionId === this._highlightedSectionId) {
                     $sectionButton.addClass('sectionsMenuWidget-sectionButton_highlighted');
                 }
