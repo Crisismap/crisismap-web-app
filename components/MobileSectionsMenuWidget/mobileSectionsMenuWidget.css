@@ -4,11 +4,11 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 5%;
+    padding: 10%;
 }
 
 .mobileSectionsMenuWidget .sectionsSwiper { width: 100% }
-.mobileSectionsMenuWidget .sectionsMenuWidget { width: 100%; }
+.mobileSectionsMenuWidget .sectionsMenuWidget { width: 100%; background-color: hsl(0, 0%, 100%); }
 
 .mobileSectionsMenuWidget .swiper-pagination { position: static; }
 .mobileSectionsMenuWidget .swiper-pagination .swiper-pagination-bullet-active { background: #000; }
