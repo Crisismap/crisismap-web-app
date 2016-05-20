@@ -9,6 +9,8 @@ var html2jsobject = require('gulp-html2jsobject');
 var styles = ['main.css'];
 var scripts = [
     'lib/utils.js',
+    'lib/MergedCollection.js',
+    'lib/SectionsManager.js',
     'lib/IconDropdownWidget.js',
     'lib/ConnectionErrorWidget.js',
     'lib/LocationModel.js',
@@ -20,7 +22,8 @@ var scripts = [
     'runtime/desktop.js',
     'runtime/mobile.js',
     'runtime/widgets.js',
-    'translations.js'
+    'translations.js',
+    'index.js'
 ];
 var images = ['tiny-grid.png'];
 var templates = ['main.html'];

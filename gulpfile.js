@@ -37,10 +37,6 @@ require('./external/GMXBuilder')(gulp, {
         build: true,
         watch: true
     }, {
-        id: 'LeafletMethodsKeeper',
-        srcDir: './components/LeafletMethodsKeeper',
-        build: false
-    }, {
         id: 'Leaflet-GeoMixer',
         srcDir: './external/Leaflet-GeoMixer',
         distFiles: ['./dist/leaflet-geomixer-src.js'],
@@ -180,20 +176,6 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/CheckboxWidget',
         build: false
     }, {
-        id: 'EventDetailsView',
-        srcDir: './components/EventDetailsView',
-        distDir: './build',
-        build: true
-    }, {
-        id: 'PageView',
-        srcDir: './components/PageView',
-        build: false
-    }, {
-        id: 'PagedWidgets',
-        srcDir: './components/PagedWidgets',
-        distDir: './build',
-        build: true
-    }, {
         id: 'MarkerItemView',
         srcDir: './external/GMXCommonComponents/MarkerItemView',
         distDir: './build',
@@ -203,17 +185,8 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/LabelIconWidget',
         build: false
     }, {
-        id: 'CalendarPage',
-        srcDir: './components/CalendarPage',
-        distDir: './build',
-        build: true
-    }, {
         id: 'gmxUtils',
         url: 'http://maps.kosmosnimki.ru/api/utilities.js'
-    }, {
-        id: 'SectionsManager',
-        srcDir: './components/SectionsManager',
-        build: false
     }, {
         id: 'DateInterval',
         srcDir: './external/GMXCommonComponents/DateInterval',
@@ -232,18 +205,14 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './components/AlertsWidget',
         build: false
     }, {
-        id: 'Main',
-        srcDir: './components/Main',
-        distDir: './build',
-        build: true
-    }, {
         id: 'MainMenuWidget',
         srcDir: './components/MainMenuWidget',
         distDir: 'build',
         build: true
     }, {
-        id: 'Entry',
-        srcDir: './components/Entry',
-        build: false
+        id: 'Main',
+        srcDir: './components/Main',
+        distDir: './build',
+        build: true
     }]
 });

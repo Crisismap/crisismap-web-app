@@ -12,11 +12,6 @@ cm.define('sectionsManager', ['layersTree', 'layersHash', 'resetter', 'config', 
 
     sectionsManager.on('sectionchange', function() {
         var id = sectionsManager.getActiveSectionId();
-        // var layer = layersHash[sectionsManager.getSectionProperties(id).dataLayerId];
-        // layer && nsGmx.L.Map.fitBounds.call(
-        //     map,
-        //     layer.getBounds()
-        // );
         map.setZoom(config.user.globalZoom);
         resetter.reset();
     });
