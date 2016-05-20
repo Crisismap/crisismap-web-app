@@ -3,16 +3,33 @@ cm.define('rootContainer', [], function() {
 });
 
 cm.define('config', [], function(cm, cb) {
-    $.ajax('resources/config.json').then(function(config) {
-        $.ajax('local/config.json').then(function(localConfig) {
-            cb(mimeFix($.extend(true, config, localConfig)));
-        }).fail(function() {
-            cb(mimeFix(config));
+    Promise.resolve(true)
+        .then(function () {
+            return ajaxMerge('resources/config.json', {});
+        })
+        .then(function (config) {
+            return ajaxMerge('resources/map.json', config);
+        })
+        .then(function (withMapConfig) {
+            ajaxMerge('local/config.json', withMapConfig).then(function (withLocalConfig) {
+                cb(withLocalConfig);
+            }, function () {
+                cb(withMapConfig);
+            });
+        }, function () {
+            console.error('Config: error loading config file');
+            cb(mimeFix(false));
         });
-    }).fail(function() {
-        console.error('Config: error loading config file');
-        cb(mimeFix(false));
-    });
+
+    function ajaxMerge(url, prev) {
+        return new Promise(function (resolve, reject) {
+            $.ajax(url).then(function (response) {
+                resolve($.extend(true, prev, mimeFix(response)))
+            }, function (err) {
+                reject(err);
+            });
+        });
+    }
 
     // seems that cordova does'nt support JSON mime type
     function mimeFix(resp) {
