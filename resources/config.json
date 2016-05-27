@@ -8,10 +8,6 @@
             "zoom": 3,
             "minZoom": 1
         },
-        "gmxMap": {
-            "mapID": "1BD4282D27914CD4B70F89E93B38B290",
-            "apiKey": "W4IH6K7CJ4"
-        },
         "zoomControl": "leaflet",
         "hideControl": false,
         "centerControl": false,
@@ -21,6 +17,7 @@
         "bottomControl": false,
         "logoControl": false,
         "sidebarWidget": true,
+        "layersTreeWidget": true,
         "globals": true
     },
     "user": {

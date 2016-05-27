@@ -1,9 +1,32 @@
 {
     "map": {
-        "layers": [],
+        "layers": [{
+            "id": "wildfires",
+            "title": "Wildfires",
+            "children": [{
+                "title": "News about wildfires",
+                "type": "gmxVector",
+                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161"
+            }]
+        }, {
+            "id": "syria",
+            "title": "Syrian military conflict",
+            "children": [{
+                "title": "News about syrian war",
+                "type": "gmxVector",
+                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:31C5118DCD1249318E9576D68793B485"
+            }, {
+                "title": "News about refugees",
+                "type": "gmxVector",
+                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:DB5A6784B17D445AA67909D259CD53EB"
+            }]
+        }],
         "baseLayers": [{
-            "type": "tile",
-            "url": "https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA",
+            "id": "mapbox",
+            "title": "mapbox",
+            "iconUrl": "",
+            "type": "TMS",
+            "url-template": "https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA",
             "urlRetina": "https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA"
         }]
     }
