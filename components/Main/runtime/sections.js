@@ -1,23 +1,23 @@
-// cm.define('sectionsManager', ['layersTree', 'layersHash', 'resetter', 'config', 'map'], function(cm) {
-//     var layersHash = cm.get('layersHash');
-//     var layersTree = cm.get('layersTree');
-//     var resetter = cm.get('resetter');
-//     var config = cm.get('config');
-//     var map = cm.get('map');
-//
-//     var sectionsManager = new nsGmx.SectionsManager({
-//         sectionsTree: layersTree.find(config.user.sectionsTree),
-//         sectionsIcons: config.user.sectionsIcons
-//     });
-//
-//     sectionsManager.on('sectionchange', function() {
-//         var id = sectionsManager.getActiveSectionId();
-//         map.setZoom(config.user.globalZoom);
-//         resetter.reset();
-//     });
-//
-//     return sectionsManager;
-// });
+cm.define('sectionsManager', ['layersTree', 'layersHash', 'resetter', 'config', 'map'], function(cm) {
+    var layersHash = cm.get('layersHash');
+    var layersTree = cm.get('layersTree');
+    var resetter = cm.get('resetter');
+    var config = cm.get('config');
+    var map = cm.get('map');
+
+    var sectionsManager = new nsGmx.SectionsManager({
+        sectionsTree: layersTree.find('root'),
+        sectionsIcons: config.user.sectionsIcons
+    });
+
+    sectionsManager.on('sectionchange', function() {
+        var id = sectionsManager.getActiveSectionId();
+        map.setZoom(config.user.globalZoom);
+        resetter.reset();
+    });
+
+    return sectionsManager;
+});
 //
 // cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', 'config'], function(cm, cb) {
 //     var layersTree = cm.get('layersTree');

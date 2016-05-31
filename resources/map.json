@@ -1,12 +1,14 @@
 {
     "map": {
-        "layers": [{
+        "list": true,
+        "children": [{
             "id": "wildfires",
             "title": "Wildfires",
             "children": [{
                 "title": "News about wildfires",
                 "type": "gmxVector",
-                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161"
+                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161",
+                "dataProvider": true
             }]
         }, {
             "id": "syria",
@@ -14,11 +16,13 @@
             "children": [{
                 "title": "News about syrian war",
                 "type": "gmxVector",
-                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:31C5118DCD1249318E9576D68793B485"
+                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:31C5118DCD1249318E9576D68793B485",
+                "dataProvider": true
             }, {
                 "title": "News about refugees",
                 "type": "gmxVector",
-                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:DB5A6784B17D445AA67909D259CD53EB"
+                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:DB5A6784B17D445AA67909D259CD53EB",
+                "dataProvider": true
             }]
         }],
         "baseLayers": [{
