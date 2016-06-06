@@ -17,8 +17,7 @@
         "bottomControl": false,
         "logoControl": false,
         "sidebarWidget": true,
-        "layersTreeWidget": true,
-        "globals": true
+        "layersTreeWidget": true
     },
     "user": {
         "sectionsTree": "U4okmqmPwu38rDNW",
