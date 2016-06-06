@@ -118,7 +118,8 @@ cm.define('gmxApplication', ['leafletProductionIssues', 'connectionCheck', 'root
             zoomControl: {
                 type: 'leaflet',
                 position: nsGmx.Utils.isMobile() ? 'bottomright' : 'topleft'
-            }
+            },
+            layersTreeWidget: nsGmx.Utils.isMobile() ? false : undefined
         }
     });
 
