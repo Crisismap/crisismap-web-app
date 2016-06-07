@@ -2,39 +2,82 @@
     "map": {
         "list": true,
         "children": [{
-            "id": "wildfires",
-            "title": "Wildfires",
+            "id": "eng",
+            "list": true,
             "children": [{
-                "title": "News about wildfires",
-                "type": "gmxVector",
-                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161",
-                "data_provider": true
+                "id": "wildfires",
+                "title": "Wildfires",
+                "children": [{
+                    "title": "News about wildfires",
+                    "type": "gmxVector",
+                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161",
+                    "data_provider": true
+                }, {
+                    "title": "Fires FIRMS",
+                    "type": "Fire",
+                    "visible": true,
+                    "mapID": "NDFYK",
+                    "hotspotLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
+                    "dailyLayerID": "3E88643A8AC94AFAB4FD44941220B1CE",
+                    "hotspotTimeAttr": "Timestamp",
+                    "hotspotIDAttr": "SpotID",
+                    "clusterTimeAttr": "ClusterDate",
+                    "minHotspotZoom": 11,
+                    "minClustersZoom": 4
+                }]
             }, {
-                "title": "Fires FIRMS",
-                "type": "Fire",
-                "visible": true,
-                "mapID": "NDFYK",
-                "hotspotLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
-                "dailyLayerID": "3E88643A8AC94AFAB4FD44941220B1CE",
-                "hotspotTimeAttr": "Timestamp",
-                "hotspotIDAttr": "SpotID",
-                "clusterTimeAttr": "ClusterDate",
-                "minHotspotZoom": 11,
-                "minClustersZoom": 4
+                "id": "syria",
+                "title": "Syrian military conflict",
+                "children": [{
+                    "title": "News about syrian war",
+                    "type": "gmxVector",
+                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:31C5118DCD1249318E9576D68793B485",
+                    "data_provider": true
+                }, {
+                    "title": "News about refugees",
+                    "type": "gmxVector",
+                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:DB5A6784B17D445AA67909D259CD53EB",
+                    "data_provider": true
+                }]
             }]
         }, {
-            "id": "syria",
-            "title": "Syrian military conflict",
+            "id": "rus",
+            "list": true,
             "children": [{
-                "title": "News about syrian war",
-                "type": "gmxVector",
-                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:31C5118DCD1249318E9576D68793B485",
-                "data_provider": true
+                "id": "wildfires",
+                "title": "Пожары",
+                "children": [{
+                    "title": "Новости о пожарах",
+                    "type": "gmxVector",
+                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161",
+                    "data_provider": true
+                }, {
+                    "title": "Пожары FIRMS",
+                    "type": "Fire",
+                    "visible": true,
+                    "mapID": "NDFYK",
+                    "hotspotLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
+                    "dailyLayerID": "3E88643A8AC94AFAB4FD44941220B1CE",
+                    "hotspotTimeAttr": "Timestamp",
+                    "hotspotIDAttr": "SpotID",
+                    "clusterTimeAttr": "ClusterDate",
+                    "minHotspotZoom": 11,
+                    "minClustersZoom": 4
+                }]
             }, {
-                "title": "News about refugees",
-                "type": "gmxVector",
-                "gmxId": "1BD4282D27914CD4B70F89E93B38B290:DB5A6784B17D445AA67909D259CD53EB",
-                "data_provider": true
+                "id": "syria",
+                "title": "Сирия",
+                "children": [{
+                    "title": "Война в Сирии",
+                    "type": "gmxVector",
+                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:31C5118DCD1249318E9576D68793B485",
+                    "data_provider": true
+                }, {
+                    "title": "Беженцы",
+                    "type": "gmxVector",
+                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:DB5A6784B17D445AA67909D259CD53EB",
+                    "data_provider": true
+                }]
             }]
         }],
         "baseLayers": [{
