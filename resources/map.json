@@ -9,6 +9,18 @@
                 "type": "gmxVector",
                 "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161",
                 "data_provider": true
+            }, {
+                "title": "Fires FIRMS",
+                "type": "Fire",
+                "visible": true,
+                "mapID": "NDFYK",
+                "hotspotLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
+                "dailyLayerID": "3E88643A8AC94AFAB4FD44941220B1CE",
+                "hotspotTimeAttr": "Timestamp",
+                "hotspotIDAttr": "SpotID",
+                "clusterTimeAttr": "ClusterDate",
+                "minHotspotZoom": 11,
+                "minClustersZoom": 4
             }]
         }, {
             "id": "syria",

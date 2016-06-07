@@ -97,6 +97,11 @@ require('./external/GMXBuilder')(gulp, {
         srcDir: './external/GMXCommonComponents/GmxVirtualTileLayer',
         build: false
     }, {
+        id: 'FireVirtualLayer',
+        srcDir: './external/GMXCommonComponents/FireVirtualLayer',
+        distDir: './build',
+        build: true
+    }, {
         id: 'GmxWidget',
         srcDir: './external/GMXCommonComponents/GmxWidget',
         build: false
