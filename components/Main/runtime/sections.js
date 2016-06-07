@@ -73,7 +73,7 @@ cm.define('newsLayersCollections', ['layersMarkersCollections', 'sectionsManager
     var sectionsManager = cm.get('sectionsManager');
 
     // для каждого раздела с данными создаём коллекуию, состоящую из коллекций его data_provider'ов
-    return sectionsManager.getSectionsIds().reduce(function(collections, sectionId) {
+    return _.extend(sectionsManager.getSectionsIds().reduce(function(collections, sectionId) {
         var dataLayersIds = sectionsManager.getSectionProperties(sectionId).dataLayersIds;
         var dataLayersCollections = dataLayersIds.map(function(dataLayerId) {
             return layersMarkersCollections[dataLayerId];
@@ -92,7 +92,9 @@ cm.define('newsLayersCollections', ['layersMarkersCollections', 'sectionsManager
             }
         });
         return collections;
-    }.bind(this), {});
+    }.bind(this), {}), {
+        _empty: new Backbone.Collection()
+    });
 });
 
 cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], function(cm) {
@@ -104,7 +106,7 @@ cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], fu
             this._update();
         },
         getAlertsNumber: function() {
-            return this._currentCollection.length;
+            return this._currentCollection && this._currentCollection.length;
         },
         _update: function() {
             var sectionId = this.options.sectionsManager.getActiveSectionId();
