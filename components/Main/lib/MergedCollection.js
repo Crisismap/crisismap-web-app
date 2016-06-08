@@ -12,8 +12,12 @@ window.nsGmx.MergedCollection = Backbone.Collection.extend({
     },
     _update: function() {
         this.reset();
-        this.collections.map(function(collection) {
-            this.add(collection.models);
-        }.bind(this));
+        var a = this.collections.map(function (c) {
+            return c.models;
+        }).reduce(function(prev, curr) {
+            return prev.concat(curr);
+        }.bind(this), []);
+        this.set(a);
+        this.trigger('update');
     }
 });
