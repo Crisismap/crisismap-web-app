@@ -18,7 +18,7 @@ cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'r
 
     function onSectionChange(sectionId) {
         var subtree = layersTree.find(nsGmx.Translations.getLanguage()).find(sectionId) || layersTree.find(nsGmx.Translations.getLanguage());
-        layersTreeWidget.setModel(subtree);
+        layersTreeWidget && layersTreeWidget.setModel(subtree);
         map.setZoom(config.user.globalZoom);
         resetter.reset();
     }
