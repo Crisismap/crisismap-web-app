@@ -1,4 +1,5 @@
-cm.define('sectionsManager', ['layersTree', 'layersHash', 'resetter', 'config', 'map'], function(cm) {
+cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'resetter', 'config', 'map'], function(cm) {
+    var layersTreeWidget = cm.get('layersTreeWidget');
     var layersHash = cm.get('layersHash');
     var layersTree = cm.get('layersTree');
     var resetter = cm.get('resetter');
@@ -10,8 +11,10 @@ cm.define('sectionsManager', ['layersTree', 'layersHash', 'resetter', 'config', 
         sectionsIcons: config.user.sectionsIcons
     });
 
-    sectionsManager.on('sectionchange', function() {
-        var id = sectionsManager.getActiveSectionId();
+    sectionsManager.on('sectionchange', function(sectionId) {
+        var subtree = layersTree.find(nsGmx.Translations.getLanguage()).find(sectionId);
+        window.subtree = subtree;
+        subtree && layersTreeWidget.setModel(subtree);
         map.setZoom(config.user.globalZoom);
         resetter.reset();
     });

@@ -165,6 +165,10 @@ cm.define('layersClusters', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersClusters');
 });
 
+cm.define('layersTreeWidget', ['gmxApplication'], function (cm) {
+    return cm.get('gmxApplication').get('layersTreeWidget');
+});
+
 cm.define('baseLayersManager', ['gmxApplication'], function (cm) {
     return cm.get('gmxApplication').get('baseLayersManager');
 });

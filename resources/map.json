@@ -94,6 +94,7 @@
             }, {
                 "id": "climate",
                 "title": "Погода и климат",
+                "expanded": true,
                 "children": [{
                     "type": "gmxVector",
                     "title": "Новости Экология",
