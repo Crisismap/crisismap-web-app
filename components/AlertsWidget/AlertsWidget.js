@@ -13,7 +13,7 @@ window.nsGmx.AlertsWidget = nsGmx.CompositeScrollView.extend({
             reEmitEvents: ['marker']
         });
 
-        this.alertsListWidget.on('marker', function (model) {
+        this.alertsListWidget.on('marker', function(model) {
             this.trigger.call(this, 'marker', model);
         }.bind(this));
 
@@ -39,19 +39,19 @@ window.nsGmx.AlertsWidget = nsGmx.CompositeScrollView.extend({
 
         this.options = _.extend(opts, this.options, options);
 
-        this.options.sectionsManager.on('sectionchange', this._onSectionChange, this);
-
-        Object.keys(this.options.newsLayersCollections).map(function(sectionId) {
-            this.options.newsLayersCollections[sectionId].on('update', this._onSectionCollectionUpdate, this);
-        }.bind(this));
-
-        if (this.options.sectionsManager.getActiveSectionId()) {
-            this._onSectionChange(this.options.sectionsManager.getActiveSectionId());
-        }
+        this.options.collection && this.setCollection(this.options.collection);
     },
 
-    _getCollection: function () {
-        return this.options.newsLayersCollections[this.options.sectionsManager.getActiveSectionId()];
+    setCollection: function(collection) {
+        this.collection && this.collection.off('update', this._onSectionCollectionUpdate, this);
+        this.collection = collection;
+        this.collection && this.collection.on('update', this._onSectionCollectionUpdate, this);
+        this._updateAlertsListWidget();
+        this._updateCollectionFilterWidget();
+    },
+
+    _getCollection: function() {
+        return this.collection;
     },
 
     _getFilteredCollection: function() {
@@ -72,17 +72,9 @@ window.nsGmx.AlertsWidget = nsGmx.CompositeScrollView.extend({
         this.collectionFilterWidget.setCollection(this._getCollection());
     },
 
-    _onSectionChange: function(sectionId) {
-        this._updateAlertsListWidget();
-        this._updateCollectionFilterWidget();
-    },
-
     _onSectionCollectionUpdate: function(collection) {
-        var activeSectionId = this.options.sectionsManager.getActiveSectionId();
-        if (this._getSectionIdByCollection(collection) === activeSectionId) {
-            this._updateCollectionFilterWidget();
-            this._updateAlertsListWidget();
-        }
+        this._updateCollectionFilterWidget();
+        this._updateAlertsListWidget();
     },
 
     _getSectionIdByCollection: function(collection) {

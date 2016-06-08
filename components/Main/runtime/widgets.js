@@ -50,9 +50,12 @@ cm.define('alertsWidget', [
     var map = cm.get('map');
 
     var alertsWidget = new nsGmx.AlertsWidget({
-        newsLayersCollections: newsLayersCollections,
-        sectionsManager: sectionsManager,
+        collection: newsLayersCollections[sectionsManager.getActiveSectionId()],
         customScrollbar: !nsGmx.Utils.isMobile()
+    });
+
+    sectionsManager.on('sectionchange', function (sectionId) {
+        alertsWidget.setCollection(newsLayersCollections[sectionId]);
     });
 
     $(window).on('resize', function() {
