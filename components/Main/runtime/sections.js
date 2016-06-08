@@ -11,15 +11,18 @@ cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'r
         sectionsIcons: config.user.sectionsIcons
     });
 
-    sectionsManager.on('sectionchange', function(sectionId) {
+    sectionsManager.on('sectionchange', onSectionChange);
+    onSectionChange(sectionsManager.getActiveSectionId());
+
+    return sectionsManager;
+
+    function onSectionChange(sectionId) {
         var subtree = layersTree.find(nsGmx.Translations.getLanguage()).find(sectionId);
         window.subtree = subtree;
         subtree && layersTreeWidget.setModel(subtree);
         map.setZoom(config.user.globalZoom);
         resetter.reset();
-    });
-
-    return sectionsManager;
+    }
 });
 
 cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', 'config'], function(cm, cb) {
