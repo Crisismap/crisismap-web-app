@@ -4,13 +4,38 @@
         "children": [{
             "id": "eng",
             "list": true,
+            "expanded": true,
             "children": [{
+                "id": "cities",
+                "title": "Cities in danger",
+                "children": []
+            }, {
+                "id": "humanitarian",
+                "title": "Humanitarian Crises",
+                "expanded": true,
+                "children": [{
+                    "title": "News about syrian war",
+                    "type": "gmxVector",
+                    "gmxId": "BAYLY:1FCA4ABAD8A5415880EA10F8071C13B3",
+                    "data_provider": true
+                }, {
+                    "title": "News about refugees",
+                    "type": "gmxVector",
+                    "gmxId": "BAYLY:BB073893547F41B186E904B798CD8B63",
+                    "data_provider": true
+                }]
+            }, {
+                "id": "climate",
+                "title": "Weather and climate",
+                "children": []
+            }, {
                 "id": "wildfires",
                 "title": "Wildfires",
+                "expanded": true,
                 "children": [{
                     "title": "News about wildfires",
                     "type": "gmxVector",
-                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161",
+                    "gmxId": "BAYLY:997A2F58DF43495FB8E3D1F531E87389",
                     "data_provider": true
                 }, {
                     "title": "Fires FIRMS",
@@ -26,30 +51,84 @@
                     "minClustersZoom": 4
                 }]
             }, {
-                "id": "syria",
-                "title": "Syrian military conflict",
+                "id": "earthquakes",
+                "title": "Earthquakes",
+                "expanded": true,
                 "children": [{
-                    "title": "News about syrian war",
+                    "title": "News about earthquakes",
                     "type": "gmxVector",
-                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:31C5118DCD1249318E9576D68793B485",
+                    "gmxId": "BAYLY:CD1FD56A5D44446B8BF83CBACC255F30",
                     "data_provider": true
                 }, {
-                    "title": "News about refugees",
-                    "type": "gmxVector",
-                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:DB5A6784B17D445AA67909D259CD53EB",
-                    "data_provider": true
+                    "title": "USGS monitoring",
+                    "expanded": false,
+                    "children": [{
+                        "type": "gmxVector",
+                        "gmxId": "BAYLY:D949A40448D049EE9B716085A3766B9B"
+                    }]
                 }]
             }]
         }, {
             "id": "rus",
             "list": true,
+            "expanded": true,
             "children": [{
+                "id": "cities",
+                "title": "Cities in danger",
+                "children": []
+            }, {
+                "id": "humanitarian",
+                "title": "Гуманитарные бедствия",
+                "expanded": true,
+                "children": [{
+                    "title": "Новости война в Сирии",
+                    "type": "gmxVector",
+                    "gmxId": "BAYLY:31C5118DCD1249318E9576D68793B485",
+                    "data_provider": true
+                }, {
+                    "title": "Новости о беженцах и мигрантах",
+                    "type": "gmxVector",
+                    "gmxId": "BAYLY:DB5A6784B17D445AA67909D259CD53EB",
+                    "data_provider": true
+                }]
+            }, {
+                "id": "climate",
+                "title": "Погода и климат",
+                "children": [{
+                    "type": "gmxVector",
+                    "title": "Новости Экология",
+                    "gmxId": "BAYLY:57A675E1579948DEB32C45B996ADD9AB"
+                }, {
+                    "title": "Openweathermap",
+                    "children": [{
+                        "type": "TMS",
+                        "title": "OWM temp&wind",
+                        "description": "Openweathermap tiles - wind & temperature",
+                        "url-template": "http://maps.owm.io:8091/56e9779e2ee3260100f4a39b/{z}/{x}/{y}?hash=62b9cf247ddcf5c245c8f848eacc52d6",
+                        "maxZoom": 7
+                    }]
+                }]
+            }, {
+                "id": "earthquakes",
+                "title": "Землетрясения",
+                "expanded": true,
+                "children": [{
+                    "type": "gmxVector",
+                    "gmxId": "BAYLY:B15682955A5D4859A042522323FE5610",
+                    "title": "Новости о землетрясениях",
+                    "data_provider": true
+                }, {
+                    "title": "Мониторинг USGS",
+                    "children": []
+                }]
+            }, {
                 "id": "wildfires",
-                "title": "Пожары",
+                "title": "Природные пожары",
+                "expanded": true,
                 "children": [{
                     "title": "Новости о пожарах",
                     "type": "gmxVector",
-                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:0063FE5347284163B43E863FCFFA9161",
+                    "gmxId": "BAYLY:0063FE5347284163B43E863FCFFA9161",
                     "data_provider": true
                 }, {
                     "title": "Пожары FIRMS",
@@ -63,20 +142,6 @@
                     "clusterTimeAttr": "ClusterDate",
                     "minHotspotZoom": 11,
                     "minClustersZoom": 4
-                }]
-            }, {
-                "id": "syria",
-                "title": "Сирия",
-                "children": [{
-                    "title": "Война в Сирии",
-                    "type": "gmxVector",
-                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:31C5118DCD1249318E9576D68793B485",
-                    "data_provider": true
-                }, {
-                    "title": "Беженцы",
-                    "type": "gmxVector",
-                    "gmxId": "1BD4282D27914CD4B70F89E93B38B290:DB5A6784B17D445AA67909D259CD53EB",
-                    "data_provider": true
                 }]
             }]
         }],
