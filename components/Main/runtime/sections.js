@@ -111,7 +111,7 @@ cm.define('activeAlertsNumber', ['sectionsManager', 'newsLayersCollections'], fu
         getAlertsNumber: function() {
             return this._currentCollection && this._currentCollection.length;
         },
-        _update: function() {
+        _update: function(sectionId) {
             var sectionId = this.options.sectionsManager.getActiveSectionId();
             var newCollection = this.options.newsLayersCollections[sectionId];
             this._currentCollection && this._currentCollection.off('update', this._onCollectionUpdate, this);
