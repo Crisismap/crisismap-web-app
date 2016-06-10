@@ -1,0 +1,87 @@
+{
+    "map": {
+        "list": true,
+        "expanded": true,
+        "children": [{
+            "id": "cities",
+            "title": "Cities in danger",
+            "children": []
+        }, {
+            "id": "humanitarian",
+            "title": "Гуманитарные бедствия",
+            "expanded": true,
+            "children": [{
+                "title": "Новости война в Сирии",
+                "type": "gmxVector",
+                "gmxId": "BAYLY:31C5118DCD1249318E9576D68793B485",
+                "data_provider": true
+            }, {
+                "title": "Новости о беженцах и мигрантах",
+                "type": "gmxVector",
+                "gmxId": "BAYLY:DB5A6784B17D445AA67909D259CD53EB",
+                "data_provider": true
+            }]
+        }, {
+            "id": "climate",
+            "title": "Погода и климат",
+            "expanded": true,
+            "children": [{
+                "type": "gmxVector",
+                "title": "Новости Экология",
+                "gmxId": "BAYLY:57A675E1579948DEB32C45B996ADD9AB"
+            }, {
+                "title": "Openweathermap",
+                "children": [{
+                    "type": "TMS",
+                    "title": "OWM temp&wind",
+                    "description": "Openweathermap tiles - wind & temperature",
+                    "url-template": "http://maps.owm.io:8091/56e9779e2ee3260100f4a39b/{z}/{x}/{y}?hash=62b9cf247ddcf5c245c8f848eacc52d6",
+                    "maxZoom": 7
+                }]
+            }]
+        }, {
+            "id": "earthquakes",
+            "title": "Землетрясения",
+            "expanded": true,
+            "children": [{
+                "type": "gmxVector",
+                "gmxId": "BAYLY:B15682955A5D4859A042522323FE5610",
+                "title": "Новости о землетрясениях",
+                "data_provider": true
+            }, {
+                "title": "Мониторинг USGS",
+                "children": []
+            }]
+        }, {
+            "id": "wildfires",
+            "title": "Природные пожары",
+            "expanded": true,
+            "children": [{
+                "title": "Новости о пожарах",
+                "type": "gmxVector",
+                "gmxId": "BAYLY:0063FE5347284163B43E863FCFFA9161",
+                "data_provider": true
+            }, {
+                "title": "Пожары FIRMS",
+                "type": "Fire",
+                "mapID": "NDFYK",
+                "hotspotLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
+                "dailyLayerID": "3E88643A8AC94AFAB4FD44941220B1CE",
+                "heatmapLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
+                "hotspotTimeAttr": "Timestamp",
+                "hotspotIDAttr": "SpotID",
+                "clusterTimeAttr": "ClusterDate",
+                "minHotspotZoom": 11,
+                "minClustersZoom": 4
+            }]
+        }],
+        "baseLayers": [{
+            "id": "mapbox",
+            "title": "mapbox",
+            "iconUrl": "",
+            "type": "TMS",
+            "url-template": "https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA",
+            "urlRetina": "https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA"
+        }]
+    }
+}

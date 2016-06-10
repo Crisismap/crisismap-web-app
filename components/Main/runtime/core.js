@@ -2,30 +2,49 @@ cm.define('rootContainer', [], function() {
     return document.body;
 });
 
-cm.define('config', [], function(cm, cb) {
+cm.define('i18n', ['urlManager'], function(cm) {
+    var urlManager = cm.get('urlManager');
+    if (
+        urlManager.getParam('lang') &&
+        (
+            urlManager.getParam('lang') === 'eng' ||
+            urlManager.getParam('lang') === 'rus'
+        )
+    ) {
+        nsGmx.Translations.setLanguage(urlManager.getParam('lang'));
+    } else {
+        var lang = window.localStorage['language'] || 'rus';
+        nsGmx.Translations.setLanguage(lang);
+    }
+    return nsGmx.Translations;
+});
+
+cm.define('config', ['i18n'], function(cm, cb) {
+    var i18n = cm.get('i18n');
+
     Promise.resolve(true)
-        .then(function () {
+        .then(function() {
             return ajaxMerge('resources/config.json', {});
         })
-        .then(function (config) {
-            return ajaxMerge('resources/map.json', config);
+        .then(function(config) {
+            return ajaxMerge('resources/map-' + i18n.getLanguage() + '.json', config);
         })
-        .then(function (withMapConfig) {
-            ajaxMerge('local/config.json', withMapConfig).then(function (withLocalConfig) {
+        .then(function(withMapConfig) {
+            ajaxMerge('local/config.json', withMapConfig).then(function(withLocalConfig) {
                 cb(withLocalConfig);
-            }, function () {
+            }, function() {
                 cb(withMapConfig);
             });
-        }, function () {
+        }, function() {
             console.error('Config: error loading config file');
             cb(mimeFix(false));
         });
 
     function ajaxMerge(url, prev) {
-        return new Promise(function (resolve, reject) {
-            $.ajax(url).then(function (response) {
+        return new Promise(function(resolve, reject) {
+            $.ajax(url).then(function(response) {
                 resolve($.extend(true, prev, mimeFix(response)))
-            }, function (err) {
+            }, function(err) {
                 reject(err);
             });
         });
@@ -65,23 +84,6 @@ cm.define('urlManager', [], function(cm) {
     return {
         getParam: getQueryVariable
     };
-});
-
-cm.define('i18n', ['urlManager'], function(cm) {
-    var urlManager = cm.get('urlManager');
-    if (
-        urlManager.getParam('lang') &&
-        (
-            urlManager.getParam('lang') === 'eng' ||
-            urlManager.getParam('lang') === 'rus'
-        )
-    ) {
-        nsGmx.Translations.setLanguage(urlManager.getParam('lang'));
-    } else {
-        var lang = window.localStorage['language'] || 'rus';
-        nsGmx.Translations.setLanguage(lang);
-    }
-    return nsGmx.Translations;
 });
 
 cm.define('connectionCheck', ['rootContainer', 'config'], function(cm, cb) {
@@ -165,11 +167,11 @@ cm.define('layersClusters', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersClusters');
 });
 
-cm.define('layersTreeWidget', ['gmxApplication'], function (cm) {
+cm.define('layersTreeWidget', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('layersTreeWidget');
 });
 
-cm.define('baseLayersManager', ['gmxApplication'], function (cm) {
+cm.define('baseLayersManager', ['gmxApplication'], function(cm) {
     return cm.get('gmxApplication').get('baseLayersManager');
 });
 

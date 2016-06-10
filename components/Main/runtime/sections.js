@@ -7,7 +7,7 @@ cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'r
     var map = cm.get('map');
 
     var sectionsManager = new nsGmx.SectionsManager({
-        sectionsTree: layersTree.find(nsGmx.Translations.getLanguage()),
+        sectionsTree: layersTree,
         sectionsIcons: config.user.sectionsIcons
     });
 
@@ -17,7 +17,7 @@ cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'r
     return sectionsManager;
 
     function onSectionChange(sectionId) {
-        var subtree = layersTree.find(nsGmx.Translations.getLanguage()).find(sectionId) || layersTree.find(nsGmx.Translations.getLanguage());
+        var subtree = layersTree.find(sectionId) || layersTree;
         layersTreeWidget && layersTreeWidget.setModel(subtree);
         map.setZoom(config.user.globalZoom);
         resetter.reset();

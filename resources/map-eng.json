@@ -1,0 +1,77 @@
+{
+    "map": {
+        "list": true,
+        "expanded": true,
+        "children": [{
+            "id": "cities",
+            "title": "Cities in danger",
+            "children": []
+        }, {
+            "id": "humanitarian",
+            "title": "Humanitarian Crises",
+            "expanded": true,
+            "children": [{
+                "title": "News about syrian war",
+                "type": "gmxVector",
+                "gmxId": "BAYLY:1FCA4ABAD8A5415880EA10F8071C13B3",
+                "data_provider": true
+            }, {
+                "title": "News about refugees",
+                "type": "gmxVector",
+                "gmxId": "BAYLY:BB073893547F41B186E904B798CD8B63",
+                "data_provider": true
+            }]
+        }, {
+            "id": "climate",
+            "title": "Weather and climate",
+            "children": []
+        }, {
+            "id": "wildfires",
+            "title": "Wildfires",
+            "expanded": true,
+            "children": [{
+                "title": "News about wildfires",
+                "type": "gmxVector",
+                "gmxId": "BAYLY:997A2F58DF43495FB8E3D1F531E87389",
+                "data_provider": true
+            }, {
+                "title": "Fires FIRMS",
+                "type": "Fire",
+                "mapID": "NDFYK",
+                "hotspotLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
+                "dailyLayerID": "3E88643A8AC94AFAB4FD44941220B1CE",
+                "heatmapLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
+                "hotspotTimeAttr": "Timestamp",
+                "hotspotIDAttr": "SpotID",
+                "clusterTimeAttr": "ClusterDate",
+                "minHotspotZoom": 11,
+                "minClustersZoom": 4
+            }]
+        }, {
+            "id": "earthquakes",
+            "title": "Earthquakes",
+            "expanded": true,
+            "children": [{
+                "title": "News about earthquakes",
+                "type": "gmxVector",
+                "gmxId": "BAYLY:CD1FD56A5D44446B8BF83CBACC255F30",
+                "data_provider": true
+            }, {
+                "title": "USGS monitoring",
+                "expanded": false,
+                "children": [{
+                    "type": "gmxVector",
+                    "gmxId": "BAYLY:D949A40448D049EE9B716085A3766B9B"
+                }]
+            }]
+        }],
+        "baseLayers": [{
+            "id": "mapbox",
+            "title": "mapbox",
+            "iconUrl": "",
+            "type": "TMS",
+            "url-template": "https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA",
+            "urlRetina": "https://{s}.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA"
+        }]
+    }
+}
