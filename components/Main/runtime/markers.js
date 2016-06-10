@@ -53,35 +53,6 @@ cm.define('markersClickHandler', ['layersMarkersCollections', 'sectionsManager',
     return new MarkersClickHandler();
 });
 
-
-cm.define('layersStyleFixes', ['layersHash', 'sectionsManager'], function(cm) {
-    var layersHash = cm.get('layersHash');
-    var sectionsManager = cm.get('sectionsManager');
-
-    var dataLayersIds = [].concat.apply([], sectionsManager.getSectionsIds().map(function(sectionId) {
-        return sectionsManager.getSectionProperties(sectionId).dataLayersIds;
-    }));
-
-    dataLayersIds.map(function(dataLayerId) {
-        var layer = layersHash[dataLayerId];
-        for (var i = 0; i < layer.getStyles().length; i++) {
-            var originalStyle = layer.getStyle(i);
-            layer.setStyle($.extend(true, originalStyle, {
-                'RenderStyle': {
-                    'iconAnchor': [13, 13],
-                    'iconCenter': false
-                },
-                'HoverStyle': {
-                    'iconAnchor': [13, 13],
-                    'iconCenter': false
-                }
-            }), i);
-        }
-    });
-
-    return null;
-});
-
 cm.define('markerCircle', ['markersClickHandler', 'sectionsManager', 'layersClusters', 'resetter', 'map'], function(cm) {
     var markersClickHandler = cm.get('markersClickHandler');
     var sectionsManager = cm.get('sectionsManager');
