@@ -221,6 +221,8 @@ if (!nsGmx.Utils.isMobile()) {
                     if (le.id === 'alertsWidget') {
                         alertsButton.hideLabel();
                         alertsWidget.reset();
+                    } else {
+                        alertsButton.showLabel();
                     }
                 });
             }
