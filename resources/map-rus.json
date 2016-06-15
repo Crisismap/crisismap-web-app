@@ -5,10 +5,12 @@
         "children": [{
             "id": "cities",
             "title": "Cities in danger",
+            "icon": "building",
             "children": []
         }, {
             "id": "humanitarian",
             "title": "Гуманитарные бедствия",
+            "icon": "school",
             "expanded": true,
             "children": [{
                 "title": "Новости война в Сирии",
@@ -24,6 +26,7 @@
         }, {
             "id": "climate",
             "title": "Погода и климат",
+            "icon": "cloud-sun",
             "expanded": true,
             "children": [{
                 "type": "gmxVector",
@@ -42,6 +45,7 @@
         }, {
             "id": "earthquakes",
             "title": "Землетрясения",
+            "icon": "globe",
             "expanded": true,
             "children": [{
                 "type": "gmxVector",
@@ -55,6 +59,7 @@
         }, {
             "id": "wildfires",
             "title": "Природные пожары",
+            "icon": "fire",
             "expanded": true,
             "children": [{
                 "title": "Новости о пожарах",

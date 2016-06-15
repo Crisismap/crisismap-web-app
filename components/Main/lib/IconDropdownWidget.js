@@ -17,7 +17,10 @@ var IconTextWidget = Backbone.View.extend({
 });
 
 function createIcon(icon) {
-    return '<div class=\"' + icon + '\">';
+    if (!icon) {
+        debugger;
+    }
+    return '<div class=\"icon-' + icon + '\">';
 }
 
 nsGmx.IconDropdownWidget = nsGmx.DropdownWidget.extend({
@@ -30,7 +33,10 @@ nsGmx.IconDropdownWidget = nsGmx.DropdownWidget.extend({
 
         this.on('item', function(id) {
             sectionsManager.setActiveSectionId(id);
-            this.setTitle(createIcon(sectionsManager.getSectionProperties(id).icon));
+        }.bind(this));
+
+        sectionsManager.on('sectionchange', function (sectionId) {
+            this.setTitle(createIcon(sectionsManager.getSectionProperties(sectionId).icon));
         }.bind(this));
 
         var sectionsIds = sectionsManager.getSectionsIds();
