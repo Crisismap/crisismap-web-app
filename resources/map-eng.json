@@ -40,11 +40,9 @@
                 "data_provider": true
             }, {
                 "title": "USGS monitoring",
-                "expanded": false,
-                "children": [{
-                    "type": "gmxVector",
-                    "gmxId": "BAYLY:D949A40448D049EE9B716085A3766B9B"
-                }]
+                "type": "gmxVector",
+                "gmxId": "BAYLY:D949A40448D049EE9B716085A3766B9B",
+                "data_provider": true
             }]
         }, {
             "id": "wildfires",
