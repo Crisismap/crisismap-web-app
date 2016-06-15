@@ -22,6 +22,7 @@ var scripts = [
     'runtime/desktop.js',
     'runtime/mobile.js',
     'runtime/widgets.js',
+    'runtime/tail.js',
     'translations.js',
     'index.js'
 ];

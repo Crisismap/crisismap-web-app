@@ -17,9 +17,6 @@ var IconTextWidget = Backbone.View.extend({
 });
 
 function createIcon(icon) {
-    if (!icon) {
-        debugger;
-    }
     return '<div class=\"icon-' + icon + '\">';
 }
 
