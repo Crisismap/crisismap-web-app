@@ -25,9 +25,10 @@ cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'r
     }
 });
 
-cm.define('sectionsDescriptions', ['layersTree', 'sectionsManager'], function (cm, cb) {
+cm.define('sectionsDescriptions', ['sectionsManager', 'layersTree', 'i18n'], function (cm, cb) {
     var sectionsManager = cm.get('sectionsManager');
     var layersTree = cm.get('layersTree');
+    var i18n = cm.get('i18n');
 
     var sectionsNames = sectionsManager.getSectionsIds();
     var sectionsDescriptionsPromises = sectionsNames.map(function (sectionName) {

@@ -79,7 +79,7 @@ var nsGmx = nsGmx || {};
                 var sectionProps = this.options.sectionsManager.getSectionProperties(sectionId)
                 $sectionButton = $('<div>').addClass('sectionsMenuWidget-sectionButton').attr('data-sectionid', sectionId);
 
-                $sectionButtonIcon = $('<div>').addClass('sectionsMenuWidget-sectionButtonIcon').addClass(sectionProps.icon);
+                $sectionButtonIcon = $('<div>').addClass('sectionsMenuWidget-sectionButtonIcon').addClass('icon-' + sectionProps.icon);
                 $sectionButtonIcon.appendTo($sectionButton);
 
                 $sectionButtonTitle = $('<div>').addClass('sectionsMenuWidget-sectionButtonTitle');

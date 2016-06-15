@@ -36,7 +36,7 @@ if (nsGmx.Utils.isMobile()) {
 
             _updateIconClass: function() {
                 var activeSectionId = this.options.sectionsManager.getActiveSectionId();
-                this.$el[0].className = 'sectionsButton ' + this.options.sectionsManager.getSectionProperties(activeSectionId).icon;
+                this.$el[0].className = 'sectionsButton ' + 'icon-' + this.options.sectionsManager.getSectionProperties(activeSectionId).icon;
             },
 
             _onClick: function() {
