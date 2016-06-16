@@ -5,11 +5,13 @@
         "children": [{
             "id": "cities",
             "title": "Cities in danger",
+            "description": "/resources/cities-description_eng.html",
             "icon": "building",
             "children": []
         }, {
             "id": "humanitarian",
             "title": "Humanitarian Crises",
+            "description": "/resources/humanitarian-description_eng.html",
             "icon": "school",
             "expanded": true,
             "children": [{
@@ -26,11 +28,13 @@
         }, {
             "id": "climate",
             "title": "Weather and climate",
+            "description": "/resources/climate-description_eng.html",
             "icon": "cloud-sun",
             "children": []
         }, {
             "id": "earthquakes",
             "title": "Earthquakes",
+            "description": "/resources/earthquakes-description_eng.html",
             "icon": "globe",
             "expanded": true,
             "children": [{
@@ -47,6 +51,7 @@
         }, {
             "id": "wildfires",
             "title": "Wildfires",
+            "description": "/resources/wildfires-description_eng.html",
             "icon": "fire",
             "expanded": true,
             "children": [{

@@ -1,4 +1,30 @@
-cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'resetter', 'config', 'map'], function(cm) {
+cm.define('externalDescriptions', ['layersTree'], function(cm, cb) {
+    var layersTree = cm.get('layersTree');
+
+    var urlReg = /^\/.*\.html$/i;
+
+    var sectionsDescriptionsPromises = layersTree.select(function(node) {
+        if (node.get('properties').description && !!node.get('properties').description.match(urlReg)) {
+            return true;
+        }
+    }).map(function(node) {
+        return new Promise(function(resolve, reject) {
+            $.ajax(node.get('properties').description).then(function(resp) {
+                node.get('properties').description = resp;
+                node.trigger('change');
+                resolve();
+            }, function() {
+                resolve();
+            });
+        })
+    });
+
+    Promise.all(sectionsDescriptionsPromises).then(function(values) {
+        cb({});
+    });
+});
+
+cm.define('sectionsManager', ['externalDescriptions', 'layersTreeWidget', 'layersTree', 'layersHash', 'resetter', 'config', 'map'], function(cm) {
     var layersTreeWidget = cm.get('layersTreeWidget');
     var layersHash = cm.get('layersHash');
     var layersTree = cm.get('layersTree');
@@ -23,37 +49,6 @@ cm.define('sectionsManager', ['layersTreeWidget', 'layersTree', 'layersHash', 'r
         map.setZoom(config.user.globalZoom);
         resetter.reset();
     }
-});
-
-cm.define('sectionsDescriptions', ['sectionsManager', 'layersTree', 'i18n'], function (cm, cb) {
-    var sectionsManager = cm.get('sectionsManager');
-    var layersTree = cm.get('layersTree');
-    var i18n = cm.get('i18n');
-
-    var sectionsNames = sectionsManager.getSectionsIds();
-    var sectionsDescriptionsPromises = sectionsNames.map(function (sectionName) {
-        return new Promise(function (resolve, reject) {
-            $.ajax('resources/' + sectionName + '-description_' + i18n.getLanguage() + '.html').then(function (resp) {
-                resolve(resp);
-            }, function () {
-                resolve('');
-            });
-        })
-    });
-
-    Promise.all(sectionsDescriptionsPromises).then(function (values) {
-        var sectionsDescriptions = {};
-        for (var i = 0; i < values.length; i++) {
-            var group = layersTree.find(sectionsNames[i]);
-            if (!group || !values[i]) {
-                continue;
-            }
-            group.get('properties').description = values[i];
-            group.trigger('change');
-        }
-
-        cb({});
-    });
 });
 
 cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', 'config'], function(cm, cb) {
