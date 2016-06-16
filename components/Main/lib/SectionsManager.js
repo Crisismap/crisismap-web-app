@@ -33,6 +33,7 @@ nsGmx.SectionsManager = L.Class.extend({
             '_empty': {
                 id: '_empty',
                 title: nsGmx.Translations.getText('crisismap.section.empty'),
+                icon: 'bell',
                 dataLayerId: '',
                 tree: null
             }
