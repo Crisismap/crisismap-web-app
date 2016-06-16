@@ -79,7 +79,7 @@
                 "mapID": "NDFYK",
                 "hotspotLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
                 "dailyLayerID": "3E88643A8AC94AFAB4FD44941220B1CE",
-                "heatmapLayerID": "C13B4D9706F7491EBC6DC70DFFA988C0",
+                "heatmapLayerID": "3E88643A8AC94AFAB4FD44941220B1CE",
                 "hotspotTimeAttr": "Timestamp",
                 "hotspotIDAttr": "SpotID",
                 "clusterTimeAttr": "ClusterDate",
