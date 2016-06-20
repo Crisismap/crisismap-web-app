@@ -14,6 +14,9 @@ require('./external/GMXBuilder')(gulp, {
         bowerComponent: 'git://github.com/jakearchibald/es6-promise.git',
         distFiles: ['dist/es6-promise.js']
     }, {
+        bowerComponent: 'jsuri',
+        distFiles: ['Uri.js']
+    }, {
         bowerComponent: 'jquery',
         distFiles: ['dist/jquery.js']
     }, {

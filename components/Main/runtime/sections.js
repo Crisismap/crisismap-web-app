@@ -2,6 +2,7 @@ cm.define('externalDescriptions', ['layersTree'], function(cm, cb) {
     var layersTree = cm.get('layersTree');
 
     var urlReg = /^\/.*\.html$/i;
+    var uri = new Uri(window.location.href);
 
     var sectionsDescriptionsPromises = layersTree.select(function(node) {
         if (node.get('properties').description && !!node.get('properties').description.match(urlReg)) {
@@ -9,7 +10,9 @@ cm.define('externalDescriptions', ['layersTree'], function(cm, cb) {
         }
     }).map(function(node) {
         return new Promise(function(resolve, reject) {
-            $.ajax(node.get('properties').description).then(function(resp) {
+            var u = new Uri(uri.origin());
+            u.path(joinPaths(uri.path(), node.get('properties').description));
+            $.ajax(u.toString()).then(function(resp) {
                 node.get('properties').description = resp;
                 node.trigger('change');
                 resolve();
@@ -22,6 +25,12 @@ cm.define('externalDescriptions', ['layersTree'], function(cm, cb) {
     Promise.all(sectionsDescriptionsPromises).then(function(values) {
         cb({});
     });
+
+    function joinPaths() {
+        return Array.prototype.slice.call(arguments).reduce(function (prev, curr) {
+            return prev + '/' + curr;
+        }).replace(/([^:\s])\/+/g, '$1/');
+    }
 });
 
 cm.define('sectionsManager', ['externalDescriptions', 'layersTreeWidget', 'layersTree', 'layersHash', 'resetter', 'config', 'map'], function(cm) {
