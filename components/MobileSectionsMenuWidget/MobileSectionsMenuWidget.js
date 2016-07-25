@@ -23,7 +23,7 @@ var nsGmx = nsGmx || {};
             this.sectionsIds.map(function(sectionId) {
                 var sectionProps = this.options.sectionsManager.getSectionProperties(sectionId);
                 var $swiperSlide = $('<div>').addClass('swiper-slide');
-                $swiperSlide.html(sectionProps.description);
+                $('<span>').addClass('sectionsSwiper-icon').addClass('icon-' + sectionProps.icon).appendTo($swiperSlide)
                 $swiperSlide.appendTo($swiperWrapper);
             }.bind(this));
 
@@ -34,7 +34,11 @@ var nsGmx = nsGmx || {};
             $swiperPagination.appendTo($swiperContainer);
 
             this.swiper = window.swiper = new Swiper($swiperContainer, {
-                pagination: $swiperPagination[0]
+                pagination: $swiperPagination[0],
+                slidesPerView: 5,
+                centeredSlides: true,
+                paginationClickable: true,
+                spaceBetween: 15
             });
 
             this._bindEvents();
@@ -128,25 +132,25 @@ var nsGmx = nsGmx || {};
                 sectionsManager: this.options.sectionsManager
             });
             this.sectionsSwiperWidget.appendTo(this.$el);
-
-            this.sectionsMenuWidget = new SectionsMenuWidget({
-                sectionsManager: this.options.sectionsManager
-            });
-            this.sectionsMenuWidget.appendTo(this.$el);
-
-            this.sectionsMenuWidget.on('sectionchange', function () {
-                this.trigger('sectionchange');
-            }.bind(this))
-
-            this.sectionsSwiperWidget.on('sectionchange', function() {
-                this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
-            }.bind(this));
-            this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
-
-            this.options.sectionsManager.on('sectionchange', function (activeSectionId) {
-                this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
-                this.sectionsSwiperWidget.reset();
-            }.bind(this));
+            //
+            // this.sectionsMenuWidget = new SectionsMenuWidget({
+            //     sectionsManager: this.options.sectionsManager
+            // });
+            // this.sectionsMenuWidget.appendTo(this.$el);
+            //
+            // this.sectionsMenuWidget.on('sectionchange', function () {
+            //     this.trigger('sectionchange');
+            // }.bind(this))
+            //
+            // this.sectionsSwiperWidget.on('sectionchange', function() {
+            //     this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
+            // }.bind(this));
+            // this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
+            //
+            // this.options.sectionsManager.on('sectionchange', function (activeSectionId) {
+            //     this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
+            //     this.sectionsSwiperWidget.reset();
+            // }.bind(this));
         },
 
         reset: function() {
