@@ -89,6 +89,10 @@ nsGmx.SectionsManager = L.Class.extend({
         return this._sections[sectionId];
     },
 
+    getActiveSectionProperties: function (sectionId) {
+        return this.getSectionProperties(this.getActiveSectionId());
+    },
+
     _checkSections: function() {
         var sections = this.getSectionsIds();
         for (var i = 0; i < sections.length; i++) {
