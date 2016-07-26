@@ -56,7 +56,6 @@ cm.define('sectionsManager', ['externalDescriptions', 'layersTreeWidget', 'layer
         var subtree = layersTree.find(sectionId) || layersTree;
         layersTreeWidget && layersTreeWidget.setModel(subtree);
         map.setZoom(config.user.globalZoom);
-        resetter.reset();
     }
 });
 
