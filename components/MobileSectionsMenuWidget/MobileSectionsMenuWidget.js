@@ -67,6 +67,26 @@ var nsGmx = nsGmx || {}
         }
     });
 
+    var SectionsLegendWidget = Backbone.View.extend({
+        className: 'sectionsLegendWidget',
+
+        // options.sectionsManager
+        initialize: function (options) {
+            this.options = L.extend({}, options)
+            this.options.sectionsManager.on('sectionchange', this.render.bind(this))
+            this.render()
+        },
+
+        render: function () {
+            var d = this.options.sectionsManager.getActiveSectionProperties().description
+            this.$el.html(d || nsGmx.Translations.getText('crisismap.noSection'))
+        },
+
+        appendTo: function(el) {
+            $(el).append(this.$el);
+        }
+    })
+
     nsGmx.MobileSectionsMenuControl = L.Control.extend({
         options: {
             className: 'mobileSectionsMenuControl'
@@ -81,16 +101,20 @@ var nsGmx = nsGmx || {}
         render: function () {
             this.$el.empty()
 
+            this.sectionsLegendWidget = new SectionsLegendWidget({
+                sectionsManager: this.options.sectionsManager
+            })
+            this.sectionsLegendWidget.appendTo(this.$el)
+
             this.sectionsSwiperWidget = new SectionsSwiperWidget({
                 sectionsManager: this.options.sectionsManager
             })
-
             this.sectionsSwiperWidget.appendTo(this.$el)
-
             this.sectionsSwiperWidget.reset()
         },
 
         destroy: function () {
+            this.sectionsLegendWidget && this.sectionsLegendWidget.destroy && this.sectionsLegendWidget.destroy()
             this.sectionsSwiperWidget && this.sectionsSwiperWidget.destroy && this.sectionsSwiperWidget.destroy()
         },
 

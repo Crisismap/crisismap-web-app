@@ -1,6 +1,6 @@
-.mobileSectionsMenuControl {
-    padding-top: 10px;
-}
+.mobileSectionsMenuControl { padding-top: 10px; }
+
+.mobileSectionsMenuControl .sectionsLegendWidget { margin-bottom: 10px; }
 
 .mobileSectionsMenuControl-controlCorner { background-color: hsla(0, 0%, 100%, .8); }
 

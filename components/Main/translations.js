@@ -9,7 +9,8 @@ nsGmx.Translations.addText('rus', {
     'crisismap.section.fires': 'Пожары',
     'crisismap.section.ecology': 'Экология',
     'crisismap.section.floods': 'Наводнения',
-    'crisismap.section.ukraine': 'Война в Украине'
+    'crisismap.section.ukraine': 'Война в Украине',
+    'crisismap.noSection': 'рубрика не выбрана'
 });
 
 nsGmx.Translations.addText('eng', {
@@ -23,5 +24,6 @@ nsGmx.Translations.addText('eng', {
     'crisismap.section.fires': 'Fires',
     'crisismap.section.ecology': 'Ecology',
     'crisismap.section.floods': 'Floods',
-    'crisismap.section.ukraine': 'War in Ukraine'
+    'crisismap.section.ukraine': 'War in Ukraine',
+    'crisismap.noSection': 'no section selected'
 });
