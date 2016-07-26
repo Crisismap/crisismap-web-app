@@ -67,58 +67,6 @@ var nsGmx = nsGmx || {}
         }
     });
 
-    var SectionsMenuWidget = Backbone.View.extend({
-        className: 'sectionsMenuWidget',
-
-        // options.sectionsManager
-        initialize: function(options) {
-            this.options = _.extend({}, options);
-            this.options.sectionsManager.on('sectionchange', this.render, this);
-            this.render();
-        },
-
-        render: function() {
-            this.$el.empty();
-
-            var activeSectionId = this.options.sectionsManager.getActiveSectionId();
-
-            this.options.sectionsManager.getSectionsIds().map(function(sectionId) {
-                var sectionProps = this.options.sectionsManager.getSectionProperties(sectionId)
-                $sectionButton = $('<div>').addClass('sectionsMenuWidget-sectionButton').attr('data-sectionid', sectionId);
-
-                $sectionButtonIcon = $('<div>').addClass('sectionsMenuWidget-sectionButtonIcon').addClass('icon-' + sectionProps.icon);
-                $sectionButtonIcon.appendTo($sectionButton);
-
-                $sectionButtonTitle = $('<div>').addClass('sectionsMenuWidget-sectionButtonTitle');
-                $sectionButtonTitle.html(sectionProps.title);
-                $sectionButtonTitle.appendTo($sectionButton);
-
-                if (sectionId === this._highlightedSectionId) {
-                    $sectionButton.addClass('sectionsMenuWidget-sectionButton_highlighted');
-                }
-                if (sectionId === activeSectionId) {
-                    $sectionButton.addClass('sectionsMenuWidget-sectionButton_activeSection');
-                }
-
-                $sectionButton.on('click', function () {
-                    this.options.sectionsManager.setActiveSectionId(sectionId);
-                    this.trigger('sectionchange');
-                }.bind(this));
-
-                $sectionButton.appendTo(this.$el);
-            }.bind(this));
-        },
-
-        appendTo: function(el) {
-            $(el).append(this.$el);
-        },
-
-        highlightItem: function(sectionId) {
-            this._highlightedSectionId = sectionId;
-            this.render();
-        }
-    });
-
     nsGmx.MobileSectionsMenuControl = L.Control.extend({
         options: {
             className: 'mobileSectionsMenuControl'
