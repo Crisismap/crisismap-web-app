@@ -17,10 +17,11 @@ if (nsGmx.Utils.isMobile()) {
         return null;
     });
 
-    cm.define('sectionsMenu', ['fullscreenPagingPane', 'mobileButtonsPane', 'sectionsManager'], function(cm) {
-        var fullscreenPagingPane = cm.get('fullscreenPagingPane');
-        var mobileButtonsPane = cm.get('mobileButtonsPane');
-        var sectionsManager = cm.get('sectionsManager');
+    cm.define('sectionsMenu', ['mobileButtonsPane', 'sectionsManager', 'resetter', 'map'], function(cm) {
+        var mobileButtonsPane = cm.get('mobileButtonsPane')
+        var sectionsManager = cm.get('sectionsManager')
+        var resetter = cm.get('resetter')
+        var map = cm.get('map')
 
         var SectionsButton = Backbone.View.extend({
             events: {
@@ -29,52 +30,42 @@ if (nsGmx.Utils.isMobile()) {
 
             // options.sectionsManager
             initialize: function(options) {
-                this.options = _.extend({}, options);
-                this.options.sectionsManager.on('sectionchange', this._updateIconClass, this);
-                this._updateIconClass();
+                this.options = _.extend({}, options)
+                this.options.sectionsManager.on('sectionchange', this._updateIconClass, this)
+                this._updateIconClass()
             },
 
             _updateIconClass: function() {
-                var activeSectionId = this.options.sectionsManager.getActiveSectionId();
-                this.$el[0].className = 'sectionsButton ' + 'icon-' + this.options.sectionsManager.getSectionProperties(activeSectionId).icon;
+                var activeSectionId = this.options.sectionsManager.getActiveSectionId()
+                this.$el[0].className = 'sectionsButton ' + 'icon-' + this.options.sectionsManager.getSectionProperties(activeSectionId).icon
             },
 
             _onClick: function() {
-                this.trigger('click');
+                this.trigger('click')
             }
-        });
+        })
 
-        var sectionsMenuWidget = new nsGmx.MobileSectionsMenuWidget({
+        var sectionsMenuControl = new nsGmx.MobileSectionsMenuControl({
             sectionsManager: sectionsManager
-        });
-
-        sectionsMenuWidget.on('sectionchange', function() {
-            fullscreenPagingPane.hideView();
-        });
+        })
+        sectionsMenuControl.addTo(map)
 
         var button = new SectionsButton({
             sectionsManager: sectionsManager
-        });
-        var pane = fullscreenPagingPane.addView('sectionsMenuWidget', sectionsMenuWidget);
+        })
 
         button.on('click', function() {
-            fullscreenPagingPane.showView('sectionsMenuWidget');
-        });
+            sectionsMenuControl.toggle()
+        })
 
-        fullscreenPagingPane.on('showview', function(le) {
-            if (le.id === 'sectionsMenuWidget') {
-                sectionsMenuWidget.reset();
-            }
-        });
+        resetter.on('reset', function () {
+            sectionsMenuControl.hide()
+        })
 
-        // mainMenuWidget.on('marker', function() {
-        //     fullscreenPagingPane.hideView();
-        // });
+        mobileButtonsPane.addView(button, 5)
 
-        mobileButtonsPane.addView(button, 5);
-
-        return null;
-    });
+        return null
+    })
 
     cm.define('alertsWidgetContainer', ['fullscreenPagingPane', 'mobileButtonsPane', 'alertsButton'], function(cm) {
         var fullscreenPagingPane = cm.get('fullscreenPagingPane');

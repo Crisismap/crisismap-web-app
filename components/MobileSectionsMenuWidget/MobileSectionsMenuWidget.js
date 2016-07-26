@@ -1,6 +1,6 @@
-var nsGmx = nsGmx || {};
+var nsGmx = nsGmx || {}
 
-+ function() {
+; + function() {
 
     var SectionsSwiperWidget = Backbone.View.extend({
         className: 'sectionsSwiper',
@@ -116,46 +116,76 @@ var nsGmx = nsGmx || {};
         }
     });
 
-    nsGmx.MobileSectionsMenuWidget = Backbone.View.extend({
-        className: 'mobileSectionsMenuWidget',
-
-        // options.sectionsManager
-        initialize: function(options) {
-            this.options = _.extend({}, options);
-            this.render();
+    nsGmx.MobileSectionsMenuControl = L.Control.extend({
+        options: {
+            className: 'mobileSectionsMenuControl'
         },
 
-        render: function() {
-            this.$el.empty();
+        includes: [nsGmx.FullscreenControlMixin],
+
+        initialize: function (options) {
+            L.setOptions(this, options)
+        },
+
+        render: function () {
+            this.$el.empty()
 
             this.sectionsSwiperWidget = new SectionsSwiperWidget({
                 sectionsManager: this.options.sectionsManager
-            });
-            this.sectionsSwiperWidget.appendTo(this.$el);
-            //
-            // this.sectionsMenuWidget = new SectionsMenuWidget({
-            //     sectionsManager: this.options.sectionsManager
-            // });
-            // this.sectionsMenuWidget.appendTo(this.$el);
-            //
-            // this.sectionsMenuWidget.on('sectionchange', function () {
-            //     this.trigger('sectionchange');
-            // }.bind(this))
-            //
-            // this.sectionsSwiperWidget.on('sectionchange', function() {
-            //     this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
-            // }.bind(this));
-            // this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
-            //
-            // this.options.sectionsManager.on('sectionchange', function (activeSectionId) {
-            //     this.sectionsMenuWidget.highlightItem(this.sectionsSwiperWidget.getActiveSectionId());
-            //     this.sectionsSwiperWidget.reset();
-            // }.bind(this));
+            })
+
+            this.sectionsSwiperWidget.appendTo(this.$el)
+
+            this.sectionsSwiperWidget.reset()
+        },
+
+        destroy: function () {
+            this.sectionsSwiperWidget && this.sectionsSwiperWidget.destroy && this.sectionsSwiperWidget.destroy()
+        },
+
+        onAdd: function(map) {
+            var className = this.options.className
+            this.options = this.options || {}
+            this.options.position = className.toLowerCase()
+
+            this._controlCornerEl = L.DomUtil.create('div', 'leaflet-bottom leaflet-left leaflet-right ' + className +
+                '-controlCorner', map._controlContainer)
+            this._terminateMouseEvents(this._controlCornerEl)
+            map._controlCorners[this.options.position] = this._controlCornerEl
+
+            this._container = L.DomUtil.create('div', className)
+            this.$el = $(this._container).hide()
+            this.render()
+
+            return this._container
+        },
+
+        onRemove: function (map) {
+            map._controlCorners[this.options.position] = null
+            this.destroy()
+        },
+
+        show: function () {
+            this.$el.show()
+            this.reset()
+        },
+
+        hide: function () {
+            this.$el.hide()
+        },
+
+        toggle: function () {
+            this.$el.toggle()
+            this.reset()
         },
 
         reset: function() {
             this.sectionsSwiperWidget && this.sectionsSwiperWidget.reset();
-        }
-    });
+        },
 
+        _terminateMouseEvents: function(el) {
+            L.DomEvent.disableClickPropagation(el)
+            el.addEventListener('mousewheel', L.DomEvent.stopPropagation)
+        }
+    })
 }();

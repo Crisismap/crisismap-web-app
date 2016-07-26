@@ -1,4 +1,4 @@
-.mobileSectionsMenuWidget {
+.mobileSectionsMenuControl {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -6,14 +6,15 @@
     align-items: center;
 }
 
-.mobileSectionsMenuWidget .sectionsMenuWidget { width: 100%; background-color: hsl(0, 0%, 100%); }
+.mobileSectionsMenuControl .sectionsMenuWidget { width: 100%; background-color: hsl(0, 0%, 100%); }
 
-.mobileSectionsMenuWidget .sectionsSwiper { width: 100% }
-.mobileSectionsMenuWidget .sectionsSwiper .swiper-slide { text-align: center; }
-.mobileSectionsMenuWidget .sectionsSwiper .swiper-pagination { position: static; margin-top: 5px; }
-.mobileSectionsMenuWidget .sectionsSwiper .swiper-pagination-bullet { width: 4px; height: 4px; }
-.mobileSectionsMenuWidget .sectionsSwiper .swiper-pagination .swiper-pagination-bullet-active { background: #000; }
-.mobileSectionsMenuWidget .sectionsSwiper-icon {
+.mobileSectionsMenuControl .sectionsSwiper { width: 100% }
+.mobileSectionsMenuControl .sectionsSwiper .swiper-wrapper { padding: 5px 0; }
+.mobileSectionsMenuControl .sectionsSwiper .swiper-slide { text-align: center; }
+.mobileSectionsMenuControl .sectionsSwiper .swiper-pagination { position: static; margin-top: 5px; }
+.mobileSectionsMenuControl .sectionsSwiper .swiper-pagination-bullet { width: 4px; height: 4px; }
+.mobileSectionsMenuControl .sectionsSwiper .swiper-pagination .swiper-pagination-bullet-active { background: #000; }
+.mobileSectionsMenuControl .sectionsSwiper-icon {
     background: #fff;
     border-radius: 5px;
     display: inline-block;
@@ -35,4 +36,4 @@
 .sectionsMenuWidget-sectionButton_highlighted { background-color: hsla(0, 0%, 0%, 0.1); }
 .sectionsMenuWidget-sectionButton_activeSection .sectionsMenuWidget-sectionButtonIcon { color: red; }
 
-.mobileSectionsMenuWidget table td { padding: 5px; }
+.mobileSectionsMenuControl table td { padding: 5px; }
