@@ -2,7 +2,7 @@
 
 .mobileSectionsMenuControl .sectionsLegendWidget { margin-bottom: 10px; }
 
-.mobileSectionsMenuControl-controlCorner { background-color: hsla(0, 0%, 100%, .8); }
+.mobileSectionsMenuControl-controlCorner { background-color: hsla(0, 0%, 100%, .8); box-shadow: 0 0 2px hsla(0, 0%, 0%, .35); }
 
 .mobileSectionsMenuControl .sectionsMenuWidget { width: 100%; background-color: hsl(0, 0%, 100%); }
 

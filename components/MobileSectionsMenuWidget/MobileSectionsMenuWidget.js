@@ -59,7 +59,6 @@ var nsGmx = nsGmx || {}
 
         _bindEvents: function() {
             this.swiper.on('slideChangeStart', function(swiper) {
-                console.log(swiper.activeIndex);
                 var sections = this.options.sectionsManager.getSectionsIds()
                 this.options.sectionsManager.setActiveSectionId(sections[swiper.activeIndex])
                 this.trigger('sectionchange');
