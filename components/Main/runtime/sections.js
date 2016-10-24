@@ -59,6 +59,18 @@ cm.define('sectionsManager', ['externalDescriptions', 'layersTreeWidget', 'layer
     }
 });
 
+cm.define('sectionsRouter', ['sectionsManager'], function() {
+    var sectionsManager = cm.get('sectionsManager')
+
+    var hash = window.location.hash.slice(1)
+    var sectionsIds = sectionsManager.getSectionsIds()
+    if (sectionsIds.indexOf(hash) + 1) {
+        sectionsManager.setActiveSectionId(hash)
+    }
+
+    return null
+})
+
 cm.define('layersMarkersCollections', ['layersTree', 'layersHash', 'calendar', 'config'], function(cm, cb) {
     var layersTree = cm.get('layersTree');
     var layersHash = cm.get('layersHash');
