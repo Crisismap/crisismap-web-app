@@ -23,62 +23,6 @@ require('./external/GMXBuilder')(gulp, {
         bowerComponent: 'jquery-ui',
         distFiles: ['jquery-ui.js']
     }, {
-        bowerComponent: 'leaflet',
-        distFiles: [
-            'dist/leaflet-src.js',
-            'dist/leaflet.css',
-            'dist/images/layers.png',
-            'dist/images/layers-2x.png',
-            'dist/images/marker-icon.png',
-            'dist/images/marker-icon-2x.png',
-            'dist/images/marker-shadow.png'
-        ]
-    }, {
-        id: 'leaflet.markercluster',
-        srcDir: './external/leaflet.markercluster',
-        distFiles: ['dist/MarkerCluster.css', 'dist/MarkerCluster.Default.css', 'dist/leaflet.markercluster.js'],
-        build: true,
-        watch: true
-    }, {
-        id: 'Leaflet-GeoMixer',
-        srcDir: './external/Leaflet-GeoMixer',
-        distFiles: ['./dist/leaflet-geomixer-src.js'],
-        build: true,
-        watch: true
-    }, {
-        id: 'Leaflet.TileLayer.Mercator',
-        srcDir: './external/Leaflet.TileLayer.Mercator',
-        distFiles: ['./src/TileLayer.Mercator.js'],
-        build: false,
-        watch: false
-    }, {
-        id: 'Leaflet.gmxBaseLayersManager',
-        srcDir: './external/Leaflet.gmxBaseLayersManager',
-        distFiles: [
-            './src/gmxBaseLayersManager.js',
-            './src/initBaseLayerManager.js'
-        ],
-        build: false,
-        watch: false
-    }, {
-        id: 'gmxControls',
-        srcDir: './external/gmxControls',
-        distFiles: [
-            './dist/gmxControls-src.js',
-            './dist/css/gmxControls.css',
-            './dist/css/img/band.png',
-            './dist/css/img/coords.png',
-            './dist/css/img/gmxSprite.png',
-            './dist/css/img/logo_footer.png',
-            './dist/css/img/logo_footer_color.png'
-        ],
-        build: true,
-        watch: false
-    }, {
-        id: 'Leaflet-active-area',
-        bowerComponent: 'Mappy/Leaflet-active-area',
-        distFiles: ['./src/leaflet.activearea.js']
-    }, {
         bowerComponent: 'underscore',
         distFiles: ['underscore.js']
     }, {
